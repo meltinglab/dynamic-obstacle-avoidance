@@ -1,11 +1,11 @@
 # Dynamic Obstacle Avoidance Using Adaptive MPC
 
 ##### Group Members: 
-Gianvincenzo Daddabbo
-Gaetano Gallo
-Alberto Ruggeri
-Martina Tedesco
-Alessandro Toschi
+* Gianvincenzo Daddabbo
+* Gaetano Gallo
+* Alberto Ruggeri
+* Martina Tedesco
+* Alessandro Toschi
 
 ## 1. Description
 
