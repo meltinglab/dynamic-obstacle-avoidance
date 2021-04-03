@@ -1,0 +1,100 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\begin{document}
+
+
+
+\justifying
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\begin{center}
+{{\Large{\textsc{Motorvehicle University of Emilia-Romagna}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+\rule[0.5cm]{15.8cm}{0.6mm}
+Master Degree in Advanced Automotive Electronic Engineering
+
+\end{center}
+
+\vspace{15mm}
+\begin{center}
+{\LARGE{\bf MPC for Dynamic Obstacle Avoidance}}
+\rule[0.1cm]{15.8cm}{0.1mm}
+\begin{LARGE}
+
+Technical report on the group project activity\\
+
+
+\end{LARGE}
+\vspace{5mm}
+Course of Compliance Design of Automotive Systems
+\end{center}
+
+\begin{center}
+ \begin{figure}[H]
+          \includegraphics[width=1\textwidth]{Figures/MUNER_logo.jpg}
+          \end{figure}
+
+ {\large\bf Group memebers:\\}
+ {Gianvincenzo Daddabbo}\\
+{Gaetano Gallo}\\
+{Alberto Ruggeri}\\
+{Martina Tedesco}\\
+{Alessandro Toschi}\\
+
+
+
+\vspace{4mm}
+{\large\bf a.y. 2020-2021}
+\end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Abstract %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Every year 1.25 million people die and as many as 50 million are injured in road
+traffic accidents worldwide, according to United Nations statistics. Human error is involved in about 95\% of all road traffic accidents in the EU, and in 2017 alone, 25,300 people died on the Union’s roads \cite{frisoni2016research}.  
+Autonomous cars can improve road safety and through new technologies it is also possible to reduce traffic congestion and CO2 emissions.\\
+The aim of this report is to present the steps that we have followed as a group in order to implement a system for dynamic obstacle avoidance using an adaptive Model Predictive Control. 
+In the simulated environment, the vehicle model is expected to encounter and safely avoid the dynamic obstacles along its way. 
+On the other hand, when an obstacle is not present ahead of the autonomous vehicle, it is expected to follow a predetermined path.
+
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+\include{Chapters/1-Introduction}
+\include{Chapters/2-Requirements}
+%\include{Chapters/Sensors}
+%\include{Chapters/SafetyDistance}
+
+
+
+
+
+
+\newpage
+\bibliography{Compliance.bib}
+\bibliographystyle{unsrt}
+
+\end{document}  

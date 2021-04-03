@@ -1,0 +1,16 @@
+\section{System requirements}
+
+
+Defining the project requirements is an essential and crucial step to accomplish in the starting phase of the project. Indeed, from both the perspective of the customer and of the project developers, detailed requirements are necessary to deliver exactly what is needed.\\
+Firstly, the requirements are defined by the customer at a high level, then "translated" by the developers to a lower and technical level and later on validated to ensure that the project requirements are correct, free of defects/bugs, and meets the needs of the users.\\
+For the sake of this project we have assumed to receive the requirements from a hypothetical customer.
+Namely, there are six high level requirements given for this obstacle avoidance implementation that are mainly related to the accuracy of the system and to the driver comfort:
+\begin{enumerate}
+    \item Maximum lateral error from reference of $0.5 m$;
+    \item Detection of obstacles within $100 m$ ahead of vehicle;
+    \item Move on left lane within a predetermined safe zone from the obstacle \footnote{Third to fifth requirements are requested when an obstacle is detected};
+    %\item Move on left lane in less than 5 seconds
+    \item Once passed the obstacle, come back on right lane with no less than $10 m$ but no more than $50 m$ ahead of it;
+    \item Maximum lateral acceleration of $0.5 m/s^2$;
+    \item All previous requirements satisfied in speed range from $10 km/h$ to $100 km/h$.
+\end{enumerate}
