@@ -4,7 +4,7 @@ The design of such a controller needs a deep analysis of the project requirement
 
 
 \subsection{Analysis of requirements}
-Starting from the detailed system requirements described in Section \ref{System_Requirements}, we can obtain low level requirements suitable for the controller implementation; each of these is associated with a draft of the validation method needed to assert each of them. Table \ref{tab:requirements} shows the system requirements, low level requirements and the corresponding validation methods.
+Starting from the detailed system requirements described in Section \ref{System_Requirements}, we can obtain low level requirements suitable for the controller implementation; each of these is associated with a draft of the validation method needed to assert each of them. Table \ref{tab:requirement} shows the system requirements, low level requirements and the corresponding validation methods.
 
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \begin{table}[H]
@@ -25,11 +25,12 @@ Maximum lateral acceleration of $0.5 m/s^2$ & Constraint on Model Predictive Con
 All previous requirements satisfied in speed range from $10 km/h$ to $100 km/h$ & Verify all previous constraint when simulating at speed range $10-100 km/h$ & Verify all the above methods with vehicle travelling from $10 km/h$ to $100 km/h$ \\ 
 \hline
 \end{tabular}
-\label{tab:requirements}
 \caption{System requirements and possible validation methods}
+\label{tab:requirement}
 \end{table}
 
-\subsection{Partitioning}
+\subsection{Partitioning} \label{partitioning_subsection}
+
 Regarding the system partitioning, which as already said in Section \ref{system_partitioning} is a crucial part of the implementation of a system, we have decided to base the implementation of our project on the tasks shown in Figure \ref{fig:partitioning}.
 
 \begin{figure}[H]

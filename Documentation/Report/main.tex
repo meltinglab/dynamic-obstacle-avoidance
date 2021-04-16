@@ -9,7 +9,8 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{array}
-
+\usepackage{subcaption}
+\usepackage[bottom]{footmisc}
 
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
 \begin{document}
@@ -69,7 +70,7 @@ Course of Compliance Design of Automotive Systems
 
 \begin{abstract}
 Every year 1.25 million people die and as many as 50 million are injured in road
-traffic accidents worldwide, according to United Nations statistics. Human error is involved in about 95\% of all road traffic accidents in the EU, and in 2017 alone, 25,300 people died on the Union’s roads \cite{frisoni2016research}.  
+traffic accidents worldwide, according to United Nations statistics. Human error is involved in about 95\% of all road traffic accidents in the EU, and in 2017 alone, 25300 people died on the Union’s roads \cite{frisoni2016research}.  
 Autonomous cars can improve road safety and through new technologies it is also possible to reduce traffic congestion and CO2 emissions.\\
 The aim of this report is to present the steps that we have followed as a group in order to implement a system for dynamic obstacle avoidance using an adaptive Model Predictive Control. 
 In the simulated environment, the vehicle model is expected to encounter and safely avoid the dynamic obstacles along its way. 
@@ -88,8 +89,10 @@ On the other hand, when an obstacle is not present ahead of the autonomous vehic
 \include{Chapters/1-Introduction}
 \include{Chapters/2-Requirements}
 \include{Chapters/3-SystemImplementation}
-%\include{Chapters/4-PlantModel}
-%\include{Chapters/Sensors}
+\include{Chapters/4-PlantModel}
+%\include{Chapters/5-SignalAcquisition}
+
+
 %\include{Chapters/SafetyDistance}
 
 
