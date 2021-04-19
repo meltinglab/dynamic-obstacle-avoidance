@@ -20,10 +20,10 @@ V= 20/3.6;                       % [m/s] Vehicle speed
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% SIMULATION SETUP %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Ts = 0.001;                     % [s] Sampling time
-T_fin = 10;                     % [s] Duration of simulation
-T_in = linspace(0,T_fin,1000)';      % Input time vector
-x0_dyn = [0; 0; 0; V; 0; 0; 0; 0; 0];     % Initial condition for dynamic model
+Ts = 0.001;                              % [s] Sampling time
+T_fin = 10;                              % [s] Duration of simulation
+T_in = linspace(0,T_fin,1000)';          % Input time vector
+x0_dyn = [0; 0; 0; V; 0; 0];             % Initial condition for dynamic model
 x0_kin = [0; 0; 0; V];                    % Initial condition for kinematic model
 param_test = [[0;T_fin] [param';param']]; % Parameters of vehicle
 
