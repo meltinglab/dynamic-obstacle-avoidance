@@ -78,9 +78,9 @@ with:
 \end{equation} 
 
 These matrices are obtained evaluating the Taylor expansion of the non linear bicycle model, as explained in the MathWorks example \cite{StaticObs}.\\
-A more complex vehicle model can be useful to test the performance of the controller to be developed. The \textit{Dynamic Bicycle Model} \cite{7225830} can be built starting from the previous non linear model, adding the following equations:
+A more complex vehicle model can be useful to test the performance of the controller to be developed. The \textit{Dynamic Bicycle Model} \cite{7225830} can be built starting from the previous non linear model, deriving the following second order derivative equations:
 \begin{align}
-    \ddot{x} = \dot{\psi}\dot{y} + Throttle\times cos{\psi}\\
+    \ddot{x} = \dot{\psi}\dot{y} + Throttle\\
     \ddot{y} = -\dot{\psi}\dot{x} + \frac{2}{m}\left(F_fcos(\delta) + F_r\right)\\
     \ddot{\psi} = \frac{2}{I_z}\left(l_fF_f - l_rF_r\right)\\
     \dot{X} = \dot{x}cos(\psi) - \dot{y}sin(\psi)\\
@@ -194,13 +194,13 @@ The other images shown below, underline as well the offset between the two vehic
 
     \begin{subfigure}{.5\textwidth}
     \centering
-   \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Free_evo_traj.png}
+   \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Free_evo_traj.png}
     \caption{Free evolution test - trajectories}
     \label{subfig:free_evo}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Throttle_traj.png}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Throttle_traj.png}
     \caption{Only throttle test - trajectories}
     \label{subfig:only_throttle}
     \end{subfigure}
@@ -209,13 +209,13 @@ The other images shown below, underline as well the offset between the two vehic
     
     \begin{subfigure}{.5\textwidth}
     \centering
-   \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Const_steer_traj.png}
+   \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Const_steer_traj.png}
    \caption{Constant steering test - trajectories}
    \label{subfig:const_steer}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Ramp_traj.png}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Ramp_traj.png}
     \caption{Ramp steering test - trajectories}
     \label{subfig:ramp_steer}
     \end{subfigure}
@@ -224,13 +224,13 @@ The other images shown below, underline as well the offset between the two vehic
      
     \begin{subfigure}{.5\textwidth}
     \centering
-   \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Small_sin_traj.png}
+   \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Small_sin_traj.png}
    \caption{Small sinusoidal test - trajectories}
    \label{subfig:small_sinusoidal}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Big_sin_traj.png}
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Big_sin_traj.png}
     \caption{Big sinusoidal test - trajectories}
     \label{subfig:big_sinusoidal}
     \end{subfigure}
@@ -239,13 +239,13 @@ The other images shown below, underline as well the offset between the two vehic
     
     \begin{subfigure}{.5\textwidth}
     \centering
-  \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Comb1_traj.png}
+  \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Comb1_traj.png}
     \caption{Combined 1 test - trajectories}
     \label{subfig:Comb_1}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
     \centering
-  \includegraphics[width=1.1\textwidth,keepaspectratio]{Figures/Comb2_traj.png}
+  \includegraphics[width=0.8\textwidth,keepaspectratio]{Figures/Comb2_traj.png}
     \caption{Combined 2 test - trajectories}
     \label{subfig:Comb_2}
     \end{subfigure}
