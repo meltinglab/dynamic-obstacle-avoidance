@@ -19,9 +19,9 @@ V = 20/3.6;                             % [m/s] initial speed
 x0_kin = [0; 0; 0; V];                  % Initial condition for kinematic model states
 x0_dyn = [0; 0; 0; V; 0; 0];            % Initial condition for dynamic model states
 u0 = [0; 0];                            % Initial condition for inputs
-Ts = 0.02;                              % [s] Sample time
+Ts = 0.01;                              % [s] Sample time
 %% Scenario Loading
-map = ScenarioLoading('switzerland 2.mat');
+map = ScenarioLoading('switzerland.mat');
 
 % Evaluate total distance covered by the route on the map
 distance = odometer(map);
@@ -45,8 +45,8 @@ dsys.OutputName = dsys.StateName;
 status = mpcverbosity('off');
 mpcobj = mpc(dsys);
 
-p = 40;                     % [Steps] Prediction Horizon
-c = 2;                      % [Steps] Control Horizon
+p = 15;                     % [Steps] Prediction Horizon
+c = 5;                      % [Steps] Control Horizon
 mpcobj.PredictionHorizon = p;          
 mpcobj.ControlHorizon = c;              
 
@@ -73,9 +73,9 @@ mpcobj.ManipulatedVariables(2).RateMax = SteeringRateMax;
 
 %% Weights
 % Tune weights for cost function
-WOV = [30 30 1 5];      % [X Y yaw V]                         % Optimization weights of the states
-WMV = [10 0];           % [Throttle Steering]                 % Optimization weights on manipulated variable
-WMVR = [10 1];           % [Throttle_rate Steering_rate]       % Optimization weights on manipulated variable rate
+WOV = [30 30 8 30];      % [X Y yaw V]                         % Optimization weights of the states
+WMV = [0 0];           % [Throttle Steering]                 % Optimization weights on manipulated variable
+WMVR = [0 0];           % [Throttle_rate Steering_rate]       % Optimization weights on manipulated variable rate
 mpcobj.Weights.OutputVariables = WOV;           
 mpcobj.Weights.ManipulatedVariables = WMV;         
 mpcobj.Weights.ManipulatedVariablesRate = WMVR;      
@@ -123,6 +123,3 @@ X_rec(end+1:end+p+20) = X_rec(end);
 Y_rec(end+1:end+p+20) = Y_rec(end);
 Theta_rec(end+1:end+p+20) = Theta_rec(end);
 extended_map = [X_rec Y_rec Theta_rec repmat(V,length(X_rec),1)];
-%% Run the simulation.
-x_new = x0_kin;
-u = u0;
