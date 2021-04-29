@@ -29,7 +29,7 @@ ii = 2;
 lengthMap = length(map);
 % Duplicate last point in map to avoid overflow index error
 map(end+1,:) = map(end,:);
-oldDistance = 1000;
+oldDistance = 100000;
 % Trigonometrical calculation to up-sample the map
 while(idx<=lengthMap)
     X_ref(ii) = X_ref(ii-1) + cos(theta)*V*Ts;
