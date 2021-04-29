@@ -10,6 +10,15 @@ function Theta_ref = angleGenerator(X_ref,Y_ref)
             Theta_ref(ii) = atan2(Y_ref(ii)-Y_ref(ii-1),X_ref(ii)-X_ref(ii-1));
         end
         Theta_ref(1) = Theta_ref(2);
+        
+        % Check if there are phase "jumps" from pi to -pi and cut them
+        for jj = 1:lengthMap-1
+            if Theta_ref(jj+1) - Theta_ref(jj) < -pi 
+               Theta_ref(jj+1) = Theta_ref(jj+1) + 2*pi;
+            elseif Theta_ref(jj+1) - Theta_ref(jj) > pi 
+                   Theta_ref(jj+1) = Theta_ref(jj+1) - 2*pi;
+            end
+        end 
     else
         disp('Error: Wrong input size')
     end

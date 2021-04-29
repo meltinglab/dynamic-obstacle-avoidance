@@ -47,9 +47,10 @@ while(idx<=lengthMap)
     end
     oldDistance = distance;
 end
-% Smoothing the reference 
-X_ref = smooth(X_ref,25);
-Y_ref = smooth(Y_ref,25);
+% Smoothing the reference according to step, taking windows of 20 meters
+SmoothFactor = 20/(V*Ts);
+X_ref = smooth(X_ref,SmoothFactor);
+Y_ref = smooth(Y_ref,SmoothFactor);
 Theta_ref = angleGenerator(X_ref,Y_ref);
 
 end
