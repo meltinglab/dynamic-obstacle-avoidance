@@ -1,0 +1,44 @@
+\section{Constraints}
+In this section we are going to introduce the constraints we have used for the project. A plausible set of constraints is fundamental in order to perform a realistic simulation, which is required in order to have reasonable simulation outcomes. 
+\subsection{Actuators constraints}
+
+The vehicle model presented in the Section \ref{chap:Vehicle_model} assumes that the inputs $\delta_f$ (front steering angle) and Throttle (driving and braking) can be controlled
+directly. In practice, however, low-level controllers are used to transform the aforementioned
+commands into physical control signals.
+\subsubsection{Steering angle constraints}
+Regarding the steering angle control, we suppose that our MPC directly affects the Electronic Power Steering (EPS) system by sending to it the target steering wheel position. Then, the EPS control unit calculates the optimal steering output based on the target steering wheel position received and sends the information to an electric motor to provide the necessary action on the wheels.
+For the project, we have assumed this link to be ideal and so our MPC directly control the angle of our front wheels. The values used are reported in the Table \ref{tab:steering} and they have been chosen according to real data\cite{forkenbrock2005assessment}.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{lllll}
+\cline{2-3}
+\multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\textbf{min}} & \multicolumn{1}{l|}{\textbf{max}} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{\textbf{Steering angle}} & \multicolumn{1}{l|}{-36 $deg$}      & \multicolumn{1}{l|}{36 $deg$}      &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{\textbf{Steering rate}}  & \multicolumn{1}{l|}{-60 $deg/s$}    & \multicolumn{1}{l|}{60 $deg/s$}    &  &  \\ \cline{1-3}
+\end{tabular}
+\caption{Steering constraints}
+\label{tab:steering}
+
+\end{center}
+\end{table}
+
+\subsubsection{Throttle constraints}
+As stated in Section \ref{chap:Vehicle_model} the vehicle model used in our simulation is,  more or less, independent of the longitudinal dynamics of the vehicle. Moreover, the set of simulation we carry out are to be performed at constant speed, as close as possible to the target speed value. 
+Physical limits on the actuators and comfort requirements impose bounds on the throttle and its rate of change according to the Table \ref{tab:throttle}.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{lllll}
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{min}} & \multicolumn{1}{l|}{\textbf{max}} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{\textbf{Throttle}} & \multicolumn{1}{l|}{-7.85 $m/s^2$}  & \multicolumn{1}{l|}{4 $m/s^2$} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{\textbf{Throttle rate}} & \multicolumn{1}{l|}{-20 $m/s^3$}    & \multicolumn{1}{l|}{8 $m/s^3$} &  &  \\ \cline{1-3}
+\end{tabular}
+\caption{Throttle constraints}
+\label{tab:throttle}
+\end{center}
+\end{table}
+
+\subsection{Output/State constraints} Tbd
+% - Output/State: Lane keeping and obstacle avoidance

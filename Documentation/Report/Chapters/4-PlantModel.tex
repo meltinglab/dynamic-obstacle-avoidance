@@ -99,7 +99,7 @@ Tyre side slip angles can be approximated by the following equations:
 \begin{equation}
     \theta_r=tan^{-1}\left(\frac{\dot{y} - l_r\dot{\psi}}{\dot{x}}\right)
 \end{equation}
-The models introduced are, more or less, independent on the longitudinal dynamics of the vehicle, since they link this dynamic with a simple coefficient, that is the $Throttle$. In our model, this coefficient should be considered as an acceleration of the vehicle, and it can be both positive (driving) or negative (braking). Range of values for this parameter is dependent on lots of variables, of course, such as the engine power, the vehicle mass and inertia, the ground type, the rubber of the wheels and so on. Our assumption is to give a fixed interval for this parameter, to simulate a small commercial vehicle on dry asphalt, which can have a maximum acceleration of $4 m/s^2$ and a maximum braking deceleration of $-0.8g$. To summarize:
+The models introduced are, more or less, independent of the longitudinal dynamics of the vehicle, since they link this dynamic with a simple coefficient, that is the $Throttle$. In our model, this coefficient should be considered as an acceleration of the vehicle, and it can be both positive (driving) or negative (braking). Range of values for this parameter is dependent on lots of variables, of course, such as the engine power, the vehicle mass and inertia, the ground type, the rubber of the wheels and so on. Our assumption is to give a fixed interval for this parameter, to simulate a small commercial vehicle on dry asphalt, which can have a maximum acceleration of $4 m/s^2$ and a maximum braking deceleration of $-0.8g$. To summarize:
 \begin{itemize}
     \item $Throttle \in [-7.85, 4.00]m/s^2$
     \label{item:Throttle}
