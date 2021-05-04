@@ -2,9 +2,11 @@
 
 ## 0. Root
 Contains code for simulation setup
-## 1. Files
+## 1. Scenarios
+Contains Scenario Files with maps for simulation
+## 2. Files
 Contains useful files such as databases and test cases
-## 2. Scripts
+## 3. Scripts
 Contains code scripts and useful functions
-## 3. SimulinkModels
+## 4. SimulinkModels
 Contains Simulink files for simulations
