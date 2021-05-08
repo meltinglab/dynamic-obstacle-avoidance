@@ -71,6 +71,10 @@ mpcobj.ManipulatedVariables(1).RateMax = ThrottleRateMax;
 mpcobj.ManipulatedVariables(2).RateMin = SteeringRateMin;
 mpcobj.ManipulatedVariables(2).RateMax = SteeringRateMax;
 
+% Add a constraint to the minimum speed, avoiding to go to 0
+mpcobj.OutputVariables(4).Min = 1;      % [m/s] Minimum speed
+
+
 %% Weights
 % Tune weights for cost function
 WOV = [30 30 8 30];      % [X Y yaw V]                         % Optimization weights of the states
@@ -99,7 +103,7 @@ E=[E1;E2];
 F=[F1;F2];
 G=[G1;G2];
 
-setconstraint(mpcobj,E,F,G,[0;0]);
+setconstraint(mpcobj,E,F,G,[0.3;1]);
 
 
 
@@ -114,12 +118,13 @@ egoStates.Covariance = eye(6)*1000;
 egoStates_init = egoStates;
 T = 0:Ts:distance/V;  
 
-% Log files for plotting
-ympc = zeros(length(T),size(Cd,1));
-umpc = zeros(length(T),size(Bd,2));
 
 % Extend the reference signal to avoid index over limits
 X_rec(end+1:end+p+20) = X_rec(end);
 Y_rec(end+1:end+p+20) = Y_rec(end);
 Theta_rec(end+1:end+p+20) = Theta_rec(end);
 extended_map = [X_rec Y_rec Theta_rec repmat(V,length(X_rec),1)];
+
+
+%% Generate Obstacle
+obstacle = [extended_map(2000,1) extended_map(2000,2)];
