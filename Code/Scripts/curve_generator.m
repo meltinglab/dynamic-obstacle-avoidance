@@ -14,7 +14,7 @@ Y_ref = 0;
 Theta_ref = 0;
 ii = 2;
 AngleStep=1/R*V*Ts;
-while(Theta_ref(ii-1)<=3/2*pi)
+while(Theta_ref(ii-1)<=3/2*pi&&Theta_ref(ii-1)>=-3/2*pi)
     Theta_ref(ii) = Theta_ref(ii-1)+AngleStep;
     X_ref(ii) = X_ref(ii-1) + cos(Theta_ref(ii))*V*Ts;
     Y_ref(ii) = Y_ref(ii-1) + sin(Theta_ref(ii))*V*Ts;
