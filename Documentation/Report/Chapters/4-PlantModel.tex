@@ -37,7 +37,7 @@ Standard MPC controller works on linear systems, so we decided to implement a li
     \label{equation:dynamic2}
     y = Cx + Du 
 \end{equation}
-with:
+where:
 
 \begin{equation}
 \label{equation:sys_bicycle_kin}
@@ -81,10 +81,10 @@ These matrices are obtained evaluating the Taylor expansion of the non linear bi
 A more complex vehicle model can be useful to test the performance of the controller to be developed. The \textit{Dynamic Bicycle Model} \cite{7225830} can be built starting from the previous non linear model, deriving the following second order derivative equations:
 \begin{align}
     \ddot{x} = \dot{\psi}\dot{y} + Throttle\\
-    \ddot{y} = -\dot{\psi}\dot{x} + \frac{2}{m}\left(F_fcos(\delta) + F_r\right)\\
+    \ddot{y} = -\dot{\psi}\dot{x} + \frac{2}{m}\left(F_fcos(\delta) + F_r\right)     \label{dynamic_equation}\\
     \ddot{\psi} = \frac{2}{I_z}\left(l_fF_f - l_rF_r\right)\\
     \dot{X} = \dot{x}cos(\psi) - \dot{y}sin(\psi)\\
-    \dot{Y} = \dot{x}sin(\psi) + \dot{y}cos(\psi)\\
+    \dot{Y} = \dot{x}sin(\psi) + \dot{y}cos(\psi)
 \end{align}
 where $m$ is the mass of the vehicle, $I_z$ is the inertia of the vehicle with respect to the vertical axle passing for the CoG of it, while $F_f$ and $F_r$ are respectively the side slip forces acting on the front and rear wheels, and they can be evaluated as:
 \begin{align}

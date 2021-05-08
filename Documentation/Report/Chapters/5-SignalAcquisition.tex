@@ -86,7 +86,7 @@ The website allows the user to export any route as a \textit{.osm} file containi
       \label{fig:OpenStreetMap}
 \end{figure}
 
-Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{Driving Scenario Designer} tool (Figure \ref{fig:DrivingScenarioTool}) provided by MATLAB itself. The Driving Scenario Designer tool splits the whole selected route in as many pieces as the number of different streets names present. Then, the user can select only the pieces of road he/she is interested in and export its waypoints in a \textit{.mat} file.
+Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{Driving Scenario Designer} tool (Figure \ref{fig:DrivingScenarioTool}) provided as part of the Automated Driving Toolbox. The Driving Scenario Designer tool splits the whole selected route in as many pieces as the number of different streets names present. Then, the user can select only the pieces of road he/she is interested in and export its waypoints in a \textit{.mat} file.
 
 \begin{figure}[H]
     \centering
@@ -96,7 +96,7 @@ Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{D
 \end{figure}
 
 Afterwards, the \textit{.mat} file is used to generate the corresponding map in the \textit{XY} reference frame.
-Since the thus generated map is composed by an insufficient number of waypoints for our applications, we have decided to create a function able to do an up-sample of the map because a higher density of points on it optimizes the path following algorithm. The up-sampling function interpolates linearly the original map with a fixed step depending on the reference speed and the sampling time selected for the controller. \\
+Since the thus generated map is composed by an insufficient number of waypoints for our applications, we have decided to create a function \textit{ScenarioLoading} able to do an up-sample of the map because a higher density of points on it optimizes the path following algorithm. The up-sampling function interpolates linearly the original map with a fixed step depending on the reference speed and the sampling time selected for the controller. \\
 It is worth mentioning, as shown in Figure \ref{fig:UpSample}, that the up-sampled path (in orange) and the original waypoints (in blue) slightly deviate in some sections of the route due to the smoothing applied in order to obtain a more gentle trajectory.
 
 \begin{figure}[H]

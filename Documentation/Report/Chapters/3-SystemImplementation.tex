@@ -12,7 +12,7 @@ Starting from the detailed system requirements described in Section \ref{System_
 \hline
 \multicolumn{1}{c}{\textbf{System requirements}} & \multicolumn{1}{c}{\textbf{Low level requirements}} & \multicolumn{1}{c}{\textbf{Validation methods}} \\ 
 \hline
-Maximum lateral error from reference of $0.5 m$ & Inequality constraint: $e_{y}=abs(Y_{reference}-Y_{vehicle})<=0.5m$ & Check in each point that the difference between the actual vehicle position and the reference path is not greater than $0.5 m$ \\ 
+Maximum lateral error from reference of $0.75 m$ & Inequality constraint: $e_{y}=abs(Y_{reference}-Y_{vehicle})<=0.75m$ & Check in each point that the difference between the actual vehicle position and the reference path is not greater than $0.75 m$ \\ 
 \hline
 Detection of obstacles within 100 m ahead of vehicle & Sensor fusion able to provide useful data in the range $0-100 m$ from the vehicle & Drive toward a static obstacle and confirm that is detected when is $100 m$ far \\ 
 \hline
@@ -20,7 +20,7 @@ Move on left lane within a predetermined safe zone from the obstacle & Inequalit
 \hline
 Once passed the obstacle, come back on right lane with no less than $10 m$ but no more than $50 m$ ahead of it & Inequality constraint when obstacle passed: $10m <= dist <= 50m $ & Confirm that when changing lane the distance from the obstacle measured by the sensors is greater than the predetermined safe zone \\ 
 \hline
-Maximum lateral acceleration of $0.5 m/s^2$ & Constraint on Model Predictive Control input: $a.max = 0.5$ & Check that the maximum value registered by the IMU$-$accelerometer is not greater than $0.5m/s^2$ \\ 
+Maximum lateral acceleration of $2.0 m/s^2$ & Constraint on Model Predictive Control input: $a.max = 2.0$ & Check that the maximum value registered by the IMU$-$accelerometer is not greater than $2.0m/s^2$ \\ 
 \hline
 All previous requirements satisfied in speed range from $10 km/h$ to $100 km/h$ & Verify all previous constraint when simulating at speed range $10-100 km/h$ & Verify all the above methods with vehicle travelling from $10 km/h$ to $100 km/h$ \\ 
 \hline
