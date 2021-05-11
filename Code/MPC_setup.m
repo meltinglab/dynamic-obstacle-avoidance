@@ -15,13 +15,13 @@ param = loadParameters(1);              % Parameter array for Dynamic Model
 %% Initial Conditions
 
 Lw = 4;                                 % [m] Lane width
-V = 20/3.6;                             % [m/s] initial speed
+V = 30/3.6;                             % [m/s] initial speed
 x0_kin = [0; 0; 0; V];                  % Initial condition for kinematic model states
 x0_dyn = [0; 0; 0; V; 0; 0];            % Initial condition for dynamic model states
 u0 = [0; 0];                            % Initial condition for inputs
 Ts = 0.01;                              % [s] Sample time
 %% Scenario Loading
-map = ScenarioLoading('switzerland.mat');
+map = ScenarioLoading('puglia.mat');
 
 % Evaluate total distance covered by the route on the map
 distance = odometer(map);
@@ -127,4 +127,26 @@ extended_map = [X_rec Y_rec Theta_rec repmat(V,length(X_rec),1)];
 
 
 %% Generate Obstacle
-obstacle = [extended_map(2000,1) extended_map(2000,2)];
+obstacle = [extended_map(10000,1) extended_map(10000,2)];
+idx = 10000;
+
+%%
+figure
+% patch([SafeX(idx) EndX(idx) EndX(idx) SafeX(idx)],[SafeY(idx) EndY(idx) EndY(idx)-6/cos(Theta_rec(1)) SafeY(idx)-6/cos(Theta_rec(1))],[0.4 0.4 0.4])
+hold on
+grid on
+plot(X_out,Y_out,'Linewidth',1)
+plot(X_rec,Y_rec,'Linewidth',1)
+plotRectangle(obstacle,4,2,extended_map(idx,3))
+plot(DetPoint(1,1,idx),DetPoint(1,2,idx),'o')
+plot(EntryPoint(1,1,idx),EntryPoint(1,2,idx),'o','LineWidth',2)
+plot(SafeX(idx),SafeY(idx),'*','LineWidth',2)
+plot(EndX(idx),EndY(idx),'*')
+axis equal
+
+
+figure
+plot(lateral_dev,'Linewidth',1)
+yline(4,'--g','Linewidth',1);
+yline(2,'--k','Linewidth',1);
+yline(6,'--k','Linewidth',1);
