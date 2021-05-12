@@ -33,11 +33,8 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
 % - DetectionPoint -    Point where to start leave the lane to go in the
 %                       Safe Zone
 %
-    % Position of the obstacle
-    X_obs = Obstacle(1);
-    Y_obs = Obstacle(2);
-    
-    % Define all the outputs to 0 when no obstacle are detected
+
+% Define all the outputs to 0 when no obstacle are detected
     SafeX = 0;
     SafeY = 0;
     EndX = 0;
@@ -53,8 +50,29 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
     % Reference speed
     V_ref = map(1,4);
     
-    % Distance from the obstacle
-    distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
+    
+    % Control how many obstacles and find the closer
+    NumObstacle = length(Obstacle(:,1));
+    if NumObstacle == 1
+        % Position of the obstacle
+        X_obs = Obstacle(1);
+        Y_obs = Obstacle(2);
+
+        % Distance from the obstacle
+        distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
+    else
+        for i = 1:NumObstacle
+            % Position of the obstacle
+            X_obs = Obstacle(i,1);
+            Y_obs = Obstacle(i,2);
+
+            % Distance from the obstacle
+            distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
+            if distance < 200
+                break;
+            end
+        end
+    end
 
     indexObs_old = indexObs;
     % Detect if less than 200 meters
@@ -132,6 +150,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
             
     else
         detection = 0;
+        indexObs_old = 0;
     end
 
 
