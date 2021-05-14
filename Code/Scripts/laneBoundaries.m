@@ -8,14 +8,18 @@ function boundaries = laneBoundaries(X,Y,Theta,laneWidth)
         X_bottom = zeros(length(X),1);
         Y_top = zeros(length(X),1);
         Y_bottom = zeros(length(X),1);
+        X_leftLane = zeros(length(X),1);
+        Y_leftLane = zeros(length(X),1);
         for jj = 1:length(X)
             X_top(jj) = X(jj)+laneWidth/2*(-sin(Theta(jj)));
             X_bottom(jj) = X(jj)+laneWidth/2*(sin(Theta(jj)));
             Y_top(jj) = Y(jj)+laneWidth/2*(cos(Theta(jj)));
             Y_bottom(jj) = Y(jj)+laneWidth/2*(-cos(Theta(jj)));
+            X_leftLane(jj) = X(jj)+laneWidth*3/2*(-sin(Theta(jj)));
+            Y_leftLane(jj) = Y(jj)+laneWidth*3/2*(cos(Theta(jj)));
         end
     end
     
-    boundaries = [X_top, Y_top, X_bottom, Y_bottom];
+    boundaries = [X_top, Y_top, X_bottom, Y_bottom, X_leftLane, Y_leftLane];
 
 end
