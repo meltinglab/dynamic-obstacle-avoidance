@@ -39,7 +39,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
 %                       Safe Zone
 % - ObstacleCnt_old -   Obstacle counter, an integer containing the index
 %                       of the last obtacle detected
-% - EndIdx_old-     Index of the end of the actual Safe Zone
+% - EndIdx_old -    Index of the end of the actual Safe Zone
 %
 % This version of detectFun doesn't accept single row obstacle matrix
 %
@@ -92,9 +92,9 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
     indexObs_old = indexObs;
     ObstacleCnt_old = ObstacleCnt;
     
-    if ObstacleCnt_old > 0 % If it is not the first obstacle
+    if ObstacleCnt_old > 0 && indexObs > 0% If it is not the first obstacle
         if ObstacleCnt_old < NumObstacle % If it is not the last obstacle
-            if ActualIdx > EndIdx  % If the vehicle is after the safezone of the previous obstacle
+            if ActualIdx >= EndIdx  % If the vehicle is after the safezone of the previous obstacle
                 X_obs_old = Obstacle(ObstacleCnt_old,1);
                 Y_obs_old = Obstacle(ObstacleCnt_old,2);
                 X_obs = Obstacle(ObstacleCnt_old + 1,1);

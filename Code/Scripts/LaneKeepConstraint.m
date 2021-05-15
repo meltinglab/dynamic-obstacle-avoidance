@@ -1,4 +1,4 @@
-function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,EndY,EntryPoint,Zone,DetectionPoint)
+function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,EndY,EntryPoint,Zone,DetectionPoint,Curvature)
 % LaneKeepConstraint function generates the matrices E F G to give to the
 % controller in order to define linear constraint.
 %
@@ -33,6 +33,7 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
     X_ref = Reference(1);
     Y_ref = Reference(2);
     Theta_ref = Reference(3);
+    V_ref = Reference(4);
     
     % Normalize Theta_ref to -pi:pi
     Theta_ref = Theta_ref + pi;
@@ -72,9 +73,9 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
                 constraintIntercept = SafeX - constraintSlope*SafeY;
 
             elseif Zone == 3 % In the Safe Zone
-                slope = m;
+                slope = m-416/V_ref*abs(Curvature);
                 constraintSlope = slope;
-                constraintIntercept = X_ref - Lw/sin(Theta_ref) - m*Y_ref;
+                constraintIntercept = X_ref - Lw/sin(Theta_ref) - slope*Y_ref;
             elseif Zone == 4 % After the Safe
                 entrySlope = ((X_entry - EndX)/(Y_entry-EndY));
                 constraintSlope = entrySlope;
@@ -155,9 +156,9 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
 %                 slope = ( (EndY - SafeY)/(EndX - SafeX) );
 %                 constraintSlope = slope;
 %                 constraintIntercept = EndY - constraintSlope*EndX;
-                slope = m;
+                slope = m+416/V_ref*abs(Curvature);
                 constraintSlope = slope;
-                constraintIntercept = Y_ref + Lw/cos(Theta_ref) - m*X_ref;
+                constraintIntercept = Y_ref + Lw/cos(Theta_ref) - slope*X_ref;
             elseif Zone == 4 % After the Safe
                 entrySlope = ((Y_entry - EndY)/(X_entry-EndX));
                 constraintSlope = entrySlope;
