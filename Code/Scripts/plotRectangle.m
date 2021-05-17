@@ -6,5 +6,5 @@ function p = plotRectangle(center,width,height,rotation)
         sin(rotation) cos(rotation)];
 %     Rectangle = R*(angles-repmat(center,[2 2]))+repmat(center,[2 2]);
     Rectangle = R*angles+[center' center' center' center'];
-    p = patch(Rectangle(1,:),Rectangle(2,:),'w','DisplayName','Obstacle','LineStyle',':','LineWidth',2)
+    p = patch(Rectangle(1,:),Rectangle(2,:),'w','DisplayName','Obstacle','LineStyle',':','LineWidth',2);
 end
