@@ -170,17 +170,12 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
         EndIdx_old = EndIdx;
         EndPoint = map(EndIdx,:);
         
-        if V_ref >= 50/3.6
-            EntryIdx = min(lengthMap,round(indexObs+50/(V_ref*Ts)));
-            EntryPoint = map(EntryIdx,:);
-            DetIdx = max(1,round(indexObs-SafeSteps-40/(V_ref*Ts)));
-            DetectionPoint = map(DetIdx,:);
-        else
-            EntryIdx = min(lengthMap,round(indexObs+200/(V_ref*Ts)));
-            EntryPoint = map(EntryIdx,:);
-            DetIdx = max(1,round(indexObs-SafeSteps-20/(V_ref*Ts)));
-            DetectionPoint = map(DetIdx,:);
-        end
+
+        EntryIdx = min(lengthMap,round(indexObs+50/(V_ref*Ts)));
+        EntryPoint = map(EntryIdx,:);
+        DetIdx = max(1,round(indexObs-SafeSteps-40/(V_ref*Ts)));
+        DetectionPoint = map(DetIdx,:);
+
         
         % Project Safe zone in the left lane
         SafeX = SafePoint(1) - Lw*sin(SafePoint(3));
