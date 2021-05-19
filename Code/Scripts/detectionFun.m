@@ -1,4 +1,4 @@
-function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,DetectionPoint,ObstacleCnt_old,EndIdx_old] = detectionFun(Actual,Obstacle,map,Lw,Ts,indexObs,ObstacleCnt,ActualIdx,EndIdx)
+function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,DetectionPoint,ObstacleCnt_old,EndIdx_old,EntryIdx_old,leftLaneFLAG_old] = detectionFun(Actual,Obstacle,map,Lw,Ts,indexObs,ObstacleCnt,ActualIdx,EndIdx,EntryIdx,leftLaneFLAG)
 % detectFun takes as input the position of one or more obstacle, the actual
 % position of the vehicle, the reference map and the Lanewidth to give as
 % output a detection flag and a set of points to define a safety zone
@@ -53,6 +53,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
     DetectionPoint = [0 0 0 0];
     Zone = 0;
     EndIdx_old = 0;
+    EntryIdx_old = 0;
     FLAG = 0;
     X_obs_old = 0;
     Y_obs_old = 0;
@@ -145,10 +146,13 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
             % the new obstacle, set the new obstacle as the current
             % ELSE
             % set the previous obstacle as the current
-            if SafeIdxNew < EndIdx_old || DetIdxNew < ActualIdx
+            if DetIdxNew < EntryIdx || DetIdxNew < ActualIdx
                 indexObs = indexObsNew;
                 ObstacleCnt_old = ObstacleCnt_old + 1;
                 indexObs_old = indexObs;
+                if DetIdxNew < EntryIdx
+                    leftLaneFLAG = 1;
+                end
             else 
                 indexObs = indexObsOld;
                 indexObs_old = indexObs;
@@ -172,6 +176,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
         
 
         EntryIdx = min(lengthMap,round(indexObs+50/(V_ref*Ts)));
+        EntryIdx_old = EntryIdx;
         EntryPoint = map(EntryIdx,:);
         DetIdx = max(1,round(indexObs-SafeSteps-40/(V_ref*Ts)));
         DetectionPoint = map(DetIdx,:);
@@ -198,15 +203,33 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
             % Well Before the Safe, stay in your lane
             Zone = 1;
             detection = 0;
+            if leftLaneFLAG == 1
+                Zone = 3;
+                detection = 1;
+            end
         elseif IdxDist > DetIdx && IdxDist <= SafeIdx
             % Before the Safe Zone, change lane
             Zone = 2;
+            
+            % You are already in the left lane and don't need to come back
+            % to Zone 2
+            if leftLaneFLAG == 1
+                Zone = 3;
+            end
+            
         elseif IdxDist > SafeIdx && IdxDist <= EndIdx
             % In the Safe Zone, stay on left lane
             Zone = 3;
+            leftLaneFLAG = 0;
         elseif IdxDist > EndIdx && IdxDist < EntryIdx
             % After the Safe, reenter in you lane
             Zone = 4;
+            
+            % You are already next to another obstacle, stay on the left
+            if leftLaneFLAG == 1
+                Zone = 3;
+            end
+            
         else
             % Obstacle passed, stay in your lane
             Zone = 5;
@@ -217,7 +240,8 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
         detection = 0;
         indexObs_old = 0;
     end
-
+    
+    leftLaneFLAG_old = leftLaneFLAG;
 
 
 end
