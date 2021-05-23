@@ -1,4 +1,4 @@
-function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,DetectionPoint,ObstacleCnt_old,EndIdx_old,EntryIdx_old,leftLaneFLAG_old] = detectionFun(Actual,Obstacle,map,Lw,Ts,indexObs,ObstacleCnt,ActualIdx,EndIdx,EntryIdx,leftLaneFLAG)
+function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,DetectionPoint,ObstacleCnt_old,EndIdx_old,EntryIdx_old,leftLaneFLAG_old] = detectionFun(number_obstacles,Actual,Obstacle,dyn_obstacle1,map,Lw,Ts,indexObs,ObstacleCnt,ActualIdx,EndIdx,EntryIdx,leftLaneFLAG)
 % detectFun takes as input the position of one or more obstacle, the actual
 % position of the vehicle, the reference map and the Lanewidth to give as
 % output a detection flag and a set of points to define a safety zone
@@ -59,35 +59,55 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
     Y_obs_old = 0;
     
     
-    % Actual position
+    % Actual position of ego-vehicle
     X_act = Actual(1);
     Y_act = Actual(2);
+    
+    % Actual position of dynamic obstacle
+    X_dyn_obs_act = dyn_obstacle1(1);
+    Y_dyn_obs_act = dyn_obstacle1(2);
     
     % Reference speed
     V_ref = map(1,4);
     
     
     % Control how many obstacles and find the closer
-    NumObstacle = length(Obstacle(:,1));
-    if NumObstacle == 1
-        % Position and speed of the obstacle
-        X_obs = Obstacle(1);
+    NumObstacle = length(number_obstacles);
+    if NumObstacle == 1   % Single obstacle
+        
+        %%%% Position and speed of the obstacle
+        % Static Obstacle
+        X_obs = Obstacle(1);   
         Y_obs = Obstacle(2);
-        V_obs = Obstacle(3);
-
-        % Distance from the obstacle
-        distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
-    else
-        for i = 1:NumObstacle
-            % Position of the obstacle
+        V_obs = Obstacle(3); 
+              
+        if V_obs == 0
+            % Distance from the static obstacle
+            distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
+        else  
+            % Distance from the dynamic obstacle  
+            distance = sqrt((X_act-X_dyn_obs_act)^2+(Y_act-Y_dyn_obs_act)^2);
+            if distance < 200 % Stop the research when an obstacle is in the sensor range
+                return;
+            end
+        end
+    else     
+        for i = 1:NumObstacle   % Multiple obstacles 
+            %%%%% Position and speed of the obstacles
+            % Static Obstacles
             X_obs = Obstacle(i,1);
             Y_obs = Obstacle(i,2);
             V_obs = Obstacle(i,3);
-
-            % Distance from the obstacle
-            distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
-            if distance < 200 % Stop the research when an obstacle is in the sensor range
-                break;
+               
+            if V_obs == 0
+                % Distance from the static obstacle
+                distance = sqrt((X_act-X_obs)^2+(Y_act-Y_obs)^2);
+            else
+                % Distance from the dynamic obstacle
+                distance = sqrt((X_act-X_dyn_obs_act)^2+(Y_act-Y_dyn_obs_act)^2);
+                if distance < 200 % Stop the research when an obstacle is in the sensor range
+                    break;
+                end
             end
         end
     end
@@ -260,7 +280,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
        if indexObs == 0 && FLAG == 0
             distObsMap = zeros(lengthMap,1);
             for ii = 1:lengthMap
-               distObsMap(ii) =  sqrt((map(ii,1)-X_obs)^2+(map(ii,2)-Y_obs)^2);
+               distObsMap(ii) =  sqrt((map(ii,1)-X_dyn_obs_act)^2+(map(ii,2)-Y_dyn_obs_act)^2);
             end
             [minObs,indexObs] = min(distObsMap);
             indexObs_old = indexObs;
@@ -276,7 +296,7 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
             
             distObs_newMap = zeros(lengthMap,1);
             for ii = 1:lengthMap
-               distObs_newMap(ii) =  sqrt((map(ii,1)-X_obs)^2+(map(ii,2)-Y_obs)^2);
+               distObs_newMap(ii) =  sqrt((map(ii,1)-X_dyn_obs_act)^2+(map(ii,2)-Y_dyn_obs_act)^2);
             end
             [minObs,indexObsNew] = min(distObs_newMap); % Find the position of the next
             
@@ -310,7 +330,9 @@ function [SafeX,SafeY,EndX,EndY,EntryPoint,detection,Zone,indexObs_old,Detection
         % Reentrance point is 50 meters after the obstacle
         % Lane change point is 40 meters before the Safe
         
-        SafeSteps = max(V_ref*(3.6/10)^2/Ts,5/(V_ref*Ts));
+        V_relative = V_ref - V_obs;
+        
+        SafeSteps = max(V_relative*(3.6/10)^2/Ts,5/(V_relative*Ts));
         SafeIdx = max(1,round(indexObs-SafeSteps));
         SafePoint = map(SafeIdx,:);
         

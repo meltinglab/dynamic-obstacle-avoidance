@@ -130,7 +130,7 @@ extended_map = [X_rec Y_rec Theta_rec repmat(V,length(X_rec),1)];
 
 point_A = round(length(extended_map)*0.3);
 % point_B = round(length(extended_map)*0.4);
-point_C = round(length(extended_map)*0.8);
+point_C = round(length(extended_map)*0.5);
 % point_D = round(length(extended_map)*0.80);
 % point_E = round(length(extended_map)*0.85);
 % point_F = round(length(extended_map)*0.9);
@@ -141,10 +141,20 @@ obst_2 = point_C;
 % obst_4 = point_F;
 
 idx = [obst_1
-       obst_2];              
+       obst_2
+       round(length(extended_map)*0.7)
+       round(length(extended_map)*0.72)
+       round(length(extended_map)*0.74)
+       round(length(extended_map)*0.76)
+       round(length(extended_map)*0.78)];              
            
-V_obst = [30/3.6       
-          50/3.6];    
+V_obst = [40/3.6       
+          50/3.6
+          0
+          0
+          0
+          0
+          0];    
    
 obstacle = zeros(length(idx),3);
 
@@ -153,12 +163,18 @@ for k = 1:length(idx)
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[X_ostacolo, Y_ostacolo theta_ostacolo] = reference_generator(map,V_obst(1),Ts);
+[X_ostacolo, Y_ostacolo, theta_ostacolo] = reference_generator(map,V_obst(1),Ts);
 
 point_A = round(length(X_ostacolo)*0.3);
+point_B = round(length(X_ostacolo)*0.5);
 
-dyn_obstacle1 = [X_ostacolo(point_A:end) Y_ostacolo(point_A:end)];
+number_obstacles = [point_A       % 2 moving obstacles starting in point A (one real,one dummy)
+                    point_A];
 
+dyn_obstacle1 = [X_ostacolo(point_B:end) Y_ostacolo(point_B:end) repmat(V_obst(1),length(X_ostacolo(point_B:end)),1)];
+start_dyn_obst = [X_ostacolo(point_B) Y_ostacolo(point_B) V_obst(1)];
+obstacle = [start_dyn_obst
+            start_dyn_obst];
 X_obstacle_dyn = dyn_obstacle1(:,1);
 Y_obstacle_dyn = dyn_obstacle1(:,2);
 
@@ -253,26 +269,38 @@ index_E = index-1;
 boundaries = laneBoundaries(X_rec,Y_rec,Theta_rec,Lw);
 
 sim('Dynamic_obstacle_avoidance.slx');
-%%
+%
 figure
 hold on
 grid on
-% plot(X_out,Y_out,'Linewidth',1)
+plot(X_out,Y_out,'Linewidth',1)
 plot(X_rec,Y_rec,'Linewidth',1)
 plot(boundaries(:,1),boundaries(:,2),'--k')
 plot(boundaries(:,3),boundaries(:,4),'--k')
+
+% Plot DYNAMIC
 for j = 1:100:length(X_obstacle_dyn)
-      plotRectangle([X_obstacle_dyn(j,1) Y_obstacle_dyn(j,1)],4,2,theta_ostacolo(j));
+    plotRectangle([X_obstacle_dyn(j,1) Y_obstacle_dyn(j,1)],4,2,theta_ostacolo(j));
 %     plot(DetPoint(1,1,idx(j)),DetPoint(1,2,idx(j)),'go','LineWidth',2.5)
 %     plot(EntryPoint(1,1,idx(j)),EntryPoint(1,2,idx(j)),'rd','LineWidth',2.5)
 %     plot(SafeX(idx(j)),SafeY(idx(j)),'m*','LineWidth',2.5)
 %     plot(EndX(idx(j)),EndY(idx(j)),'b+','LineWidth',2.5)
 end
+% plot(X_rec(index_B),Y_rec(index_B),'go','LineWidth',7.5)
+% plot(X_rec(index_E),Y_rec(index_E),'rd','LineWidth',7.5)
+% plot(X_rec(index_C),Y_rec(index_C),'m*','LineWidth',7.5)
+% plot(X_rec(index_D),Y_rec(index_D),'b+','LineWidth',7.5)
 
-plot(X_rec(index_B),Y_rec(index_B),'go','LineWidth',7.5)
-plot(X_rec(index_E),Y_rec(index_E),'rd','LineWidth',7.5)
-plot(X_rec(index_C),Y_rec(index_C),'m*','LineWidth',7.5)
-plot(X_rec(index_D),Y_rec(index_D),'b+','LineWidth',7.5)
+% Plot STATIC
+for j = 1:length(obstacle)
+%     plotRectangle(obstacle(j,1:2),4,2,extended_map(idx(j),3));
+    plot(DetPoint(1,1,idx(j)),DetPoint(1,2,idx(j)),'go','LineWidth',2.5)
+    plot(EntryPoint(1,1,idx(j)),EntryPoint(1,2,idx(j)),'rd','LineWidth',2.5)
+    plot(SafeX(idx(j)),SafeY(idx(j)),'m*','LineWidth',2.5)
+    plot(EndX(idx(j)),EndY(idx(j)),'b+','LineWidth',2.5)
+end
+
+
 axis equal
 
 
