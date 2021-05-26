@@ -12,6 +12,9 @@
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage[bottom]{footmisc}
+\usepackage{xfrac}
+\usepackage{etoolbox,refcount}
+\usepackage{multicol}
 
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
 \begin{document}
@@ -95,7 +98,8 @@ On the other hand, when an obstacle is not present ahead of the autonomous vehic
 \include{Chapters/6-Constraints}
 \include{Chapters/7-ControllerSetup}
 \include{Chapters/8-PathFollowing}
-%\include{Chapters/SafetyDistance}
+\include{Chapters/9-StaticObstacleAvoidance}
+\include{Chapters/10-StaticObstacleAvoidanceTests}
 
 
 

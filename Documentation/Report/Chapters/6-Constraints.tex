@@ -1,6 +1,6 @@
 \section{Constraints}
 In this section we are going to introduce the constraints we have used for the project. A plausible set of constraints is fundamental in order to perform a realistic simulation, which is required in order to have reasonable simulation outcomes. 
-\subsection{Actuators constraints}
+\subsection{Input constraints}
 
 The vehicle model presented in the Section \ref{chap:Vehicle_model} assumes that the inputs $\delta_f$ (front steering angle) and Throttle (driving and braking) can be controlled
 directly. In practice, however, low-level controllers are used to transform the aforementioned
@@ -40,5 +40,51 @@ Physical limits on the actuators and comfort requirements impose bounds on the t
 \end{center}
 \end{table}
 
-\subsection{Output/State constraints} Tbd
+\subsection{Output/State constraints}
 % - Output/State: Lane keeping and obstacle avoidance
+MPC algorithms allow to define a set of constraints on the States/Output variable of the model. For our project, this feature allows to describe a forbidden zone in the nearby of the obstacle when it is detected. In order to properly define this area, we refer to the art.148 and art.149 of the Italian reference legislation ``\textit{Codice della strada}" which state that while traveling and overtaking, the vehicles must keep a safety distance from the vehicle in front of them.
+
+
+\subsubsection{Safety distance}
+\label{sec:Safety_distance}
+% The art. 149 of the Italian reference legislation ``\textit{Codice della strada}" states that ``while traveling, the vehicles must keep a safety distance from the vehicle in front of them such that timely stopping is guaranteed in any case and collisions with the vehicles in front are avoided".
+In order to estimate the optimal safety distance that each vehicle must keep from the other, several factors must be taken into account:
+\begin{itemize}
+    \item the alertness of the driver's reflexes;
+    \item the type and response of the vehicle;
+    \item the vehicle speed;
+    \item the visibility and weather conditions;
+    \item the slope of the road and the characteristics and conditions of the road surface;
+    \item the traffic.
+\end{itemize}
+Under the previous assumptions it's clear that it is impossible to exactly evaluate the safety distance because there are a multitude of factors that continuously change over time.
+Among these, the most important one is the speed at which the vehicle is travelling. A common formula relates the safety distance to the square of the speed:
+\begin{align}
+   SafetyDistance [m] = \left(\frac{v[\sfrac{km}{h}]}{10}\right)^2
+   \label{eq:safetyDistance}
+\end{align}
+Moreover the safety distance is strictly correlated to the stopping space that is the sum of the reaction space and braking space.
+The former is the distance traveled by the vehicle in the reaction time (usually 1 second), the latter is proportional to the square of the speed and inversely proportional to the deceleration and the friction coefficient.
+\begin{align}
+    BrakingSpace = v^2/(2a \times \mu)
+\end{align} 
+The following table presents the value of the braking space associated to different speed and friction coefficient values:
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Vehicle speed & Braking space on dry asphalt ($\mu=0,8$) & Braking space on wet asphalt($\mu=0,4$)\\ \hline
+20 km/h & 2.0 m & 3,9 m\\ \hline
+40 km/h & 7,9 m & 15,7 m\\ \hline
+60 km/h & 17,7 m & 35,4 m\\ \hline
+80 km/h & 31,5 m & 62,9 m\\ \hline
+100 km/h & 49,2 m & 98,3 m\\ \hline
+120 km/h & 70,9 m & 141,7 m\\ \hline
+\end{tabular}%
+}
+\caption{Braking distance with respect to vehicle speed and road condition}
+\label{tab:braking}
+\end{table}
+\noindent
+In our work we have decided to consider the \textit{SafetyDistance} evaluated as in the Eq. \ref{eq:safetyDistance} to define the aforementioned \textit{``forbidden zone"}.
+
