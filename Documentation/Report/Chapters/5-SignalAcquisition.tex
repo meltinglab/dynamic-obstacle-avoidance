@@ -61,7 +61,7 @@ Our model is based on several assumptions regarding data acquisition from the se
     \item our car knows all the information related to the road model, such as lane width and number of lanes by acquiring them from cameras installed on the vehicle and HD Maps;
     \item the vehicle knows its position in the XY reference frame, through the use of GPS and INS;
     \item the route planning done by our controller exploits the latitude and longitude information to plan out a complete route based on the HD Maps, GPS, and INS. Moreover, while driving, the car also compares the HD maps with the perception information from sensors to get changing environment information for dynamically planning routes and making decisions;
-    \item we suppose to have both a Long-Range Radar and Lidar mounted on the vehicle, hence to be able to detect obstacles in the range of 200 meters;
+    \item we suppose to have both a Long-Range Radar and Lidar mounted on the vehicle, hence to be able to detect obstacles in the range of 200 meters together with their velocities.
 \end{itemize}
 
 Though we include all the above information on the MATLAB code, we suppose to collect them using sensors, as previously described.

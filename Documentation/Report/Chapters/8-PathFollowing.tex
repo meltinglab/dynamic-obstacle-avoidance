@@ -22,9 +22,9 @@ For the sake of the Path Following task, only the constraints on the inputs are 
 Moreover, we have set the initial value for the \textit{covariance matrix} of the internal state estimator to $\left[ \begin{smallmatrix} 1000 & 0 & 0 & 0 & 0 & 0 \\0 & 1000 & 0 & 0 & 0 & 0 \\0 & 0 & 1000 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1000 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1000 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1000 \end{smallmatrix} \right] $ to avoid oscillations in the starting phase of the control, due to the discrepancies between the plant model given to the controller and the dynamic plant model used for simulation.
 Covariance matrix is $6\times 6$ because it is related to 4 states and 2 inputs.\\
 This matrix is automatically updated by the MPC algorithm in runtime.
-\subsection{Path Following - Testing}
+\subsection{Path Following - Testing} \label{subsection:path_following_testing}
 % Describe the tests to validate the path following algorithm
-Path following tests aim to evaluate the performance of a path follower in different scenarios with speed ranging from 10 to 100 km/h as stated in section \ref{System_Requirements} - System Requirements.
+Path following tests aim to evaluate the performance of a path follower in different scenarios with speed ranging from 10 to 100 km/h as stated in Section \ref{System_Requirements} - System Requirements.
 In order to satisfy requirements 1 and 5 regarding respectively the \textit{maximum lateral error} and the \textit{maximum lateral acceleration}, we setup a test-bench to assert these quantities. In detail, to verify the lateral error, we built a function to approximate the distance between the actual point in which the vehicle is and the reference trajectory. This function is based on the assumption that the vehicle is close enough to the reference point considered and the reference, in the close proximity of the point itself, can be approximated as a straight line. These considerations are summarized by the following equation:
 \begin{equation}
     Lateral\_dev = \frac{\|y_{vehicle} - (mx_{vehicle} + q)\|}{\sqrt{1 + m^2}} \label{eq:lateral_dev}
@@ -88,7 +88,7 @@ The scenarios we have selected are the following:
       \label{fig:1000mCurveMap}
 \end{figure}
 \vspace{1cm}
-    \item \textbf{Puglia}: this scenario is taken from a highway and it is straight for the most part with some smooth corners. In this test we try to follow the path with a speed of 40 km/h;
+    \item \textbf{Puglia}: this scenario is taken from a city road and it is straight for the most part with some smooth corners. In this test we try to follow the path with a speed of 40 km/h;
      \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/PugliaMap.png}

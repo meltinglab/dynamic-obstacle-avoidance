@@ -1,42 +1,44 @@
 \section{Static Obstacle Avoidance Tests} 
+\label{chap:static_obstacle_avoidance_tests}
 In order to evaluate the behaviour of our controller when it comes to avoiding static obstacles, we have set up a set of tests using \textit{Simulink Test}. These tests have been performed on different sample scenarios at different reference speeds using the same MPC configuration as in the Path Following tests (Table \ref{tab:configuration}). In particular we have simulated 22 scenarios, similarly to the first 5 scenarios in the Path Following tests (from figure \ref{fig:StraightMap} to \ref{fig:1000mCurveMap}), considering 16 straight lines with different slopes (exploring all four quadrants) and 6 curves with different radii and directions.
 The scenarios we have selected are the following:
 \begin{itemize}
     \item \textbf{straight lines} with:\begin{multicols}{2} \begin{itemize}
-        \item[$\diamond$] 0° slope;
-        \item[$\diamond$] 20° slope;
-        \item[$\diamond$] 45° slope;
-        \item[$\diamond$] 70° slope;
-        \item[$\diamond$] 90° slope;
-        \item[$\diamond$] 110° slope;
-        \item[$\diamond$] 135° slope;
-        \item[$\diamond$] 160° slope;
-        \item[$\diamond$] 180° slope;
-        \item[$\diamond$] -20° slope;
-        \item[$\diamond$] -45° slope;
-        \item[$\diamond$] -70° slope;
-        \item[$\diamond$] -90° slope;
-        \item[$\diamond$] -110° slope;
-        \item[$\diamond$] -135° slope;
-        \item[$\diamond$] -160° slope.
+        \item[$\diamond$] 0° slope
+        \item[$\diamond$] 20° slope
+        \item[$\diamond$] 45° slope
+        \item[$\diamond$] 70° slope
+        \item[$\diamond$] 90° slope
+        \item[$\diamond$] 110° slope
+        \item[$\diamond$] 135° slope
+        \item[$\diamond$] 160° slope
+        \item[$\diamond$] 180° slope
+        \item[$\diamond$] -20° slope
+        \item[$\diamond$] -45° slope
+        \item[$\diamond$] -70° slope
+        \item[$\diamond$] -90° slope
+        \item[$\diamond$] -110° slope
+        \item[$\diamond$] -135° slope
+        \item[$\diamond$] -160° slope
     \end{itemize}
     \end{multicols}
     
     \item \textbf{curves} with:
     \begin{multicols}{2} \begin{itemize}
-        \item[$\diamond$] 1000 $m$ radius clockwise;
-        \item[$\diamond$] 500 $m$ radius clockwise;
-        \item[$\diamond$] 300 $m$ radius clockwise;
-        \item[$\diamond$] 300 $m$ radius counterclockwise;
-        \item[$\diamond$] 500 $m$ radius counterclockwise;
-        \item[$\diamond$] 1000 $m$ radius counterclockwise;
+        \item[$\diamond$] 1000 $m$ radius clockwise
+        \item[$\diamond$] 500 $m$ radius clockwise
+        \item[$\diamond$] 300 $m$ radius clockwise
+        \item[$\diamond$] 300 $m$ radius counterclockwise
+        \item[$\diamond$] 500 $m$ radius counterclockwise
+        \item[$\diamond$] 1000 $m$ radius counterclockwise
     \end{itemize}
     \end{multicols}
 \end{itemize}
 
-In the following subsections we describe in detail the test performed.
+In the following subsections we describe in details the test performed.
 
 \subsection{Single Static Obstacle}
+\label{sub:single_static_obstacle}
 We have started off from the easiest case of obstacle avoidance possible, one static obstacle on the whole reference map. This is the easiest case possible to implement because once detected an obstacle, the controller does not need to search for another; moreover, since the obstacle is static, the controller does not need to know its speed in order to calculate its trajectory either.
 In particular we have placed the obstacle always exactly in the middle of the simulated map so that the detection of the obstacle and consequent overtaking maneuver could be executed correctly by the controller in any circumstance.
 Similarly to the tests performed to assert the path following task, we have performed the obstacle avoidance tests taking into account equations \ref{dynamic_equation} and \ref{eq:lateral_dev} on lateral acceleration and lateral deviation respectively, in order to monitor whether or not requirements 1 and 5 (Section \ref{System_Requirements}) on maximum lateral error and maximum lateral acceleration were satisfied.
@@ -70,10 +72,10 @@ Performing the tests we have noticed that our controller performs very well at m
 
 
 
-The tests have also highlighted how the performance of our MPC is still fairly good at higher speeds (such as 100 km/h) with some issues only on the curved scenarios with curvature radius of 300 $m$ when the vehicle travels counterclockwise. \\ 
+The tests have also highlighted how the performance of our MPC is still fairly good at higher speeds (such as 100 km/h) with some issues only on the curved scenario with curvature radius of 300 $m$ when the vehicle travels counterclockwise. \\ 
 More details about the failed tests and the subsequent considerations are reported in the next subsection.
 
-\subsection{Failed test analysis and important considerations} \label{subsection:failed_tests}
+\subsection{Failed tests analysis and important considerations} \label{subsection:failed_tests}
 The ``Single\_Static\_Obstacle\_Avoidance-Test\_Report" shows all the issues that have arisen during the testing phase. In this section we describe the most important ones and we make some considerations.
 As shown in Figure \ref{fig:fail100kmh}, our controller is not fully able to be compliant with the first condition described in the previous subsection when we are travelling at 100 km/h on a curve with 300 $m$ radius with counterclockwise direction. In this case, the ego vehicle is not able to perform in time the overtaking maneuver because of the high speed. 
 
@@ -94,16 +96,54 @@ The main issue we have found is that our controller is not able to perform a pro
     \label{fig:controller_madness}
 \end{figure}
 
-As you might guess, this issue implies that we are no longer able to comply with the sixth requirement we imposed in the starting phase of our project described in Section \ref{System_Requirements}.
-Having based the development of our whole project on the V-model, as already stated in the Introduction of this report, going back to fix this issue in order to make the MPC work properly at low speeds would imply modifying the weights in the weights function and repeating all the testing phases.
+As you might guess, this issue implies that we are no longer able to comply with the sixth requirement imposed in the starting phase of our project described in Section \ref{System_Requirements}.
+Having based the development of our whole project on the V-model, as already stated in the Introduction of this report, going back to fix this issue in order to make the MPC work properly at low speeds would imply modifying the weights in the cost function and repeating all the testing phases.
 We have decided to do so only for a certain speed range which means that we are actually implementing a new MPC with different weights in order to manage this speed range while keeping the current configuration for the set of speeds already tested on which our MPC has been already validated.
 This decision implies a higher modularity of our project, that from now on will be based on two sub-problems, consisting of two different speed ranges which will be managed by two different MPCs: 
 \begin{itemize}
-    \item the current MPC which will manage speeds ranging from 40 km/h to 100 km/h;
-    \item a new MPC which will be developed to be in charge for speeds in the range from 10 km/h to 40 km/h.
+    \item \textbf{MPC-H} (the current one) which will manage speeds ranging from 40 km/h to 100 km/h;
+    \item \textbf{MPC-L} (a new one) which will be developed to be in charge for speeds in the range from 10 km/h to 40 km/h.
 \end{itemize}
 
 We believe that this is the optimal solution in order to be able to continue the tests on the current MPC, considering those already performed as valid in the proper speed range and to have a faster validation phase for the second MPC that will be developed afterwards.
 
 
-\subsection{Multiple Static Obstacles}
+\subsection{Multiple Static Obstacles (MPC-H)} \label{subsection:multiple_static}
+After performing the tests on single static obstacle avoidance, we have decided to simulate the presence of various obstacles on the maps in order to evaluate the behaviour of our MPC in the range from 40 km/h to 100 km/h (MPC-H). We have considered a total of 5 static obstacles placed on the maps as follows:
+\begin{itemize}
+    \item Obstacle 1: placed at 20/100 of the total length of the map;
+    \item Obstacle 2: placed at 40/100 of the total length of the map;
+    \item Obstacle 3: placed at 65/100 of the total length of the map;
+    \item Obstacle 4: placed at 68/100 of the total length of the map;
+    \item Obstacle 5: placed at 80/100 of the total length of the map.
+\end{itemize}
+
+\vspace{5mm}
+
+Figure \ref{fig:obstacle} graphically represents the lateral deviation of the ego vehicle and the position of the obstacles (in orange) on a straight sample map according to what has been described above.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth,keepaspectratio]{Figures/multiple.png}
+    \caption{Example of static multiple obstacles avoidance}
+    \label{fig:obstacle}
+\end{figure}
+
+
+In particular we have positioned obstacles 1 and 2 well spaced from the others, while obstacles 3, 4, and in some instances obstacle 5, are quite close to each other in order to test the capability of our MPC to lengthen the overtaking maneuver when two or more close consecutive obstacles are detected. Indeed obstacle 4 has been placed in a position that, depending on the speed and the total length of the map, it results to be so close to obstacle 3 that our vehicle is obliged to lengthen the maneuver instead of performing two separate ones. The only exception to this can be found in the curved scenarios with 1000 $m$ curvature radius when the vehicle is travelling at 40 km/h, due to the fact that the safety distance is considerably lower at this speed than it is at higher ones and that the length of the map is substantial.
+These considerations might apply also to obstacle 5 in some scenarios at high speeds because it has been positioned relatively close to obstacle 4, potentially resulting in a single overtaking maneuver in order to avoid obstacles 3, 4 and 5 all at once.
+
+Regarding the assessments, we have imposed the same four conditions as in the single static obstacle avoidance tests described in Section \ref{sub:single_static_obstacle}.
+Details about the multiple static obstacle avoidance tests performed can be found in the documents included in the repository\footnote{The ``Multiple\_Static\_Obstacle\_Avoidance\_Test\_Report" and ``Multiple\_static\_obstacle\_avoi- dance\_test\_specification\_report" files generated by Simulink Test are included in the /Documentation/Test Reports/ file path.}.
+
+The tests have been performed at the maximum and minimum speeds of the range suitable for this MPC (MPC-H). Performing the simulations we have noticed that our controller responds coherently with the tests on single static obstacle avoidance. In particular, at 40 km/h all the tests are passed while at 100 km/h the only issue is on the curved scenario with curvature radius of 300 $m$ when the vehicle travels counterclockwise.
+The considerations made for the failed test on the curved scenario with curvature radius of 300 $m$ in the single static obstacle tests at 100 km/h (described in Section \ref{subsection:failed_tests}), also apply to these tests with multiple obstacles; hence the reader is referred to that part of the subsection for further information. Figure \ref{fig:fail} shows the behaviour of this minor failure during the multiple static avoidance test.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth,keepaspectratio]{Figures/failed.png}
+    \caption{Assessment failure during the overtaking maneuver at 100 km/h on a curve with 300 $m$ wide radius with counterclockwise direction }
+    \label{fig:fail}
+\end{figure}
+The Figure above shows the superimposition of the \textit{Zone} and \textit{lateral deviation} plots together with the violation points of the first assessment (2 $m$ $\leq$ \textit{lateral deviation} $\leq$ 6 $m$ when performing the overtaking maneuver).
+The failure occurs because, at the inception of Zone 3, the vehicle has a lateral deviation slightly lower than 2 $m$. As discussed before, this does not represent a critical behaviour because of the safety distance considered.

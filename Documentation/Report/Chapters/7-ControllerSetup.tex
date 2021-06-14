@@ -36,24 +36,16 @@ for all the steps in the prediction horizon, scanned by index \textit{j}, where 
 
 Once the controller has been initialised, all is set to begin the simulation.
 In order to run closed-loop simulations a Simulink model has been designed because of the availability of many useful tools to test and validate the model. For the sake of clarity in reading and debugging the whole system, some of the Simulink blocks have been grouped in subsystems and a mask has been applied to some of them. 
-% IMMMAGINE DA CAMBIARE QUANDO SIMULINK SARA' FINITO
-In Figure \ref{fig:simulink_main_mod} the main system is depicted: the process simulated by these blocks is coherent with the MPC algorithm described in the previous subsection and the numbers in green enumerate the three major subsystems which will be analyzed below.
+In Figure \ref{fig:simulink_main} the main system is depicted: the process simulated by these blocks is coherent with the MPC algorithm described in the previous subsection and the numbers in green enumerate the four major subsystems which will be analyzed below.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figures/simulink_main_mod.png}
+    \includegraphics[width=\textwidth]{Figures/simulink_main.png}
     \caption{Simulink main}
-    \label{fig:simulink_main_mod}
-\end{figure} 
-
-The content of the subsystem numbered 1 is displayed in Figure \ref{fig:simulink_deviations_mod}: the main purpose of these blocks is to calculate a deviation from the reference in order to test the controller and will be analyzed in details in the Section \ref{chap:path_following}; in order to pass the proper number of reference way-points, a sampling subsystem is used as a input to the MATLAB function block.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{Figures/simulink_deviations_mod.png}
-    \caption{Simulink subsystem to calculate deviations}
-    \label{fig:simulink_deviations_mod}
+    \label{fig:simulink_main}
 \end{figure}
- A similar sampling subsystem is used also as input to the reference of the Simulink block \textit{Adaptive MPC}: in Figure \ref{fig:simulink_mpc_mod} below, the blocks composing the subsystem \textit{Adaptive MPC Controller} are showed and the blue rectangle highlights how the content of the reference map is sampled\footnote{The sampling subsystems displayed in Fig.\ref{fig:simulink_deviations_mod} and Fig.\ref{fig:simulink_mpc_mod} are both structured in the same way (a selector and a counter basically) but are different in the sampling rate.}. Beside the reference input \textbf{ref}, there are others eight entry ports used in the adaptive controller block:
+
+ The blocks composing the subsystem \textit{MPC Controller} - subsystem 1 - are showed in Fig.\ref{fig:simulink_mpc}: a block to call the function \textit{LaneKeepConstraint} and the block \textit{Adaptive MPC Controller}. The latter is itself a subsystem containing the matlab block \textit{Adaptive MPC}; beside the reference input \textbf{ref}, there are others eight entry ports used in the adaptive controller block:
  \begin{itemize}
      \item \textbf{model}: updated plant model and nominal operating point. At the beginning of each control interval, this signal modifies the controller object.
      \item \textbf{mo}: Measured outputs. The MPC block uses the measured plant outputs to improve its state estimates.
@@ -66,19 +58,36 @@ The content of the subsystem numbered 1 is displayed in Figure \ref{fig:simulink
  \end{itemize}     
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figures/simulink_mpc_mod.png}
+    \includegraphics[width=0.9\textwidth]{Figures/simulink_mpc.png}
     \caption{Simulink subsystem: Adaptive MPC controller}
-    \label{fig:simulink_mpc_mod}
+    \label{fig:simulink_mpc}
 \end{figure}
-The subsystem \textit{Dynamic Model} displayed in Fig.\ref{fig:simulink_main_mod} has as a mask the picture of an Hyundai Azera, the vehicle whose parameters are used in the simulation. Also for these blocks $-$ Fig.\ref{fig:simulink_dyn_mod_mod}, the main purpose is calling an already designed MATLAB function that in this case is the \textit{VehicleModelCT\_DYN} one, previously described in Section \ref{chap:Vehicle_model}.
+
+
+The content of the subsystem numbered 2 (see Fig.\ref{fig:simulink_main}) instead, it's displayed in Figure \ref{fig:simulink_deviation}: the main purpose of these blocks is to calculate a deviation from the reference in order to test the controller and will be analyzed in details in the Section \ref{chap:path_following}; in order to pass the proper number of reference way-points, a sampling subsystem is used as a input to the MATLAB function block.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figures/simulink_dyn_mod_mod.png}
+    \includegraphics[width=0.9\textwidth]{Figures/simulink_deviation.png}
+    \caption{Simulink subsystem to calculate deviations}
+    \label{fig:simulink_deviation}
+\end{figure}
+ 
+The subsystem \textit{Dynamic Model} displayed in Fig.\ref{fig:simulink_main} has as a mask the picture of an Hyundai Azera, the vehicle whose parameters are used in the simulation. Also for these blocks $-$ Fig.\ref{fig:simulink_dyn_mod}, the main purpose is calling an already designed MATLAB function that in this case is the \textit{VehicleModelCT\_DYN} one, previously described in Section \ref{chap:Vehicle_model}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/simulink_dyn_mod.png}
     \caption{Simulink subsystem: Dynamic Model}
-    \label{fig:simulink_dyn_mod_mod}
+    \label{fig:simulink_dyn_mod}
 \end{figure} 
 
+Between the blocks of major interest, the last one described is the \textit{Obstacle detector}, whose content is depicted in Figure \ref{fig:simulink_obstacles}. Again, the main purpose of this subsystem is using the simulink block to call a function. In this case, the \textit{detectionFun} is used to be able to detect multiple obstacles on the road and calculate their relative safe zones.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/simulink_obstacles.png}
+    \caption{Simulink obstacles}
+    \label{fig:simulink_obstacles}
+\end{figure} 
 
 
 

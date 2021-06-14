@@ -17,6 +17,13 @@
 \usepackage{multicol}
 
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\color{green}\ding{51}}%
+\newcommand{\xmark}{\color{red}\ding{55}}%
+\newcommand{\ymark}{\color{yellow}\ding{115}}%
+
 \begin{document}
 
 
@@ -100,7 +107,10 @@ On the other hand, when an obstacle is not present ahead of the autonomous vehic
 \include{Chapters/8-PathFollowing}
 \include{Chapters/9-StaticObstacleAvoidance}
 \include{Chapters/10-StaticObstacleAvoidanceTests}
-
+\include{Chapters/11-DynamicObstacleAvoidance}
+\include{Chapters/12-FinalControllerTest}
+%\include{Chapters/13-Conclusion}
+%\include{Chapters/14-FurtherImprovements}
 
 
 

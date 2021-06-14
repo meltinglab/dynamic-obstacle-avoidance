@@ -32,7 +32,7 @@ The distance of 200 $m$ from the obstacle is evaluated as the Euclidean distance
     \caption{Zones defined for obstacle avoidance}
       \label{fig:Zones}
 \end{figure}
-In Figure \ref{fig:Zones} the aforementioned zones are depicted on a straight line with a reference of 100 km/h. In zones 1 and 5, as previously said, the obstacle is too far from the vehicle to be a problem, so no procedure is applied to the controller.
+In Figure \ref{fig:Zones} the aforementioned zones are depicted on a straight line with a reference speed of 100 km/h. In zones 1 and 5, as previously said, the obstacle is too far from the vehicle to be a problem, so no procedure is applied to the controller.
 In zone 2, the yellow one in the figure, the vehicle should pass in the left lane. To do so, we defined two points, represented in the figure with a green $\circ$, which is called the \textit{Detection Point}, and the red circle that is the \textit{Safe Point}. The latter is defined as the projection on the left lane of the point in the reference trajectory at a distance equal to the safety one. To let the controller move on the path defined by these two points, we have exploited the \textit{Custom Constraint} of the MPC block in Simulink.\\
 As briefly explained in Section \ref{chap:Controller}, linear combination of inputs and states can be set as constraints for the controller. To accomplish our task, we have defined 2 constraints on the \textit{x} and \textit{y} states, which result in two lines representing an upper and a lower bound for the vehicle position during the overtaking maneuver. Looking at the example in the Figure \ref{fig:Zones}, the lower bound becomes the border of the polygon defined by zones 2, 3 and 4, while the upper bound is the left limit of the road, that is to say the left border of the left lane.\\
 For what concerns the lower bound for constraints in zone 2, it is completely defined by the line passing from the two aforementioned points.\\
@@ -67,6 +67,18 @@ where $m$ is the slope of the constraint and $q$ is the intercept of the constra
 Slope of the constraint can be evaluated by calculating the tangent of the road orientation when we are considering the upper bound or the zone 3, while it is evaluated as the slope between the points defined above in zones 2 and 4.\\
 The intercept is given by the projection of the reference trajectory, on the left lane center line for zone 3 and on the left road limit for the upper bound, or it is evaluated by inverting the line equation in the changing lane maneuvers.\\
 To let our algorithm work on all the quadrants, we make a check of the reference trajectory orientation and we adapt the constraint generation to the case we are in. This check projects the constraints on the $x$ axis rather than $y$ if the road inclination is closer to the vertical line in the X-Y plane, moreover it defines which are the relations between the bounds and the reference trajectory, intended as \textit{``lower than"} or \textit{``greater than"}, according to the direction of the vehicle and its left.
+\subsection{Multiple obstacles avoidance}
+The procedure described until now shows how the controller sets constraints when an obstacle is detected, but when multiple obstacles are present, things can become harder.\\
+If two obstacles are very far one from the other, at least 400 m, they can be treated as single obstacles in sequence, but if they are close, a new definition of the zones is needed. In detail, we decided to control the position of the next obstacle when we reach the \textit{End Point} of the previous. In this case, we can decide whether to come back in the right lane or to stay in the left lane and continue the overtaking maneuver. The procedure follows the rules below:
+\begin{itemize}
+    \item if the next obstacle is more than 400 m far from the previous one, it is treated as an independent single obstacle;
+    \item if the next obstacle is in the range 400 m and 210 m  from the previous obstacle, it is not detected when the vehicle is in the \textit{End Point} of the previous obstacle. Here vehicle simply comes back to the right lane and when the next obstacle is detected, it is treated as a single one;
+    \item if the next obstacle is closer than 210 m from the previous one, it is detected when the vehicle is in the \textit{End Point} of the latter, so here a decision is taken:
+    \begin{enumerate}
+        \item the next \textit{Detection Point} is after the previous \textit{Entry Point} $\xrightarrow{}$ the vehicle reenters in the right lane and starts the new overtaking maneuver when it reaches the next \textit{Detection Point};
+        \item the next \textit{Detection Point} is before the previous \textit{Entry Point} $\xrightarrow{}$ the vehicle stays in the left lane and sets as target the next obstacle, so then it repeats this procedure when the next \textit{End Point} is reached.
+    \end{enumerate}
+\end{itemize}
+To implement this control strategy in the simulation environment, we have used a counter on the obstacle, which takes into account if an obstacle has already been passed and in that case the detection algorithm neglects it, considering directly the next obstacle.\\
+In reality, of course, a counter is not a feasible solution since it is impossible to know how many obstacles will be detected during a trip, but advanced navigation and sensor systems can detect and classify obstacles, and then can understand whether they have been passed or not, so our assumption is justified.
 
-
-%RIVEDERE e aggiungere comportamento controller in caso di ostacoli multipli vicini 
