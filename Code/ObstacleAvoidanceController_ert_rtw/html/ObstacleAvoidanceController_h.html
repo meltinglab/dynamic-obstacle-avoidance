@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td><a id="l1" class='ln'>1</a></td><td><span class="ct">/*</span></td></tr>
+<tr name="2" id="2">
+<td><a id="l2" class='ln'>2</a></td><td><span class="ct"> * Academic License - for use in teaching, academic research, and meeting</span></td></tr>
+<tr name="3" id="3">
+<td><a id="l3" class='ln'>3</a></td><td><span class="ct"> * course requirements at degree granting institutions only.  Not for</span></td></tr>
+<tr name="4" id="4">
+<td><a id="l4" class='ln'>4</a></td><td><span class="ct"> * government, commercial, or other organizational use.</span></td></tr>
+<tr name="5" id="5">
+<td><a id="l5" class='ln'>5</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="6" id="6">
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * File: ObstacleAvoidanceController.h</span></td></tr>
+<tr name="7" id="7">
+<td><a id="l7" class='ln'>7</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="8" id="8">
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * Code generated for Simulink model 'ObstacleAvoidanceController'.</span></td></tr>
+<tr name="9" id="9">
+<td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="10" id="10">
+<td><a id="l10" class='ln'>10</a></td><td><span class="ct"> * Model version                  : 5.1</span></td></tr>
+<tr name="11" id="11">
+<td><a id="l11" class='ln'>11</a></td><td><span class="ct"> * Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020</span></td></tr>
+<tr name="12" id="12">
+<td><a id="l12" class='ln'>12</a></td><td><span class="ct"> * C/C++ source code generated on : Wed Jun 16 16:17:03 2021</span></td></tr>
+<tr name="13" id="13">
+<td><a id="l13" class='ln'>13</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="14" id="14">
+<td><a id="l14" class='ln'>14</a></td><td><span class="ct"> * Target selection: ert.tlc</span></td></tr>
+<tr name="15" id="15">
+<td><a id="l15" class='ln'>15</a></td><td><span class="ct"> * Embedded hardware selection: Intel-&gt;x86-64 (Windows64)</span></td></tr>
+<tr name="16" id="16">
+<td><a id="l16" class='ln'>16</a></td><td><span class="ct"> * Code generation objective: MISRA C:2012 guidelines</span></td></tr>
+<tr name="17" id="17">
+<td><a id="l17" class='ln'>17</a></td><td><span class="ct"> * Validation result: Passed (12), Warning (1), Error (0)</span></td></tr>
+<tr name="18" id="18">
+<td><a id="l18" class='ln'>18</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="19" id="19">
+<td><a id="l19" class='ln'>19</a></td><td></td></tr>
+<tr name="20" id="20">
+<td><a id="l20" class='ln'>20</a></td><td><span class="pp">#ifndef</span> <a id="20c9" class="tk">RTW_HEADER_ObstacleAvoidanceController_h_</a></td></tr>
+<tr name="21" id="21">
+<td><a id="l21" class='ln'>21</a></td><td><span class="pp">#define</span> <a id="21c9" class="tk">RTW_HEADER_ObstacleAvoidanceController_h_</a></td></tr>
+<tr name="22" id="22">
+<td><a id="l22" class='ln'>22</a></td><td><span class="pp">#include &lt;math.h&gt;</span></td></tr>
+<tr name="23" id="23">
+<td><a id="l23" class='ln'>23</a></td><td><span class="pp">#include &lt;string.h&gt;</span></td></tr>
+<tr name="24" id="24">
+<td><a id="l24" class='ln'>24</a></td><td><span class="pp">#ifndef</span> <a id="24c9" class="tk">ObstacleAvoidanceController_COMMON_INCLUDES_</a></td></tr>
+<tr name="25" id="25">
+<td><a id="l25" class='ln'>25</a></td><td><span class="pp">#define</span> <a id="25c9" class="tk">ObstacleAvoidanceController_COMMON_INCLUDES_</a></td></tr>
+<tr name="26" id="26">
+<td><a id="l26" class='ln'>26</a></td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="27" id="27">
+<td><a id="l27" class='ln'>27</a></td><td><span class="pp">#endif</span>                        <span class="ct">/* ObstacleAvoidanceController_COMMON_INCLUDES_ */</span></td></tr>
+<tr name="28" id="28">
+<td><a id="l28" class='ln'>28</a></td><td></td></tr>
+<tr name="29" id="29">
+<td><a id="l29" class='ln'>29</a></td><td><span class="pp">#include "ObstacleAvoidanceController_types.h"</span></td></tr>
+<tr name="30" id="30">
+<td><a id="l30" class='ln'>30</a></td><td><span class="pp">#include "rt_nonfinite.h"</span></td></tr>
+<tr name="31" id="31">
+<td><a id="l31" class='ln'>31</a></td><td></td></tr>
+<tr name="32" id="32">
+<td><a id="l32" class='ln'>32</a></td><td><span class="ct">/* Macros for accessing real-time model data structure */</span></td></tr>
+<tr name="33" id="33">
+<td><a id="l33" class='ln'>33</a></td><td><span class="pp">#ifndef</span> <a id="33c9" class="tk">rtmGetErrorStatus</a></td></tr>
+<tr name="34" id="34">
+<td><a id="l34" class='ln'>34</a></td><td><span class="pp">#define</span> <a id="34c9" class="tk">rtmGetErrorStatus</a>(<a id="34c27" class="tk">rtm</a>)         ((<a id="34c42" class="tk">rtm</a>)-&gt;<a id="34c48" class="tk">errorStatus</a>)</td></tr>
+<tr name="35" id="35">
+<td><a id="l35" class='ln'>35</a></td><td><span class="pp">#endif</span></td></tr>
+<tr name="36" id="36">
+<td><a id="l36" class='ln'>36</a></td><td></td></tr>
+<tr name="37" id="37">
+<td><a id="l37" class='ln'>37</a></td><td><span class="pp">#ifndef</span> <a id="37c9" class="tk">rtmSetErrorStatus</a></td></tr>
+<tr name="38" id="38">
+<td><a id="l38" class='ln'>38</a></td><td><span class="pp">#define</span> <a id="38c9" class="tk">rtmSetErrorStatus</a>(<a id="38c27" class="tk">rtm</a>, <a id="38c32" class="tk">val</a>)    ((<a id="38c42" class="tk">rtm</a>)-&gt;<a id="38c48" class="tk">errorStatus</a> = (<a id="38c63" class="tk">val</a>))</td></tr>
+<tr name="39" id="39">
+<td><a id="l39" class='ln'>39</a></td><td><span class="pp">#endif</span></td></tr>
+<tr name="40" id="40">
+<td><a id="l40" class='ln'>40</a></td><td></td></tr>
+<tr name="41" id="41">
+<td><a id="l41" class='ln'>41</a></td><td><span class="ct">/* Block signals (default storage) */</span></td></tr>
+<tr name="42" id="42">
+<td><a id="l42" class='ln'>42</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="43" id="43">
+<td><a id="l43" class='ln'>43</a></td><td>  <a id="43c3" class="tk">real_T</a> <a id="43c10" class="tk">Fp1</a>[2048];</td></tr>
+<tr name="44" id="44">
+<td><a id="l44" class='ln'>44</a></td><td>  <a id="44c3" class="tk">real_T</a> <a id="44c10" class="tk">Fp1_m</a>[2048];</td></tr>
+<tr name="45" id="45">
+<td><a id="l45" class='ln'>45</a></td><td>  <a id="45c3" class="tk">real_T</a> <a id="45c10" class="tk">Su</a>[1800];</td></tr>
+<tr name="46" id="46">
+<td><a id="l46" class='ln'>46</a></td><td>  <a id="46c3" class="tk">real_T</a> <a id="46c10" class="tk">dv</a>[1392];</td></tr>
+<tr name="47" id="47">
+<td><a id="l47" class='ln'>47</a></td><td>  <a id="47c3" class="tk">real_T</a> <a id="47c10" class="tk">Ep1</a>[1024];</td></tr>
+<tr name="48" id="48">
+<td><a id="l48" class='ln'>48</a></td><td>  <a id="48c3" class="tk">real_T</a> <a id="48c10" class="tk">Dv</a>[1024];</td></tr>
+<tr name="49" id="49">
+<td><a id="l49" class='ln'>49</a></td><td>  <a id="49c3" class="tk">real_T</a> <a id="49c10" class="tk">c_Hv</a>[960];</td></tr>
+<tr name="50" id="50">
+<td><a id="l50" class='ln'>50</a></td><td>  <a id="50c3" class="tk">real_T</a> <a id="50c10" class="tk">y</a>[957];</td></tr>
+<tr name="51" id="51">
+<td><a id="l51" class='ln'>51</a></td><td>  <a id="51c3" class="tk">real_T</a> <a id="51c10" class="tk">dv1</a>[640];</td></tr>
+<tr name="52" id="52">
+<td><a id="l52" class='ln'>52</a></td><td>  <a id="52c3" class="tk">real_T</a> <a id="52c10" class="tk">c_SuJm</a>[600];</td></tr>
+<tr name="53" id="53">
+<td><a id="l53" class='ln'>53</a></td><td>  <a id="53c3" class="tk">real_T</a> <a id="53c10" class="tk">c_Kr</a>[600];</td></tr>
+<tr name="54" id="54">
+<td><a id="l54" class='ln'>54</a></td><td>  <a id="54c3" class="tk">real_T</a> <a id="54c10" class="tk">u</a>[522];</td></tr>
+<tr name="55" id="55">
+<td><a id="l55" class='ln'>55</a></td><td>  <a id="55c3" class="tk">real_T</a> <a id="55c10" class="tk">MvCC</a>[512];</td></tr>
+<tr name="56" id="56">
+<td><a id="l56" class='ln'>56</a></td><td>  <a id="56c3" class="tk">real_T</a> <a id="56c10" class="tk">Cm</a>[384];</td></tr>
+<tr name="57" id="57">
+<td><a id="l57" class='ln'>57</a></td><td>  <a id="57c3" class="tk">real_T</a> <a id="57c10" class="tk">b_C</a>[384];</td></tr>
+<tr name="58" id="58">
+<td><a id="l58" class='ln'>58</a></td><td>  <a id="58c3" class="tk">real_T</a> <a id="58c10" class="tk">c_Sx</a>[360];</td></tr>
+<tr name="59" id="59">
+<td><a id="l59" class='ln'>59</a></td><td>  <a id="59c3" class="tk">real_T</a> <a id="59c10" class="tk">MuCC</a>[320];</td></tr>
+<tr name="60" id="60">
+<td><a id="l60" class='ln'>60</a></td><td>  <a id="60c3" class="tk">real_T</a> <a id="60c10" class="tk">b_Jm</a>[320];</td></tr>
+<tr name="61" id="61">
+<td><a id="l61" class='ln'>61</a></td><td>  <a id="61c3" class="tk">real_T</a> <a id="61c10" class="tk">dv2</a>[320];</td></tr>
+<tr name="62" id="62">
+<td><a id="l62" class='ln'>62</a></td><td>  <a id="62c3" class="tk">real_T</a> <a id="62c10" class="tk">Fp1_c</a>[320];</td></tr>
+<tr name="63" id="63">
+<td><a id="l63" class='ln'>63</a></td><td>  <a id="63c3" class="tk">real_T</a> <a id="63c10" class="tk">c_Kut</a>[300];</td></tr>
+<tr name="64" id="64">
+<td><a id="l64" class='ln'>64</a></td><td>  <a id="64c3" class="tk">real_T</a> <a id="64c10" class="tk">a</a>[300];</td></tr>
+<tr name="65" id="65">
+<td><a id="l65" class='ln'>65</a></td><td>  <a id="65c3" class="tk">real_T</a> <a id="65c10" class="tk">dv3</a>[300];</td></tr>
+<tr name="66" id="66">
+<td><a id="l66" class='ln'>66</a></td><td>  <a id="66c3" class="tk">real_T</a> <a id="66c10" class="tk">c_I</a>[256];</td></tr>
+<tr name="67" id="67">
+<td><a id="l67" class='ln'>67</a></td><td>  <a id="67c3" class="tk">real_T</a> <a id="67c10" class="tk">Bu</a>[192];</td></tr>
+<tr name="68" id="68">
+<td><a id="l68" class='ln'>68</a></td><td>  <a id="68c3" class="tk">real_T</a> <a id="68c10" class="tk">MxCC</a>[192];</td></tr>
+<tr name="69" id="69">
+<td><a id="l69" class='ln'>69</a></td><td>  <a id="69c3" class="tk">real_T</a> <a id="69c10" class="tk">v</a>[174];</td></tr>
+<tr name="70" id="70">
+<td><a id="l70" class='ln'>70</a></td><td>  <a id="70c3" class="tk">real_T</a> <a id="70c10" class="tk">c_Kv</a>[160];</td></tr>
+<tr name="71" id="71">
+<td><a id="l71" class='ln'>71</a></td><td>  <a id="71c3" class="tk">real_T</a> <a id="71c10" class="tk">dv4</a>[128];</td></tr>
+<tr name="72" id="72">
+<td><a id="l72" class='ln'>72</a></td><td>  <a id="72c3" class="tk">real_T</a> <a id="72c10" class="tk">w</a>[121];</td></tr>
+<tr name="73" id="73">
+<td><a id="l73" class='ln'>73</a></td><td>  <a id="73c3" class="tk">real_T</a> <a id="73c10" class="tk">c_Linv</a>[121];</td></tr>
+<tr name="74" id="74">
+<td><a id="l74" class='ln'>74</a></td><td>  <a id="74c3" class="tk">real_T</a> <a id="74c10" class="tk">d_Linv</a>[121];</td></tr>
+<tr name="75" id="75">
+<td><a id="l75" class='ln'>75</a></td><td>  <a id="75c3" class="tk">real_T</a> <a id="75c10" class="tk">RLinv</a>[121];</td></tr>
+<tr name="76" id="76">
+<td><a id="l76" class='ln'>76</a></td><td>  <a id="76c3" class="tk">real_T</a> <a id="76c10" class="tk">b_D</a>[121];</td></tr>
+<tr name="77" id="77">
+<td><a id="l77" class='ln'>77</a></td><td>  <a id="77c3" class="tk">real_T</a> <a id="77c10" class="tk">b_H</a>[121];</td></tr>
+<tr name="78" id="78">
+<td><a id="l78" class='ln'>78</a></td><td>  <a id="78c3" class="tk">real_T</a> <a id="78c10" class="tk">U</a>[121];</td></tr>
+<tr name="79" id="79">
+<td><a id="l79" class='ln'>79</a></td><td>  <a id="79c3" class="tk">real_T</a> <a id="79c10" class="tk">TL</a>[121];</td></tr>
+<tr name="80" id="80">
+<td><a id="l80" class='ln'>80</a></td><td>  <a id="80c3" class="tk">real_T</a> <a id="80c10" class="tk">QQ</a>[121];</td></tr>
+<tr name="81" id="81">
+<td><a id="l81" class='ln'>81</a></td><td>  <a id="81c3" class="tk">real_T</a> <a id="81c10" class="tk">RR</a>[121];</td></tr>
+<tr name="82" id="82">
+<td><a id="l82" class='ln'>82</a></td><td>  <a id="82c3" class="tk">real_T</a> <a id="82c10" class="tk">c_A</a>[121];</td></tr>
+<tr name="83" id="83">
+<td><a id="l83" class='ln'>83</a></td><td>  <a id="83c3" class="tk">real_T</a> <a id="83c10" class="tk">c_Su1</a>[120];</td></tr>
+<tr name="84" id="84">
+<td><a id="l84" class='ln'>84</a></td><td>  <a id="84c3" class="tk">real_T</a> <a id="84c10" class="tk">Sum</a>[120];</td></tr>
+<tr name="85" id="85">
+<td><a id="l85" class='ln'>85</a></td><td>  <a id="85c3" class="tk">int8_T</a> <a id="85c10" class="tk">a_k</a>[900];</td></tr>
+<tr name="86" id="86">
+<td><a id="l86" class='ln'>86</a></td><td>  <a id="86c3" class="tk">real_T</a> <a id="86c10" class="tk">b</a>[100];</td></tr>
+<tr name="87" id="87">
+<td><a id="l87" class='ln'>87</a></td><td>  <a id="87c3" class="tk">real_T</a> <a id="87c10" class="tk">b_SuJm</a>[100];</td></tr>
+<tr name="88" id="88">
+<td><a id="l88" class='ln'>88</a></td><td>  <a id="88c3" class="tk">real_T</a> <a id="88c10" class="tk">b_Jm_c</a>[100];</td></tr>
+<tr name="89" id="89">
+<td><a id="l89" class='ln'>89</a></td><td>  <a id="89c3" class="tk">real_T</a> <a id="89c10" class="tk">CovMat</a>[100];</td></tr>
+<tr name="90" id="90">
+<td><a id="l90" class='ln'>90</a></td><td>  <a id="90c3" class="tk">real_T</a> <a id="90c10" class="tk">Bv</a>[96];</td></tr>
+<tr name="91" id="91">
+<td><a id="l91" class='ln'>91</a></td><td>  <a id="91c3" class="tk">real_T</a> <a id="91c10" class="tk">b_Mlim</a>[87];</td></tr>
+<tr name="92" id="92">
+<td><a id="l92" class='ln'>92</a></td><td>  <a id="92c3" class="tk">real_T</a> <a id="92c10" class="tk">b_Mlim_b</a>[87];</td></tr>
+<tr name="93" id="93">
+<td><a id="l93" class='ln'>93</a></td><td>  <a id="93c3" class="tk">real_T</a> <a id="93c10" class="tk">b_Mu1</a>[87];</td></tr>
+<tr name="94" id="94">
+<td><a id="l94" class='ln'>94</a></td><td>  <a id="94c3" class="tk">real_T</a> <a id="94c10" class="tk">b_Mlim_p</a>[87];</td></tr>
+<tr name="95" id="95">
+<td><a id="l95" class='ln'>95</a></td><td>  <a id="95c3" class="tk">real_T</a> <a id="95c10" class="tk">a__1</a>[87];</td></tr>
+<tr name="96" id="96">
+<td><a id="l96" class='ln'>96</a></td><td>  <a id="96c3" class="tk">real_T</a> <a id="96c10" class="tk">cTol</a>[87];</td></tr>
+<tr name="97" id="97">
+<td><a id="l97" class='ln'>97</a></td><td>  <a id="97c3" class="tk">real_T</a> <a id="97c10" class="tk">dv5</a>[87];</td></tr>
+<tr name="98" id="98">
+<td><a id="l98" class='ln'>98</a></td><td>  <a id="98c3" class="tk">real_T</a> <a id="98c10" class="tk">b_B</a>[80];</td></tr>
+<tr name="99" id="99">
+<td><a id="l99" class='ln'>99</a></td><td>  <a id="99c3" class="tk">real_T</a> <a id="99c10" class="tk">b_B_c</a>[80];</td></tr>
+<tr name="100" id="100">
+<td><a id="l100" class='ln'>100</a></td><td>  <a id="100c3" class="tk">real_T</a> <a id="100c10" class="tk">Dv_f</a>[64];</td></tr>
+<tr name="101" id="101">
+<td><a id="l101" class='ln'>101</a></td><td>  <a id="101c3" class="tk">real_T</a> <a id="101c10" class="tk">Dvm</a>[64];</td></tr>
+<tr name="102" id="102">
+<td><a id="l102" class='ln'>102</a></td><td>  <a id="102c3" class="tk">real_T</a> <a id="102c10" class="tk">Mu1CC</a>[64];</td></tr>
+<tr name="103" id="103">
+<td><a id="l103" class='ln'>103</a></td><td>  <a id="103c3" class="tk">real_T</a> <a id="103c10" class="tk">Ep1_g</a>[64];</td></tr>
+<tr name="104" id="104">
+<td><a id="l104" class='ln'>104</a></td><td>  <a id="104c3" class="tk">real_T</a> <a id="104c10" class="tk">Fp1_g</a>[64];</td></tr>
+<tr name="105" id="105">
+<td><a id="l105" class='ln'>105</a></td><td>  <a id="105c3" class="tk">real_T</a> <a id="105c10" class="tk">CA</a>[64];</td></tr>
+<tr name="106" id="106">
+<td><a id="l106" class='ln'>106</a></td><td>  <a id="106c3" class="tk">real_T</a> <a id="106c10" class="tk">rseq</a>[60];</td></tr>
+<tr name="107" id="107">
+<td><a id="l107" class='ln'>107</a></td><td>  <a id="107c3" class="tk">real_T</a> <a id="107c10" class="tk">c_Kx</a>[60];</td></tr>
+<tr name="108" id="108">
+<td><a id="l108" class='ln'>108</a></td><td>  <a id="108c3" class="tk">real_T</a> <a id="108c10" class="tk">d</a>[54];</td></tr>
+<tr name="109" id="109">
+<td><a id="l109" class='ln'>109</a></td><td>  <a id="109c3" class="tk">real_T</a> <a id="109c10" class="tk">M</a>[36];</td></tr>
+<tr name="110" id="110">
+<td><a id="l110" class='ln'>110</a></td><td>  <a id="110c3" class="tk">real_T</a> <a id="110c10" class="tk">A</a>[36];</td></tr>
+<tr name="111" id="111">
+<td><a id="l111" class='ln'>111</a></td><td>  <a id="111c3" class="tk">real_T</a> <a id="111c10" class="tk">A_m</a>[36];</td></tr>
+<tr name="112" id="112">
+<td><a id="l112" class='ln'>112</a></td><td>  <a id="112c3" class="tk">real_T</a> <a id="112c10" class="tk">L_tmp</a>[36];</td></tr>
+<tr name="113" id="113">
+<td><a id="l113" class='ln'>113</a></td><td>  <a id="113c3" class="tk">real_T</a> <a id="113c10" class="tk">L_tmp_n</a>[36];</td></tr>
+<tr name="114" id="114">
+<td><a id="l114" class='ln'>114</a></td><td>  <a id="114c3" class="tk">real_T</a> <a id="114c10" class="tk">A2</a>[36];</td></tr>
+<tr name="115" id="115">
+<td><a id="l115" class='ln'>115</a></td><td>  <a id="115c3" class="tk">real_T</a> <a id="115c10" class="tk">U_p</a>[36];</td></tr>
+<tr name="116" id="116">
+<td><a id="l116" class='ln'>116</a></td><td>  <a id="116c3" class="tk">real_T</a> <a id="116c10" class="tk">V</a>[36];</td></tr>
+<tr name="117" id="117">
+<td><a id="l117" class='ln'>117</a></td><td>  <a id="117c3" class="tk">real_T</a> <a id="117c10" class="tk">A3</a>[36];</td></tr>
+<tr name="118" id="118">
+<td><a id="l118" class='ln'>118</a></td><td>  <a id="118c3" class="tk">real_T</a> <a id="118c10" class="tk">A4</a>[36];</td></tr>
+<tr name="119" id="119">
+<td><a id="l119" class='ln'>119</a></td><td>  <a id="119c3" class="tk">real_T</a> <a id="119c10" class="tk">A4_l</a>[36];</td></tr>
+<tr name="120" id="120">
+<td><a id="l120" class='ln'>120</a></td><td>  <a id="120c3" class="tk">real_T</a> <a id="120c10" class="tk">b_A</a>[36];</td></tr>
+<tr name="121" id="121">
+<td><a id="l121" class='ln'>121</a></td><td>  <a id="121c3" class="tk">real_T</a> <a id="121c10" class="tk">useq</a>[32];                     <span class="ct">/* '<a class="ct blk" blk_line="121">&lt;S36&gt;/FixedHorizonOptimizer</a>' */</span></td></tr>
+<tr name="122" id="122">
+<td><a id="l122" class='ln'>122</a></td><td>  <a id="122c3" class="tk">real_T</a> <a id="122c10" class="tk">E</a>[32];</td></tr>
+<tr name="123" id="123">
+<td><a id="l123" class='ln'>123</a></td><td>  <a id="123c3" class="tk">real_T</a> <a id="123c10" class="tk">b_utarget</a>[30];</td></tr>
+<tr name="124" id="124">
+<td><a id="l124" class='ln'>124</a></td><td>  <a id="124c3" class="tk">real_T</a> <a id="124c10" class="tk">L</a>[24];</td></tr>
+<tr name="125" id="125">
+<td><a id="l125" class='ln'>125</a></td><td>  <a id="125c3" class="tk">real_T</a> <a id="125c10" class="tk">b_C_j</a>[24];</td></tr>
+<tr name="126" id="126">
+<td><a id="l126" class='ln'>126</a></td><td>  <a id="126c3" class="tk">real_T</a> <a id="126c10" class="tk">Nk</a>[24];</td></tr>
+<tr name="127" id="127">
+<td><a id="l127" class='ln'>127</a></td><td>  <a id="127c3" class="tk">real_T</a> <a id="127c10" class="tk">Cm_d</a>[24];</td></tr>
+<tr name="128" id="128">
+<td><a id="l128" class='ln'>128</a></td><td>  <a id="128c3" class="tk">real_T</a> <a id="128c10" class="tk">dv6</a>[24];</td></tr>
+<tr name="129" id="129">
+<td><a id="l129" class='ln'>129</a></td><td>  <a id="129c3" class="tk">real_T</a> <a id="129c10" class="tk">CA_g</a>[24];</td></tr>
+<tr name="130" id="130">
+<td><a id="l130" class='ln'>130</a></td><td>  <a id="130c3" class="tk">real_T</a> <a id="130c10" class="tk">CA_l</a>[24];</td></tr>
+<tr name="131" id="131">
+<td><a id="l131" class='ln'>131</a></td><td>  <a id="131c3" class="tk">real_T</a> <a id="131c10" class="tk">Opt</a>[22];</td></tr>
+<tr name="132" id="132">
+<td><a id="l132" class='ln'>132</a></td><td>  <a id="132c3" class="tk">real_T</a> <a id="132c10" class="tk">Rhs</a>[22];</td></tr>
+<tr name="133" id="133">
+<td><a id="l133" class='ln'>133</a></td><td>  <a id="133c3" class="tk">int16_T</a> <a id="133c11" class="tk">iAnew</a>[87];</td></tr>
+<tr name="134" id="134">
+<td><a id="l134" class='ln'>134</a></td><td>  <a id="134c3" class="tk">int16_T</a> <a id="134c11" class="tk">iC</a>[87];</td></tr>
+<tr name="135" id="135">
+<td><a id="l135" class='ln'>135</a></td><td>  <a id="135c3" class="tk">real_T</a> <a id="135c10" class="tk">c_Ku1</a>[20];</td></tr>
+<tr name="136" id="136">
+<td><a id="l136" class='ln'>136</a></td><td>  <a id="136c3" class="tk">real_T</a> <a id="136c10" class="tk">b_Su1</a>[20];</td></tr>
+<tr name="137" id="137">
+<td><a id="l137" class='ln'>137</a></td><td>  <a id="137c3" class="tk">real_T</a> <a id="137c10" class="tk">b_I1</a>[20];</td></tr>
+<tr name="138" id="138">
+<td><a id="l138" class='ln'>138</a></td><td>  <a id="138c3" class="tk">real_T</a> <a id="138c10" class="tk">Kinv</a>[16];</td></tr>
+<tr name="139" id="139">
+<td><a id="l139" class='ln'>139</a></td><td>  <a id="139c3" class="tk">real_T</a> <a id="139c10" class="tk">C</a>[16];                        <span class="ct">/* '<a class="ct blk" blk_line="139">&lt;S3&gt;/Plant Model Generator</a>' */</span></td></tr>
+<tr name="140" id="140">
+<td><a id="l140" class='ln'>140</a></td><td>  <a id="140c3" class="tk">real_T</a> <a id="140c10" class="tk">A_d</a>[16];                      <span class="ct">/* '<a class="ct blk" blk_line="140">&lt;S3&gt;/Plant Model Generator</a>' */</span></td></tr>
+<tr name="141" id="141">
+<td><a id="l141" class='ln'>141</a></td><td>  <a id="141c3" class="tk">real_T</a> <a id="141c10" class="tk">Cm_dy</a>[16];</td></tr>
+<tr name="142" id="142">
+<td><a id="l142" class='ln'>142</a></td><td>  <a id="142c3" class="tk">real_T</a> <a id="142c10" class="tk">c_A_l</a>[16];</td></tr>
+<tr name="143" id="143">
+<td><a id="l143" class='ln'>143</a></td><td>  <a id="143c3" class="tk">int8_T</a> <a id="143c10" class="tk">c_I_o</a>[121];</td></tr>
+<tr name="144" id="144">
+<td><a id="l144" class='ln'>144</a></td><td>  <a id="144c3" class="tk">int8_T</a> <a id="144c10" class="tk">b_b</a>[121];</td></tr>
+<tr name="145" id="145">
+<td><a id="l145" class='ln'>145</a></td><td>  <a id="145c3" class="tk">real_T</a> <a id="145c10" class="tk">x</a>[15];</td></tr>
+<tr name="146" id="146">
+<td><a id="l146" class='ln'>146</a></td><td>  <a id="146c3" class="tk">real_T</a> <a id="146c10" class="tk">zopt</a>[11];</td></tr>
+<tr name="147" id="147">
+<td><a id="l147" class='ln'>147</a></td><td>  <a id="147c3" class="tk">real_T</a> <a id="147c10" class="tk">f</a>[11];</td></tr>
+<tr name="148" id="148">
+<td><a id="l148" class='ln'>148</a></td><td>  <a id="148c3" class="tk">real_T</a> <a id="148c10" class="tk">r</a>[11];</td></tr>
+<tr name="149" id="149">
+<td><a id="l149" class='ln'>149</a></td><td>  <a id="149c3" class="tk">real_T</a> <a id="149c10" class="tk">z</a>[11];</td></tr>
+<tr name="150" id="150">
+<td><a id="l150" class='ln'>150</a></td><td>  <a id="150c3" class="tk">real_T</a> <a id="150c10" class="tk">b_Ac</a>[11];</td></tr>
+<tr name="151" id="151">
+<td><a id="l151" class='ln'>151</a></td><td>  <a id="151c3" class="tk">real_T</a> <a id="151c10" class="tk">tau</a>[11];</td></tr>
+<tr name="152" id="152">
+<td><a id="l152" class='ln'>152</a></td><td>  <a id="152c3" class="tk">real_T</a> <a id="152c10" class="tk">work</a>[11];</td></tr>
+<tr name="153" id="153">
+<td><a id="l153" class='ln'>153</a></td><td>  <a id="153c3" class="tk">real_T</a> <a id="153c10" class="tk">varargin_1</a>[11];</td></tr>
+<tr name="154" id="154">
+<td><a id="l154" class='ln'>154</a></td><td>  <a id="154c3" class="tk">real_T</a> <a id="154c10" class="tk">work_n</a>[11];</td></tr>
+<tr name="155" id="155">
+<td><a id="l155" class='ln'>155</a></td><td>  <a id="155c3" class="tk">boolean_T</a> <a id="155c13" class="tk">bv</a>[87];</td></tr>
+<tr name="156" id="156">
+<td><a id="l156" class='ln'>156</a></td><td>  <a id="156c3" class="tk">int8_T</a> <a id="156c10" class="tk">b_I1_b</a>[64];</td></tr>
+<tr name="157" id="157">
+<td><a id="l157" class='ln'>157</a></td><td>  <a id="157c3" class="tk">real_T</a> <a id="157c10" class="tk">B</a>[8];                         <span class="ct">/* '<a class="ct blk" blk_line="157">&lt;S3&gt;/Plant Model Generator</a>' */</span></td></tr>
+<tr name="158" id="158">
+<td><a id="l158" class='ln'>158</a></td><td>  <a id="158c3" class="tk">real_T</a> <a id="158c10" class="tk">F</a>[8];                         <span class="ct">/* '<a class="ct blk" blk_line="158">&lt;S2&gt;/MATLAB Function</a>' */</span></td></tr>
+<tr name="159" id="159">
+<td><a id="l159" class='ln'>159</a></td><td>  <a id="159c3" class="tk">real_T</a> <a id="159c10" class="tk">rtb_B_l</a>[8];</td></tr>
+<tr name="160" id="160">
+<td><a id="l160" class='ln'>160</a></td><td>  <a id="160c3" class="tk">real_T</a> <a id="160c10" class="tk">Sum_h</a>[8];</td></tr>
+<tr name="161" id="161">
+<td><a id="l161" class='ln'>161</a></td><td>  <a id="161c3" class="tk">real_T</a> <a id="161c10" class="tk">xk</a>[6];</td></tr>
+<tr name="162" id="162">
+<td><a id="l162" class='ln'>162</a></td><td>  <a id="162c3" class="tk">real_T</a> <a id="162c10" class="tk">b_xoff</a>[6];</td></tr>
+<tr name="163" id="163">
+<td><a id="l163" class='ln'>163</a></td><td>  <a id="163c3" class="tk">real_T</a> <a id="163c10" class="tk">xk_b</a>[6];</td></tr>
+<tr name="164" id="164">
+<td><a id="l164" class='ln'>164</a></td><td>  <a id="164c3" class="tk">real_T</a> <a id="164c10" class="tk">Bu_d</a>[6];</td></tr>
+<tr name="165" id="165">
+<td><a id="l165" class='ln'>165</a></td><td>  <a id="165c3" class="tk">real_T</a> <a id="165c10" class="tk">y_innov</a>[4];</td></tr>
+<tr name="166" id="166">
+<td><a id="l166" class='ln'>166</a></td><td>  <a id="166c3" class="tk">real_T</a> <a id="166c10" class="tk">b_myoff</a>[4];</td></tr>
+<tr name="167" id="167">
+<td><a id="l167" class='ln'>167</a></td><td>  <a id="167c3" class="tk">real_T</a> <a id="167c10" class="tk">rtb_C_e</a>[4];</td></tr>
+<tr name="168" id="168">
+<td><a id="l168" class='ln'>168</a></td><td>  <a id="168c3" class="tk">real_T</a> <a id="168c10" class="tk">rtb_A_b</a>[4];</td></tr>
+<tr name="169" id="169">
+<td><a id="l169" class='ln'>169</a></td><td>  <a id="169c3" class="tk">real_T</a> <a id="169c10" class="tk">rtb_B_j</a>[4];</td></tr>
+<tr name="170" id="170">
+<td><a id="l170" class='ln'>170</a></td><td>  <a id="170c3" class="tk">real_T</a> <a id="170c10" class="tk">rtb_C_f</a>[4];</td></tr>
+<tr name="171" id="171">
+<td><a id="l171" class='ln'>171</a></td><td>  <a id="171c3" class="tk">real_T</a> <a id="171c10" class="tk">dv7</a>[4];</td></tr>
+<tr name="172" id="172">
+<td><a id="l172" class='ln'>172</a></td><td>  <a id="172c3" class="tk">real_T</a> <a id="172c10" class="tk">rtb_A_a</a>[4];</td></tr>
+<tr name="173" id="173">
+<td><a id="l173" class='ln'>173</a></td><td>  <a id="173c3" class="tk">real_T</a> <a id="173c10" class="tk">c_Wy</a>[4];</td></tr>
+<tr name="174" id="174">
+<td><a id="l174" class='ln'>174</a></td><td>  <a id="174c3" class="tk">real_T</a> <a id="174c10" class="tk">b_I</a>[4];</td></tr>
+<tr name="175" id="175">
+<td><a id="l175" class='ln'>175</a></td><td>  <a id="175c3" class="tk">real_T</a> <a id="175c10" class="tk">b_C_ju</a>[4];</td></tr>
+<tr name="176" id="176">
+<td><a id="l176" class='ln'>176</a></td><td>  <a id="176c3" class="tk">real_T</a> <a id="176c10" class="tk">b_uoff</a>[2];</td></tr>
+<tr name="177" id="177">
+<td><a id="l177" class='ln'>177</a></td><td>  <a id="177c3" class="tk">real_T</a> <a id="177c10" class="tk">G</a>[2];                         <span class="ct">/* '<a class="ct blk" blk_line="177">&lt;S2&gt;/MATLAB Function</a>' */</span></td></tr>
+<tr name="178" id="178">
+<td><a id="l178" class='ln'>178</a></td><td>  <a id="178c3" class="tk">real_T</a> <a id="178c10" class="tk">dv8</a>[2];</td></tr>
+<tr name="179" id="179">
+<td><a id="l179" class='ln'>179</a></td><td>  <a id="179c3" class="tk">real_T</a> <a id="179c10" class="tk">dv9</a>[2];</td></tr>
+<tr name="180" id="180">
+<td><a id="l180" class='ln'>180</a></td><td>  <a id="180c3" class="tk">real_T</a> <a id="180c10" class="tk">dv10</a>[2];</td></tr>
+<tr name="181" id="181">
+<td><a id="l181" class='ln'>181</a></td><td>  <a id="181c3" class="tk">real_T</a> <a id="181c10" class="tk">c_Wu</a>[2];</td></tr>
+<tr name="182" id="182">
+<td><a id="l182" class='ln'>182</a></td><td>  <a id="182c3" class="tk">real_T</a> <a id="182c10" class="tk">c_Wdu</a>[2];</td></tr>
+<tr name="183" id="183">
+<td><a id="l183" class='ln'>183</a></td><td>  <a id="183c3" class="tk">real_T</a> <a id="183c10" class="tk">E_j</a>[2];</td></tr>
+<tr name="184" id="184">
+<td><a id="l184" class='ln'>184</a></td><td>  <a id="184c3" class="tk">real_T</a> <a id="184c10" class="tk">F_o</a>[2];</td></tr>
+<tr name="185" id="185">
+<td><a id="l185" class='ln'>185</a></td><td>  <a id="185c3" class="tk">real_T</a> <a id="185c10" class="tk">carLength</a>;</td></tr>
+<tr name="186" id="186">
+<td><a id="l186" class='ln'>186</a></td><td>  <a id="186c3" class="tk">real_T</a> <a id="186c10" class="tk">b_s</a>;</td></tr>
+<tr name="187" id="187">
+<td><a id="l187" class='ln'>187</a></td><td>  <a id="187c3" class="tk">real_T</a> <a id="187c10" class="tk">q2</a>;</td></tr>
+<tr name="188" id="188">
+<td><a id="l188" class='ln'>188</a></td><td>  <a id="188c3" class="tk">real_T</a> <a id="188c10" class="tk">constraintIntercept</a>;</td></tr>
+<tr name="189" id="189">
+<td><a id="l189" class='ln'>189</a></td><td>  <a id="189c3" class="tk">real_T</a> <a id="189c10" class="tk">Curvature</a>;                    <span class="ct">/* '<a class="ct blk" blk_line="189">&lt;S4&gt;/MATLAB Function</a>' */</span></td></tr>
+<tr name="190" id="190">
+<td><a id="l190" class='ln'>190</a></td><td>  <a id="190c3" class="tk">real_T</a> <a id="190c10" class="tk">BadH</a>;</td></tr>
+<tr name="191" id="191">
+<td><a id="l191" class='ln'>191</a></td><td>  <a id="191c3" class="tk">real_T</a> <a id="191c10" class="tk">Fp1_tmp</a>;</td></tr>
+<tr name="192" id="192">
+<td><a id="l192" class='ln'>192</a></td><td>  <a id="192c3" class="tk">real_T</a> <a id="192c10" class="tk">K_tmp</a>;</td></tr>
+<tr name="193" id="193">
+<td><a id="l193" class='ln'>193</a></td><td>  <a id="193c3" class="tk">real_T</a> <a id="193c10" class="tk">b_Kx</a>;</td></tr>
+<tr name="194" id="194">
+<td><a id="l194" class='ln'>194</a></td><td>  <a id="194c3" class="tk">real_T</a> <a id="194c10" class="tk">b_Kr</a>;</td></tr>
+<tr name="195" id="195">
+<td><a id="l195" class='ln'>195</a></td><td>  <a id="195c3" class="tk">real_T</a> <a id="195c10" class="tk">b_Kv</a>;</td></tr>
+<tr name="196" id="196">
+<td><a id="l196" class='ln'>196</a></td><td>  <a id="196c3" class="tk">real_T</a> <a id="196c10" class="tk">b_Kut</a>;</td></tr>
+<tr name="197" id="197">
+<td><a id="l197" class='ln'>197</a></td><td>  <a id="197c3" class="tk">real_T</a> <a id="197c10" class="tk">rMin</a>;</td></tr>
+<tr name="198" id="198">
+<td><a id="l198" class='ln'>198</a></td><td>  <a id="198c3" class="tk">real_T</a> <a id="198c10" class="tk">Xnorm0</a>;</td></tr>
+<tr name="199" id="199">
+<td><a id="l199" class='ln'>199</a></td><td>  <a id="199c3" class="tk">real_T</a> <a id="199c10" class="tk">cMin</a>;</td></tr>
+<tr name="200" id="200">
+<td><a id="l200" class='ln'>200</a></td><td>  <a id="200c3" class="tk">real_T</a> <a id="200c10" class="tk">cVal</a>;</td></tr>
+<tr name="201" id="201">
+<td><a id="l201" class='ln'>201</a></td><td>  <a id="201c3" class="tk">real_T</a> <a id="201c10" class="tk">zTa</a>;</td></tr>
+<tr name="202" id="202">
+<td><a id="l202" class='ln'>202</a></td><td>  <a id="202c3" class="tk">real_T</a> <a id="202c10" class="tk">b_Linv</a>;</td></tr>
+<tr name="203" id="203">
+<td><a id="l203" class='ln'>203</a></td><td>  <a id="203c3" class="tk">real_T</a> <a id="203c10" class="tk">b_atmp</a>;</td></tr>
+<tr name="204" id="204">
+<td><a id="l204" class='ln'>204</a></td><td>  <a id="204c3" class="tk">real_T</a> <a id="204c10" class="tk">beta1</a>;</td></tr>
+<tr name="205" id="205">
+<td><a id="l205" class='ln'>205</a></td><td>  <a id="205c3" class="tk">real_T</a> <a id="205c10" class="tk">temp</a>;</td></tr>
+<tr name="206" id="206">
+<td><a id="l206" class='ln'>206</a></td><td>  <a id="206c3" class="tk">real_T</a> <a id="206c10" class="tk">d_n</a>;</td></tr>
+<tr name="207" id="207">
+<td><a id="l207" class='ln'>207</a></td><td>  <a id="207c3" class="tk">real_T</a> <a id="207c10" class="tk">smax</a>;</td></tr>
+<tr name="208" id="208">
+<td><a id="l208" class='ln'>208</a></td><td>  <a id="208c3" class="tk">real_T</a> <a id="208c10" class="tk">normH</a>;</td></tr>
+<tr name="209" id="209">
+<td><a id="l209" class='ln'>209</a></td><td>  <a id="209c3" class="tk">real_T</a> <a id="209c10" class="tk">s</a>;</td></tr>
+<tr name="210" id="210">
+<td><a id="l210" class='ln'>210</a></td><td>  <a id="210c3" class="tk">real_T</a> <a id="210c10" class="tk">c</a>;</td></tr>
+<tr name="211" id="211">
+<td><a id="l211" class='ln'>211</a></td><td>  <a id="211c3" class="tk">real_T</a> <a id="211c10" class="tk">scale</a>;</td></tr>
+<tr name="212" id="212">
+<td><a id="l212" class='ln'>212</a></td><td>  <a id="212c3" class="tk">int8_T</a> <a id="212c10" class="tk">b_I_i</a>[4];</td></tr>
+<tr name="213" id="213">
+<td><a id="l213" class='ln'>213</a></td><td>  <a id="213c3" class="tk">int32_T</a> <a id="213c11" class="tk">j</a>;</td></tr>
+<tr name="214" id="214">
+<td><a id="l214" class='ln'>214</a></td><td>  <a id="214c3" class="tk">int32_T</a> <a id="214c11" class="tk">b_j</a>;</td></tr>
+<tr name="215" id="215">
+<td><a id="l215" class='ln'>215</a></td><td>  <a id="215c3" class="tk">int32_T</a> <a id="215c11" class="tk">b_i</a>;</td></tr>
+<tr name="216" id="216">
+<td><a id="l216" class='ln'>216</a></td><td>  <a id="216c3" class="tk">int32_T</a> <a id="216c11" class="tk">e</a>;</td></tr>
+<tr name="217" id="217">
+<td><a id="l217" class='ln'>217</a></td><td>  <a id="217c3" class="tk">int32_T</a> <a id="217c11" class="tk">M_tmp</a>;</td></tr>
+<tr name="218" id="218">
+<td><a id="l218" class='ln'>218</a></td><td>  <a id="218c3" class="tk">int32_T</a> <a id="218c11" class="tk">kidx</a>;</td></tr>
+<tr name="219" id="219">
+<td><a id="l219" class='ln'>219</a></td><td>  <a id="219c3" class="tk">int32_T</a> <a id="219c11" class="tk">b_j1</a>;</td></tr>
+<tr name="220" id="220">
+<td><a id="l220" class='ln'>220</a></td><td>  <a id="220c3" class="tk">int32_T</a> <a id="220c11" class="tk">j2</a>;</td></tr>
+<tr name="221" id="221">
+<td><a id="l221" class='ln'>221</a></td><td>  <a id="221c3" class="tk">int32_T</a> <a id="221c11" class="tk">i1</a>;</td></tr>
+<tr name="222" id="222">
+<td><a id="l222" class='ln'>222</a></td><td>  <a id="222c3" class="tk">int32_T</a> <a id="222c11" class="tk">i</a>;</td></tr>
+<tr name="223" id="223">
+<td><a id="l223" class='ln'>223</a></td><td>  <a id="223c3" class="tk">int32_T</a> <a id="223c11" class="tk">a_tmp</a>;</td></tr>
+<tr name="224" id="224">
+<td><a id="l224" class='ln'>224</a></td><td>  <a id="224c3" class="tk">int32_T</a> <a id="224c11" class="tk">i_o</a>;</td></tr>
+<tr name="225" id="225">
+<td><a id="l225" class='ln'>225</a></td><td>  <a id="225c3" class="tk">int32_T</a> <a id="225c11" class="tk">f_tmp</a>;</td></tr>
+<tr name="226" id="226">
+<td><a id="l226" class='ln'>226</a></td><td>  <a id="226c3" class="tk">int32_T</a> <a id="226c11" class="tk">b_k</a>;</td></tr>
+<tr name="227" id="227">
+<td><a id="l227" class='ln'>227</a></td><td>  <a id="227c3" class="tk">int32_T</a> <a id="227c11" class="tk">c_k</a>;</td></tr>
+<tr name="228" id="228">
+<td><a id="l228" class='ln'>228</a></td><td>  <a id="228c3" class="tk">int32_T</a> <a id="228c11" class="tk">ct</a>;</td></tr>
+<tr name="229" id="229">
+<td><a id="l229" class='ln'>229</a></td><td>  <a id="229c3" class="tk">int32_T</a> <a id="229c11" class="tk">i_n</a>;</td></tr>
+<tr name="230" id="230">
+<td><a id="l230" class='ln'>230</a></td><td>  <a id="230c3" class="tk">int32_T</a> <a id="230c11" class="tk">i_m</a>;</td></tr>
+<tr name="231" id="231">
+<td><a id="l231" class='ln'>231</a></td><td>  <a id="231c3" class="tk">int32_T</a> <a id="231c11" class="tk">i_c</a>;</td></tr>
+<tr name="232" id="232">
+<td><a id="l232" class='ln'>232</a></td><td>  <a id="232c3" class="tk">int32_T</a> <a id="232c11" class="tk">b_i_m</a>;</td></tr>
+<tr name="233" id="233">
+<td><a id="l233" class='ln'>233</a></td><td>  <a id="233c3" class="tk">int32_T</a> <a id="233c11" class="tk">c_i</a>;</td></tr>
+<tr name="234" id="234">
+<td><a id="l234" class='ln'>234</a></td><td>  <a id="234c3" class="tk">int32_T</a> <a id="234c11" class="tk">e_i</a>;</td></tr>
+<tr name="235" id="235">
+<td><a id="l235" class='ln'>235</a></td><td>  <a id="235c3" class="tk">int32_T</a> <a id="235c11" class="tk">iC_m</a>;</td></tr>
+<tr name="236" id="236">
+<td><a id="l236" class='ln'>236</a></td><td>  <a id="236c3" class="tk">int32_T</a> <a id="236c11" class="tk">j_j</a>;</td></tr>
+<tr name="237" id="237">
+<td><a id="l237" class='ln'>237</a></td><td>  <a id="237c3" class="tk">int32_T</a> <a id="237c11" class="tk">i_h</a>;</td></tr>
+<tr name="238" id="238">
+<td><a id="l238" class='ln'>238</a></td><td>  <a id="238c3" class="tk">int32_T</a> <a id="238c11" class="tk">ii</a>;</td></tr>
+<tr name="239" id="239">
+<td><a id="l239" class='ln'>239</a></td><td>  <a id="239c3" class="tk">int32_T</a> <a id="239c11" class="tk">knt</a>;</td></tr>
+<tr name="240" id="240">
+<td><a id="l240" class='ln'>240</a></td><td>  <a id="240c3" class="tk">int32_T</a> <a id="240c11" class="tk">itau</a>;</td></tr>
+<tr name="241" id="241">
+<td><a id="l241" class='ln'>241</a></td><td>  <a id="241c3" class="tk">int32_T</a> <a id="241c11" class="tk">iaii</a>;</td></tr>
+<tr name="242" id="242">
+<td><a id="l242" class='ln'>242</a></td><td>  <a id="242c3" class="tk">int32_T</a> <a id="242c11" class="tk">lastv</a>;</td></tr>
+<tr name="243" id="243">
+<td><a id="l243" class='ln'>243</a></td><td><span class="br">}</span> <a id="243c3" class="tk">B_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="244" id="244">
+<td><a id="l244" class='ln'>244</a></td><td></td></tr>
+<tr name="245" id="245">
+<td><a id="l245" class='ln'>245</a></td><td><span class="ct">/* Block states (default storage) for system '<a class="ct blk" blk_line="245">&lt;Root&gt;</a>' */</span></td></tr>
+<tr name="246" id="246">
+<td><a id="l246" class='ln'>246</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="247" id="247">
+<td><a id="l247" class='ln'>247</a></td><td>  <a id="247c3" class="tk">real_T</a> <a id="247c10" class="tk">LastPcov_PreviousInput</a>[36];   <span class="ct">/* '<a class="ct blk" blk_line="247">&lt;S8&gt;/LastPcov</a>' */</span></td></tr>
+<tr name="248" id="248">
+<td><a id="l248" class='ln'>248</a></td><td>  <a id="248c3" class="tk">real_T</a> <a id="248c10" class="tk">last_x_PreviousInput</a>[6];      <span class="ct">/* '<a class="ct blk" blk_line="248">&lt;S8&gt;/last_x</a>' */</span></td></tr>
+<tr name="249" id="249">
+<td><a id="l249" class='ln'>249</a></td><td>  <a id="249c3" class="tk">boolean_T</a> <a id="249c13" class="tk">Memory_PreviousInput</a>[87];  <span class="ct">/* '<a class="ct blk" blk_line="249">&lt;S8&gt;/Memory</a>' */</span></td></tr>
+<tr name="250" id="250">
+<td><a id="l250" class='ln'>250</a></td><td><span class="br">}</span> <a id="250c3" class="tk">DW_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="251" id="251">
+<td><a id="l251" class='ln'>251</a></td><td></td></tr>
+<tr name="252" id="252">
+<td><a id="l252" class='ln'>252</a></td><td><span class="ct">/* Invariant block signals (default storage) */</span></td></tr>
+<tr name="253" id="253">
+<td><a id="l253" class='ln'>253</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="254" id="254">
+<td><a id="l254" class='ln'>254</a></td><td>  <span class="kw">const</span> <a id="254c9" class="tk">real_T</a> <a id="254c16" class="tk">MathFunction</a>[4];        <span class="ct">/* '<a class="ct blk" blk_line="254">&lt;S8&gt;/Math Function</a>' */</span></td></tr>
+<tr name="255" id="255">
+<td><a id="l255" class='ln'>255</a></td><td>  <span class="kw">const</span> <a id="255c9" class="tk">real_T</a> <a id="255c16" class="tk">MathFunction1</a>[2];       <span class="ct">/* '<a class="ct blk" blk_line="255">&lt;S8&gt;/Math Function1</a>' */</span></td></tr>
+<tr name="256" id="256">
+<td><a id="l256" class='ln'>256</a></td><td>  <span class="kw">const</span> <a id="256c9" class="tk">real_T</a> <a id="256c16" class="tk">MathFunction2</a>[2];       <span class="ct">/* '<a class="ct blk" blk_line="256">&lt;S8&gt;/Math Function2</a>' */</span></td></tr>
+<tr name="257" id="257">
+<td><a id="l257" class='ln'>257</a></td><td><span class="br">}</span> <a id="257c3" class="tk">ConstB_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="258" id="258">
+<td><a id="l258" class='ln'>258</a></td><td></td></tr>
+<tr name="259" id="259">
+<td><a id="l259" class='ln'>259</a></td><td><span class="ct">/* Constant parameters (default storage) */</span></td></tr>
+<tr name="260" id="260">
+<td><a id="l260" class='ln'>260</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="261" id="261">
+<td><a id="l261" class='ln'>261</a></td><td>  <span class="ct">/* Expression: lastPcov</span></td></tr>
+<tr name="262" id="262">
+<td><a id="l262" class='ln'>262</a></td><td><span class="ct">   * Referenced by: '<a class="ct blk" blk_line="262">&lt;S8&gt;/LastPcov</a>'</span></td></tr>
+<tr name="263" id="263">
+<td><a id="l263" class='ln'>263</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="264" id="264">
+<td><a id="l264" class='ln'>264</a></td><td>  <a id="264c3" class="tk">real_T</a> <a id="264c10" class="tk">LastPcov_InitialCondition</a>[36];</td></tr>
+<tr name="265" id="265">
+<td><a id="l265" class='ln'>265</a></td><td></td></tr>
+<tr name="266" id="266">
+<td><a id="l266" class='ln'>266</a></td><td>  <span class="ct">/* Expression: lastx+xoff</span></td></tr>
+<tr name="267" id="267">
+<td><a id="l267" class='ln'>267</a></td><td><span class="ct">   * Referenced by: '<a class="ct blk" blk_line="267">&lt;S8&gt;/last_x</a>'</span></td></tr>
+<tr name="268" id="268">
+<td><a id="l268" class='ln'>268</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="269" id="269">
+<td><a id="l269" class='ln'>269</a></td><td>  <a id="269c3" class="tk">real_T</a> <a id="269c10" class="tk">last_x_InitialCondition</a>[6];</td></tr>
+<tr name="270" id="270">
+<td><a id="l270" class='ln'>270</a></td><td><span class="br">}</span> <a id="270c3" class="tk">ConstP_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="271" id="271">
+<td><a id="l271" class='ln'>271</a></td><td></td></tr>
+<tr name="272" id="272">
+<td><a id="l272" class='ln'>272</a></td><td><span class="ct">/* External inputs (root inport signals with default storage) */</span></td></tr>
+<tr name="273" id="273">
+<td><a id="l273" class='ln'>273</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="274" id="274">
+<td><a id="l274" class='ln'>274</a></td><td>  <a id="274c3" class="tk">real_T</a> <a id="274c10" class="tk">Ref_pSteps</a>[60];               <span class="ct">/* '<a class="ct blk" blk_line="274">&lt;Root&gt;/Ref_pSteps</a>' */</span></td></tr>
+<tr name="275" id="275">
+<td><a id="l275" class='ln'>275</a></td><td>  <a id="275c3" class="tk">real_T</a> <a id="275c10" class="tk">SafeX</a>;                        <span class="ct">/* '<a class="ct blk" blk_line="275">&lt;Root&gt;/SafeX</a>' */</span></td></tr>
+<tr name="276" id="276">
+<td><a id="l276" class='ln'>276</a></td><td>  <a id="276c3" class="tk">real_T</a> <a id="276c10" class="tk">SafeY</a>;                        <span class="ct">/* '<a class="ct blk" blk_line="276">&lt;Root&gt;/SafeY</a>' */</span></td></tr>
+<tr name="277" id="277">
+<td><a id="l277" class='ln'>277</a></td><td>  <a id="277c3" class="tk">real_T</a> <a id="277c10" class="tk">EndX</a>;                         <span class="ct">/* '<a class="ct blk" blk_line="277">&lt;Root&gt;/EndX</a>' */</span></td></tr>
+<tr name="278" id="278">
+<td><a id="l278" class='ln'>278</a></td><td>  <a id="278c3" class="tk">real_T</a> <a id="278c10" class="tk">EndY</a>;                         <span class="ct">/* '<a class="ct blk" blk_line="278">&lt;Root&gt;/EndY</a>' */</span></td></tr>
+<tr name="279" id="279">
+<td><a id="l279" class='ln'>279</a></td><td>  <a id="279c3" class="tk">real_T</a> <a id="279c10" class="tk">EntryPoint</a>[4];                <span class="ct">/* '<a class="ct blk" blk_line="279">&lt;Root&gt;/EntryPoint</a>' */</span></td></tr>
+<tr name="280" id="280">
+<td><a id="l280" class='ln'>280</a></td><td>  <a id="280c3" class="tk">real_T</a> <a id="280c10" class="tk">DetPoint</a>[4];                  <span class="ct">/* '<a class="ct blk" blk_line="280">&lt;Root&gt;/DetPoint</a>' */</span></td></tr>
+<tr name="281" id="281">
+<td><a id="l281" class='ln'>281</a></td><td>  <a id="281c3" class="tk">real_T</a> <a id="281c10" class="tk">detection</a>;                    <span class="ct">/* '<a class="ct blk" blk_line="281">&lt;Root&gt;/detection</a>' */</span></td></tr>
+<tr name="282" id="282">
+<td><a id="l282" class='ln'>282</a></td><td>  <a id="282c3" class="tk">real_T</a> <a id="282c10" class="tk">Zone</a>;                         <span class="ct">/* '<a class="ct blk" blk_line="282">&lt;Root&gt;/Zone</a>' */</span></td></tr>
+<tr name="283" id="283">
+<td><a id="l283" class='ln'>283</a></td><td>  <a id="283c3" class="tk">real_T</a> <a id="283c10" class="tk">Lw</a>;                           <span class="ct">/* '<a class="ct blk" blk_line="283">&lt;Root&gt;/Lw</a>' */</span></td></tr>
+<tr name="284" id="284">
+<td><a id="l284" class='ln'>284</a></td><td>  <a id="284c3" class="tk">real_T</a> <a id="284c10" class="tk">Reference</a>[4];                 <span class="ct">/* '<a class="ct blk" blk_line="284">&lt;Root&gt;/Reference</a>' */</span></td></tr>
+<tr name="285" id="285">
+<td><a id="l285" class='ln'>285</a></td><td>  <a id="285c3" class="tk">real_T</a> <a id="285c10" class="tk">State</a>[4];                     <span class="ct">/* '<a class="ct blk" blk_line="285">&lt;Root&gt;/State </a>' */</span></td></tr>
+<tr name="286" id="286">
+<td><a id="l286" class='ln'>286</a></td><td>  <a id="286c3" class="tk">real_T</a> <a id="286c10" class="tk">u</a>[2];                         <span class="ct">/* '<a class="ct blk" blk_line="286">&lt;Root&gt;/u</a>' */</span></td></tr>
+<tr name="287" id="287">
+<td><a id="l287" class='ln'>287</a></td><td>  <a id="287c3" class="tk">real_T</a> <a id="287c10" class="tk">param</a>[2];                     <span class="ct">/* '<a class="ct blk" blk_line="287">&lt;Root&gt;/param</a>' */</span></td></tr>
+<tr name="288" id="288">
+<td><a id="l288" class='ln'>288</a></td><td><span class="br">}</span> <a id="288c3" class="tk">ExtU_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="289" id="289">
+<td><a id="l289" class='ln'>289</a></td><td></td></tr>
+<tr name="290" id="290">
+<td><a id="l290" class='ln'>290</a></td><td><span class="ct">/* External outputs (root outports fed by signals with default storage) */</span></td></tr>
+<tr name="291" id="291">
+<td><a id="l291" class='ln'>291</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="292" id="292">
+<td><a id="l292" class='ln'>292</a></td><td>  <a id="292c3" class="tk">real_T</a> <a id="292c10" class="tk">ThrottleAndDelta</a>[2];          <span class="ct">/* '<a class="ct blk" blk_line="292">&lt;Root&gt;/ThrottleAndDelta</a>' */</span></td></tr>
+<tr name="293" id="293">
+<td><a id="l293" class='ln'>293</a></td><td><span class="br">}</span> <a id="293c3" class="tk">ExtY_ObstacleAvoidanceController</a>;</td></tr>
+<tr name="294" id="294">
+<td><a id="l294" class='ln'>294</a></td><td></td></tr>
+<tr name="295" id="295">
+<td><a id="l295" class='ln'>295</a></td><td><span class="ct">/* Real-time Model Data Structure */</span></td></tr>
+<tr name="296" id="296">
+<td><a id="l296" class='ln'>296</a></td><td><span class="kw">struct</span> <a id="296c8" class="tk">tag_RTM_ObstacleAvoidanceController</a> <span class="br">{</span></td></tr>
+<tr name="297" id="297">
+<td><a id="l297" class='ln'>297</a></td><td>  <span class="kw">const</span> <a id="297c9" class="tk">char_T</a> <a id="297c16" class="tk">*</a> <span class="kw">volatile</span> <a id="297c27" class="tk">errorStatus</a>;</td></tr>
+<tr name="298" id="298">
+<td><a id="l298" class='ln'>298</a></td><td><span class="br">}</span>;</td></tr>
+<tr name="299" id="299">
+<td><a id="l299" class='ln'>299</a></td><td></td></tr>
+<tr name="300" id="300">
+<td><a id="l300" class='ln'>300</a></td><td><span class="ct">/* Block signals (default storage) */</span></td></tr>
+<tr name="301" id="301">
+<td><a id="l301" class='ln'>301</a></td><td><span class="kw">extern</span> <a id="301c8" class="tk">B_ObstacleAvoidanceController</a> <a id="301c38" class="tk">ObstacleAvoidanceController_B</a>;</td></tr>
+<tr name="302" id="302">
+<td><a id="l302" class='ln'>302</a></td><td></td></tr>
+<tr name="303" id="303">
+<td><a id="l303" class='ln'>303</a></td><td><span class="ct">/* Block states (default storage) */</span></td></tr>
+<tr name="304" id="304">
+<td><a id="l304" class='ln'>304</a></td><td><span class="kw">extern</span> <a id="304c8" class="tk">DW_ObstacleAvoidanceController</a> <a id="304c39" class="tk">ObstacleAvoidanceController_DW</a>;</td></tr>
+<tr name="305" id="305">
+<td><a id="l305" class='ln'>305</a></td><td></td></tr>
+<tr name="306" id="306">
+<td><a id="l306" class='ln'>306</a></td><td><span class="ct">/* External inputs (root inport signals with default storage) */</span></td></tr>
+<tr name="307" id="307">
+<td><a id="l307" class='ln'>307</a></td><td><span class="kw">extern</span> <a id="307c8" class="tk">ExtU_ObstacleAvoidanceController</a> <a id="307c41" class="tk">ObstacleAvoidanceController_U</a>;</td></tr>
+<tr name="308" id="308">
+<td><a id="l308" class='ln'>308</a></td><td></td></tr>
+<tr name="309" id="309">
+<td><a id="l309" class='ln'>309</a></td><td><span class="ct">/* External outputs (root outports fed by signals with default storage) */</span></td></tr>
+<tr name="310" id="310">
+<td><a id="l310" class='ln'>310</a></td><td><span class="kw">extern</span> <a id="310c8" class="tk">ExtY_ObstacleAvoidanceController</a> <a id="310c41" class="tk">ObstacleAvoidanceController_Y</a>;</td></tr>
+<tr name="311" id="311">
+<td><a id="l311" class='ln'>311</a></td><td><span class="kw">extern</span> <span class="kw">const</span> <a id="311c14" class="tk">ConstB_ObstacleAvoidanceController</a></td></tr>
+<tr name="312" id="312">
+<td><a id="l312" class='ln'>312</a></td><td>  <a id="312c3" class="tk">ObstacleAvoidanceController_ConstB</a>;  <span class="ct">/* constant block i/o */</span></td></tr>
+<tr name="313" id="313">
+<td><a id="l313" class='ln'>313</a></td><td></td></tr>
+<tr name="314" id="314">
+<td><a id="l314" class='ln'>314</a></td><td><span class="ct">/* Constant parameters (default storage) */</span></td></tr>
+<tr name="315" id="315">
+<td><a id="l315" class='ln'>315</a></td><td><span class="kw">extern</span> <span class="kw">const</span> <a id="315c14" class="tk">ConstP_ObstacleAvoidanceController</a></td></tr>
+<tr name="316" id="316">
+<td><a id="l316" class='ln'>316</a></td><td>  <a id="316c3" class="tk">ObstacleAvoidanceController_ConstP</a>;</td></tr>
+<tr name="317" id="317">
+<td><a id="l317" class='ln'>317</a></td><td></td></tr>
+<tr name="318" id="318">
+<td><a id="l318" class='ln'>318</a></td><td><span class="ct">/* Model entry point functions */</span></td></tr>
+<tr name="319" id="319">
+<td><a id="l319" class='ln'>319</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="319c13" class="tk">ObstacleAvoidanceController_initialize</a>(<span class="kw">void</span>);</td></tr>
+<tr name="320" id="320">
+<td><a id="l320" class='ln'>320</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="320c13" class="tk">ObstacleAvoidanceController_step</a>(<span class="kw">void</span>);</td></tr>
+<tr name="321" id="321">
+<td><a id="l321" class='ln'>321</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="321c13" class="tk">ObstacleAvoidanceController_terminate</a>(<span class="kw">void</span>);</td></tr>
+<tr name="322" id="322">
+<td><a id="l322" class='ln'>322</a></td><td></td></tr>
+<tr name="323" id="323">
+<td><a id="l323" class='ln'>323</a></td><td><span class="ct">/* Real-time Model object */</span></td></tr>
+<tr name="324" id="324">
+<td><a id="l324" class='ln'>324</a></td><td><span class="kw">extern</span> <a id="324c8" class="tk">RT_MODEL_ObstacleAvoidanceController</a> <a id="324c45" class="tk">*</a><span class="kw">const</span> <a id="324c52" class="tk">ObstacleAvoidanceController_M</a>;</td></tr>
+<tr name="325" id="325">
+<td><a id="l325" class='ln'>325</a></td><td></td></tr>
+<tr name="326" id="326">
+<td><a id="l326" class='ln'>326</a></td><td><span class="ct">/*-</span></td></tr>
+<tr name="327" id="327">
+<td><a id="l327" class='ln'>327</a></td><td><span class="ct"> * These blocks were eliminated from the model due to optimizations:</span></td></tr>
+<tr name="328" id="328">
+<td><a id="l328" class='ln'>328</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="329" id="329">
+<td><a id="l329" class='ln'>329</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="329">&lt;S8&gt;/Data Type Conversion22</a>' : Unused code path elimination</span></td></tr>
+<tr name="330" id="330">
+<td><a id="l330" class='ln'>330</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="330">&lt;S8&gt;/Data Type Conversion23</a>' : Unused code path elimination</span></td></tr>
+<tr name="331" id="331">
+<td><a id="l331" class='ln'>331</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="331">&lt;S8&gt;/Floor</a>' : Unused code path elimination</span></td></tr>
+<tr name="332" id="332">
+<td><a id="l332" class='ln'>332</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="332">&lt;S8&gt;/Floor1</a>' : Unused code path elimination</span></td></tr>
+<tr name="333" id="333">
+<td><a id="l333" class='ln'>333</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="333">&lt;S9&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="334" id="334">
+<td><a id="l334" class='ln'>334</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="334">&lt;S10&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="335" id="335">
+<td><a id="l335" class='ln'>335</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="335">&lt;S11&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="336" id="336">
+<td><a id="l336" class='ln'>336</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="336">&lt;S12&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="337" id="337">
+<td><a id="l337" class='ln'>337</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="337">&lt;S13&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="338" id="338">
+<td><a id="l338" class='ln'>338</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="338">&lt;S14&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="339" id="339">
+<td><a id="l339" class='ln'>339</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="339">&lt;S15&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="340" id="340">
+<td><a id="l340" class='ln'>340</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="340">&lt;S16&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="341" id="341">
+<td><a id="l341" class='ln'>341</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="341">&lt;S17&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="342" id="342">
+<td><a id="l342" class='ln'>342</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="342">&lt;S18&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="343" id="343">
+<td><a id="l343" class='ln'>343</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="343">&lt;S19&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="344" id="344">
+<td><a id="l344" class='ln'>344</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="344">&lt;S20&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="345" id="345">
+<td><a id="l345" class='ln'>345</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="345">&lt;S21&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="346" id="346">
+<td><a id="l346" class='ln'>346</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="346">&lt;S22&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="347" id="347">
+<td><a id="l347" class='ln'>347</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="347">&lt;S23&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="348" id="348">
+<td><a id="l348" class='ln'>348</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="348">&lt;S24&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="349" id="349">
+<td><a id="l349" class='ln'>349</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="349">&lt;S25&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="350" id="350">
+<td><a id="l350" class='ln'>350</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="350">&lt;S26&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="351" id="351">
+<td><a id="l351" class='ln'>351</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="351">&lt;S27&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="352" id="352">
+<td><a id="l352" class='ln'>352</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="352">&lt;S28&gt;/Matrix Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="353" id="353">
+<td><a id="l353" class='ln'>353</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="353">&lt;S29&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="354" id="354">
+<td><a id="l354" class='ln'>354</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="354">&lt;S30&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="355" id="355">
+<td><a id="l355" class='ln'>355</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="355">&lt;S31&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="356" id="356">
+<td><a id="l356" class='ln'>356</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="356">&lt;S32&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="357" id="357">
+<td><a id="l357" class='ln'>357</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="357">&lt;S33&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="358" id="358">
+<td><a id="l358" class='ln'>358</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="358">&lt;S34&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="359" id="359">
+<td><a id="l359" class='ln'>359</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="359">&lt;S35&gt;/Vector Dimension Check</a>' : Unused code path elimination</span></td></tr>
+<tr name="360" id="360">
+<td><a id="l360" class='ln'>360</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="360">&lt;S8&gt;/useq_scale</a>' : Unused code path elimination</span></td></tr>
+<tr name="361" id="361">
+<td><a id="l361" class='ln'>361</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="361">&lt;S8&gt;/useq_scale1</a>' : Unused code path elimination</span></td></tr>
+<tr name="362" id="362">
+<td><a id="l362" class='ln'>362</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="362">&lt;S8&gt;/ym_zero</a>' : Unused code path elimination</span></td></tr>
+<tr name="363" id="363">
+<td><a id="l363" class='ln'>363</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="363">&lt;S6&gt;/m_zero</a>' : Unused code path elimination</span></td></tr>
+<tr name="364" id="364">
+<td><a id="l364" class='ln'>364</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="364">&lt;S6&gt;/p_zero</a>' : Unused code path elimination</span></td></tr>
+<tr name="365" id="365">
+<td><a id="l365" class='ln'>365</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="365">&lt;S8&gt;/Data Type Conversion1</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="366" id="366">
+<td><a id="l366" class='ln'>366</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="366">&lt;S8&gt;/Data Type Conversion10</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="367" id="367">
+<td><a id="l367" class='ln'>367</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="367">&lt;S8&gt;/Data Type Conversion11</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="368" id="368">
+<td><a id="l368" class='ln'>368</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="368">&lt;S8&gt;/Data Type Conversion12</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="369" id="369">
+<td><a id="l369" class='ln'>369</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="369">&lt;S8&gt;/Data Type Conversion13</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="370" id="370">
+<td><a id="l370" class='ln'>370</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="370">&lt;S8&gt;/Data Type Conversion14</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="371" id="371">
+<td><a id="l371" class='ln'>371</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="371">&lt;S8&gt;/Data Type Conversion15</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="372" id="372">
+<td><a id="l372" class='ln'>372</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="372">&lt;S8&gt;/Data Type Conversion16</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="373" id="373">
+<td><a id="l373" class='ln'>373</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="373">&lt;S8&gt;/Data Type Conversion17</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="374" id="374">
+<td><a id="l374" class='ln'>374</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="374">&lt;S8&gt;/Data Type Conversion18</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="375" id="375">
+<td><a id="l375" class='ln'>375</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="375">&lt;S8&gt;/Data Type Conversion19</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="376" id="376">
+<td><a id="l376" class='ln'>376</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="376">&lt;S8&gt;/Data Type Conversion2</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="377" id="377">
+<td><a id="l377" class='ln'>377</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="377">&lt;S8&gt;/Data Type Conversion20</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="378" id="378">
+<td><a id="l378" class='ln'>378</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="378">&lt;S8&gt;/Data Type Conversion21</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="379" id="379">
+<td><a id="l379" class='ln'>379</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="379">&lt;S8&gt;/Data Type Conversion3</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="380" id="380">
+<td><a id="l380" class='ln'>380</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="380">&lt;S8&gt;/Data Type Conversion4</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="381" id="381">
+<td><a id="l381" class='ln'>381</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="381">&lt;S8&gt;/Data Type Conversion5</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="382" id="382">
+<td><a id="l382" class='ln'>382</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="382">&lt;S8&gt;/Data Type Conversion6</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="383" id="383">
+<td><a id="l383" class='ln'>383</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="383">&lt;S8&gt;/Data Type Conversion7</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="384" id="384">
+<td><a id="l384" class='ln'>384</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="384">&lt;S8&gt;/Data Type Conversion8</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="385" id="385">
+<td><a id="l385" class='ln'>385</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="385">&lt;S8&gt;/Data Type Conversion9</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="386" id="386">
+<td><a id="l386" class='ln'>386</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="386">&lt;S8&gt;/E Conversion</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="387" id="387">
+<td><a id="l387" class='ln'>387</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="387">&lt;S8&gt;/F Conversion</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="388" id="388">
+<td><a id="l388" class='ln'>388</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="388">&lt;S8&gt;/G Conversion</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="389" id="389">
+<td><a id="l389" class='ln'>389</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="389">&lt;S8&gt;/Reshape</a>' : Reshape block reduction</span></td></tr>
+<tr name="390" id="390">
+<td><a id="l390" class='ln'>390</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="390">&lt;S8&gt;/Reshape1</a>' : Reshape block reduction</span></td></tr>
+<tr name="391" id="391">
+<td><a id="l391" class='ln'>391</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="391">&lt;S8&gt;/Reshape2</a>' : Reshape block reduction</span></td></tr>
+<tr name="392" id="392">
+<td><a id="l392" class='ln'>392</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="392">&lt;S8&gt;/Reshape3</a>' : Reshape block reduction</span></td></tr>
+<tr name="393" id="393">
+<td><a id="l393" class='ln'>393</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="393">&lt;S8&gt;/Reshape4</a>' : Reshape block reduction</span></td></tr>
+<tr name="394" id="394">
+<td><a id="l394" class='ln'>394</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="394">&lt;S8&gt;/Reshape5</a>' : Reshape block reduction</span></td></tr>
+<tr name="395" id="395">
+<td><a id="l395" class='ln'>395</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="395">&lt;S8&gt;/S Conversion</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="396" id="396">
+<td><a id="l396" class='ln'>396</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="396">&lt;S8&gt;/ext.mv_scale</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="397" id="397">
+<td><a id="l397" class='ln'>397</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="397">&lt;S8&gt;/mo or x Conversion</a>' : Eliminate redundant data type conversion</span></td></tr>
+<tr name="398" id="398">
+<td><a id="l398" class='ln'>398</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="398">&lt;S8&gt;/u_scale</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="399" id="399">
+<td><a id="l399" class='ln'>399</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="399">&lt;S8&gt;/umin_scale4</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="400" id="400">
+<td><a id="l400" class='ln'>400</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="400">&lt;S8&gt;/uref_scale</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="401" id="401">
+<td><a id="l401" class='ln'>401</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="401">&lt;S8&gt;/ymin_scale1</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="402" id="402">
+<td><a id="l402" class='ln'>402</a></td><td><span class="ct"> * Block '<a class="ct blk" blk_line="402">&lt;S8&gt;/ymin_scale2</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="403" id="403">
+<td><a id="l403" class='ln'>403</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="404" id="404">
+<td><a id="l404" class='ln'>404</a></td><td></td></tr>
+<tr name="405" id="405">
+<td><a id="l405" class='ln'>405</a></td><td><span class="ct">/*-</span></td></tr>
+<tr name="406" id="406">
+<td><a id="l406" class='ln'>406</a></td><td><span class="ct"> * The generated code includes comments that allow you to trace directly</span></td></tr>
+<tr name="407" id="407">
+<td><a id="l407" class='ln'>407</a></td><td><span class="ct"> * back to the appropriate location in the model.  The basic format</span></td></tr>
+<tr name="408" id="408">
+<td><a id="l408" class='ln'>408</a></td><td><span class="ct"> * is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
+<tr name="409" id="409">
+<td><a id="l409" class='ln'>409</a></td><td><span class="ct"> * assigned by Simulink) and block_name is the name of the block.</span></td></tr>
+<tr name="410" id="410">
+<td><a id="l410" class='ln'>410</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="411" id="411">
+<td><a id="l411" class='ln'>411</a></td><td><span class="ct"> * Note that this particular code originates from a subsystem build,</span></td></tr>
+<tr name="412" id="412">
+<td><a id="l412" class='ln'>412</a></td><td><span class="ct"> * and has its own system numbers different from the parent model.</span></td></tr>
+<tr name="413" id="413">
+<td><a id="l413" class='ln'>413</a></td><td><span class="ct"> * Refer to the system hierarchy for this subsystem below, and use the</span></td></tr>
+<tr name="414" id="414">
+<td><a id="l414" class='ln'>414</a></td><td><span class="ct"> * MATLAB hilite_system command to trace the generated code back</span></td></tr>
+<tr name="415" id="415">
+<td><a id="l415" class='ln'>415</a></td><td><span class="ct"> * to the parent model.  For example,</span></td></tr>
+<tr name="416" id="416">
+<td><a id="l416" class='ln'>416</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="417" id="417">
+<td><a id="l417" class='ln'>417</a></td><td><span class="ct"> * hilite_system('Model_code/ObstacleAvoidanceController')    - opens subsystem Model_code/ObstacleAvoidanceController</span></td></tr>
+<tr name="418" id="418">
+<td><a id="l418" class='ln'>418</a></td><td><span class="ct"> * hilite_system('Model_code/ObstacleAvoidanceController/Kp') - opens and selects block Kp</span></td></tr>
+<tr name="419" id="419">
+<td><a id="l419" class='ln'>419</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="420" id="420">
+<td><a id="l420" class='ln'>420</a></td><td><span class="ct"> * Here is the system hierarchy for this model</span></td></tr>
+<tr name="421" id="421">
+<td><a id="l421" class='ln'>421</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="422" id="422">
+<td><a id="l422" class='ln'>422</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="422">&lt;Root&gt;</a>' : 'Model_code'</span></td></tr>
+<tr name="423" id="423">
+<td><a id="l423" class='ln'>423</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="423">&lt;S1&gt;</a>'   : 'Model_code/ObstacleAvoidanceController'</span></td></tr>
+<tr name="424" id="424">
+<td><a id="l424" class='ln'>424</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="424">&lt;S2&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller'</span></td></tr>
+<tr name="425" id="425">
+<td><a id="l425" class='ln'>425</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="425">&lt;S3&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Plant generator'</span></td></tr>
+<tr name="426" id="426">
+<td><a id="l426" class='ln'>426</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="426">&lt;S4&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller'</span></td></tr>
+<tr name="427" id="427">
+<td><a id="l427" class='ln'>427</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="427">&lt;S5&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/MATLAB Function'</span></td></tr>
+<tr name="428" id="428">
+<td><a id="l428" class='ln'>428</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="428">&lt;S6&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller'</span></td></tr>
+<tr name="429" id="429">
+<td><a id="l429" class='ln'>429</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="429">&lt;S7&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/MATLAB Function'</span></td></tr>
+<tr name="430" id="430">
+<td><a id="l430" class='ln'>430</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="430">&lt;S8&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC'</span></td></tr>
+<tr name="431" id="431">
+<td><a id="l431" class='ln'>431</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="431">&lt;S9&gt;</a>'   : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check'</span></td></tr>
+<tr name="432" id="432">
+<td><a id="l432" class='ln'>432</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="432">&lt;S10&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check A'</span></td></tr>
+<tr name="433" id="433">
+<td><a id="l433" class='ln'>433</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="433">&lt;S11&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check B'</span></td></tr>
+<tr name="434" id="434">
+<td><a id="l434" class='ln'>434</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="434">&lt;S12&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check C'</span></td></tr>
+<tr name="435" id="435">
+<td><a id="l435" class='ln'>435</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="435">&lt;S13&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check D'</span></td></tr>
+<tr name="436" id="436">
+<td><a id="l436" class='ln'>436</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="436">&lt;S14&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check DX'</span></td></tr>
+<tr name="437" id="437">
+<td><a id="l437" class='ln'>437</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="437">&lt;S15&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check U'</span></td></tr>
+<tr name="438" id="438">
+<td><a id="l438" class='ln'>438</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="438">&lt;S16&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check X'</span></td></tr>
+<tr name="439" id="439">
+<td><a id="l439" class='ln'>439</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="439">&lt;S17&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check Y'</span></td></tr>
+<tr name="440" id="440">
+<td><a id="l440" class='ln'>440</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="440">&lt;S18&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check1'</span></td></tr>
+<tr name="441" id="441">
+<td><a id="l441" class='ln'>441</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="441">&lt;S19&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Matrix Signal Check2'</span></td></tr>
+<tr name="442" id="442">
+<td><a id="l442" class='ln'>442</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="442">&lt;S20&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check'</span></td></tr>
+<tr name="443" id="443">
+<td><a id="l443" class='ln'>443</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="443">&lt;S21&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check1'</span></td></tr>
+<tr name="444" id="444">
+<td><a id="l444" class='ln'>444</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="444">&lt;S22&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check2'</span></td></tr>
+<tr name="445" id="445">
+<td><a id="l445" class='ln'>445</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="445">&lt;S23&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check3'</span></td></tr>
+<tr name="446" id="446">
+<td><a id="l446" class='ln'>446</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="446">&lt;S24&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check4'</span></td></tr>
+<tr name="447" id="447">
+<td><a id="l447" class='ln'>447</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="447">&lt;S25&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check5'</span></td></tr>
+<tr name="448" id="448">
+<td><a id="l448" class='ln'>448</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="448">&lt;S26&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check6'</span></td></tr>
+<tr name="449" id="449">
+<td><a id="l449" class='ln'>449</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="449">&lt;S27&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check7'</span></td></tr>
+<tr name="450" id="450">
+<td><a id="l450" class='ln'>450</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="450">&lt;S28&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Preview Signal Check8'</span></td></tr>
+<tr name="451" id="451">
+<td><a id="l451" class='ln'>451</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="451">&lt;S29&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Scalar Signal Check'</span></td></tr>
+<tr name="452" id="452">
+<td><a id="l452" class='ln'>452</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="452">&lt;S30&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Scalar Signal Check1'</span></td></tr>
+<tr name="453" id="453">
+<td><a id="l453" class='ln'>453</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="453">&lt;S31&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Scalar Signal Check2'</span></td></tr>
+<tr name="454" id="454">
+<td><a id="l454" class='ln'>454</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="454">&lt;S32&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Vector Signal Check'</span></td></tr>
+<tr name="455" id="455">
+<td><a id="l455" class='ln'>455</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="455">&lt;S33&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Vector Signal Check1'</span></td></tr>
+<tr name="456" id="456">
+<td><a id="l456" class='ln'>456</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="456">&lt;S34&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Vector Signal Check11'</span></td></tr>
+<tr name="457" id="457">
+<td><a id="l457" class='ln'>457</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="457">&lt;S35&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/MPC Vector Signal Check6'</span></td></tr>
+<tr name="458" id="458">
+<td><a id="l458" class='ln'>458</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="458">&lt;S36&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/optimizer'</span></td></tr>
+<tr name="459" id="459">
+<td><a id="l459" class='ln'>459</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="459">&lt;S37&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Obstacle avoidance controller/Adaptive MPC Controller/Adaptive MPC Controller/MPC/optimizer/FixedHorizonOptimizer'</span></td></tr>
+<tr name="460" id="460">
+<td><a id="l460" class='ln'>460</a></td><td><span class="ct"> * '<a class="ct blk" blk_line="460">&lt;S38&gt;</a>'  : 'Model_code/ObstacleAvoidanceController/Plant generator/Plant Model Generator'</span></td></tr>
+<tr name="461" id="461">
+<td><a id="l461" class='ln'>461</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="462" id="462">
+<td><a id="l462" class='ln'>462</a></td><td><span class="pp">#endif</span>                           <span class="ct">/* RTW_HEADER_ObstacleAvoidanceController_h_ */</span></td></tr>
+<tr name="463" id="463">
+<td><a id="l463" class='ln'>463</a></td><td></td></tr>
+<tr name="464" id="464">
+<td><a id="l464" class='ln'>464</a></td><td><span class="ct">/*</span></td></tr>
+<tr name="465" id="465">
+<td><a id="l465" class='ln'>465</a></td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
+<tr name="466" id="466">
+<td><a id="l466" class='ln'>466</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="467" id="467">
+<td><a id="l467" class='ln'>467</a></td><td><span class="ct"> * [EOF]</span></td></tr>
+<tr name="468" id="468">
+<td><a id="l468" class='ln'>468</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="469" id="469">
+<td><a id="l469" class='ln'>469</a></td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>
