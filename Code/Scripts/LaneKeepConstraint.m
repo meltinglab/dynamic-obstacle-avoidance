@@ -116,15 +116,6 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
             end
 
         else % No obstacle
-%             if Theta_ref < 0
-%                 F = [-1 m 0 0
-%                     1 -m 0 0];
-%                 G = [-q1; q2];
-%             else
-%                 F = [1 -m 0 0
-%                     -1 m 0 0];
-%                 G = [q1; -q2];
-%             end
             F = [0 0 0 0
                 0 0 0 0];
             G = [0;0];
@@ -153,9 +144,6 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
                 constraintIntercept = SafeY - constraintSlope*SafeX;
 
             elseif Zone == 3 % In the Safe Zone
-%                 slope = ( (EndY - SafeY)/(EndX - SafeX) );
-%                 constraintSlope = slope;
-%                 constraintIntercept = EndY - constraintSlope*EndX;
                 slope = m+416/V_ref*abs(Curvature);
                 constraintSlope = slope;
                 constraintIntercept = Y_ref + Lw/cos(Theta_ref) - slope*X_ref;
@@ -196,15 +184,6 @@ function [E, F, G] = LaneKeepConstraint(Reference,Lw,detection,SafeX,SafeY,EndX,
             end
 
         else
-%             if abs(Theta_ref) < pi/2
-%                 F = [-m 1 0 0
-%                     m -1 0 0];
-%                 G = [-q1; q2];
-%             else
-%                 F = [m -1 0 0
-%                     -m 1 0 0];
-%                 G = [q1; -q2];
-%             end
             F = [0 0 0 0
                 0 0 0 0];
             G = [0;0];
