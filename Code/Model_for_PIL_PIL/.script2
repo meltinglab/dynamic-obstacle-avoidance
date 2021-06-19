@@ -1,0 +1,8 @@
+config load "C:\Users\djtn\Documents\GitHub\dynamic-obstacle-avoidance\Code\Model_for_PIL_PIL\Model_for_PIL.ioc"
+clock set SysClkSource 2
+clock set PLLSource 0
+clock set APB1CLKDivider 4
+clock set APB2CLKDivider 2
+clock set hclk 80
+config save "C:\Users\djtn\Documents\GitHub\dynamic-obstacle-avoidance\Code\Model_for_PIL_PIL\Model_for_PIL.ioc"
+exit wait

@@ -1,0 +1,2 @@
+xil_services.c:100:30:xilInit	16	static
+xil_services.c:141:30:xilTerminateComms	8	static

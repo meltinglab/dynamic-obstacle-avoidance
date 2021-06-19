@@ -1,0 +1,5 @@
+coder_assumptions_rtiostream.c:10:16:coderAssumpTgtAppSvcCreate	4	static
+coder_assumptions_rtiostream.c:14:13:coderAssumpTgtAppSvcDestroy	4	static
+coder_assumptions_rtiostream.c:18:16:coderAssumpTgtAppSvcAllocBuffer	16	static
+coder_assumptions_rtiostream.c:32:19:coderAssumpTgtAppSvcGetBufferDataPtr	16	static
+coder_assumptions_rtiostream.c:42:16:coderAssumpTgtAppSvcSend	16	static

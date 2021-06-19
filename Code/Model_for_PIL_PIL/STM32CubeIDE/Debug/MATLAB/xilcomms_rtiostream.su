@@ -1,0 +1,4 @@
+xilcomms_rtiostream.c:29:5:commsInit	16	static
+xilcomms_rtiostream.c:39:5:commsTerminate	8	static
+xilcomms_rtiostream.c:48:5:commsEnqueueBuffer	40	static
+xilcomms_rtiostream.c:110:5:rtiostreamReadMessage	32	static

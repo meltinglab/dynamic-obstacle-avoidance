@@ -1,0 +1,6 @@
+STM32SerialRtiostream-Rtiostream.c:28:5:rtIOStreamOpen	16	static
+STM32SerialRtiostream-Rtiostream.c:38:5:rtIOStreamClose	16	static
+STM32SerialRtiostream-Rtiostream.c:47:5:rtIOStreamSend	24	static
+STM32SerialRtiostream-Rtiostream.c:65:5:rtIOStreamRecv	24	static
+STM32SerialRtiostream-Rtiostream.c:89:6:HAL_UART_RxCpltCallback	16	static
+STM32SerialRtiostream-Rtiostream.c:102:6:HAL_UART_TxCpltCallback	16	static

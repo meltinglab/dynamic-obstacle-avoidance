@@ -1,0 +1,10 @@
+coder_assumptions_app.c:47:35:sendResult	24	static
+coder_assumptions_app.c:79:35:transmitMemUnitBytes	16	static
+coder_assumptions_app.c:94:35:sendPWS	24	static
+coder_assumptions_app.c:130:35:sendHWImpl1	24	static
+coder_assumptions_app.c:175:35:sendHWImpl2	24	static
+coder_assumptions_app.c:220:35:sendHWImpl3	24	static
+coder_assumptions_app.c:259:35:sendHWImpl4	24	static
+coder_assumptions_app.c:297:35:sendHardwareChecks	24	static
+coder_assumptions_app.c:332:35:runChecks	16	static
+coder_assumptions_app.c:373:30:coderAssumptionsRun	8	static

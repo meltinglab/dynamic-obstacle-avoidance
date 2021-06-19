@@ -1,0 +1,5 @@
+coder_assumptions_data_stream.c:18:28:coderAssumptionsWriteData	32	static
+coder_assumptions_data_stream.c:40:30:resetCoderAssumptionsWriteBuffer	8	static
+coder_assumptions_data_stream.c:59:28:coderAssumptionsSendWriteBuffer	8	static
+coder_assumptions_data_stream.c:73:30:coderAssumptionsInit	8	static
+coder_assumptions_data_stream.c:83:6:coderAssumptionsTerminate	8	static

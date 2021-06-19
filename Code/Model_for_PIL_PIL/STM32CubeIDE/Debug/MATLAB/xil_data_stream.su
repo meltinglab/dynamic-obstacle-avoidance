@@ -1,0 +1,7 @@
+xil_data_stream.c:32:30:resetXILWriteBuffer	8	static
+xil_data_stream.c:53:30:silpilInit	8	static
+xil_data_stream.c:65:35:sendWriteBuffer	8	static
+xil_data_stream.c:79:28:xilWriteData	32	static
+xil_data_stream.c:106:28:xilReadData	40	static
+xil_data_stream.c:178:28:xilDataFlush	16	static
+xil_data_stream.c:196:6:silpilTerminate	8	static

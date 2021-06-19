@@ -1,0 +1,2 @@
+rtiostream_utils.c:40:5:rtIOStreamBlockingSend	48	static
+rtiostream_utils.c:72:5:rtIOStreamBlockingRecv	48	static

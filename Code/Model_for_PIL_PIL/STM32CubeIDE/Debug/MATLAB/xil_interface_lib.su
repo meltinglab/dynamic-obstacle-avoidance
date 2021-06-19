@@ -1,0 +1,12 @@
+xil_interface_lib.c:43:13:restoreProcessMsgContext	24	static
+xil_interface_lib.c:50:13:getNextXILIOData	4	static
+xil_interface_lib.c:57:35:processHostToTargetData	32	static
+xil_interface_lib.c:103:35:processTargetToHostData	32	static
+xil_interface_lib.c:140:37:finalizeCommandResponse	24	static
+xil_interface_lib.c:172:30:computeNextState	24	static
+xil_interface_lib.c:316:13:xilReadCommandCode	16	static
+xil_interface_lib.c:343:6:xilProcessMsg	16	static
+xil_interface_lib.c:572:9:commsRun	16	static
+xil_interface_lib.c:580:30:xilRun	16	static
+xil_interface_lib.c:602:6:xilCommandDispatchAndResponse	32	static
+xil_interface_lib.c:654:32:xilGetCurrentProcessMsgContext	16	static

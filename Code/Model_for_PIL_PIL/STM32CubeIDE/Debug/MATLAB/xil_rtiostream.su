@@ -1,0 +1,5 @@
+xil_rtiostream.c:10:16:xilTgtAppSvcCreate	4	static
+xil_rtiostream.c:14:13:xilTgtAppSvcDestroy	4	static
+xil_rtiostream.c:18:16:xilTgtAppSvcAllocBuffer	16	static
+xil_rtiostream.c:32:19:xilTgtAppSvcGetBufferDataPtr	16	static
+xil_rtiostream.c:42:16:xilTgtAppSvcSend	16	static

@@ -15,15 +15,15 @@ param = loadParameters(1);              % Parameter array for Dynamic Model
 %% Initial Conditions
 
 Lw = 4;                                 % [m] Lane width
-V = 70/3.6;                             % [m/s] initial speed
+V = 40/3.6;                             % [m/s] initial speed
 x0_kin = [0; 0; 0; V];                  % Initial condition for kinematic model states
 x0_dyn = [0; 0; 0; V; 0; 0];            % Initial condition for dynamic model states
 u0 = [0; 0];                            % Initial condition for inputs
 Ts = 0.01;                              % [s] Sample time
 % Scenario Loading
-% map = ScenarioLoading('indianapolis.mat');
-length_road = 5000;
-map = [0 0; length_road 0];
+map = ScenarioLoading('puglia.mat');
+% length_road = 5000;
+% map = [0 0; length_road 0];
 % Evaluate total distance covered by the route on the map
 distance = odometer(map);
 %% Reference signal
@@ -150,7 +150,8 @@ for k = 1:length(idx)
     obstacle(k,:) = [extended_map(idx(k),1) extended_map(idx(k),2) V_obst(k)];
 end
 
-fakeObs = [extended_map(25000,1) extended_map(25000,2) 0
+lastidx = round(length(extended_map)*0.91);
+fakeObs = [extended_map(lastidx,1) extended_map(lastidx,2) 0
     10000 0 0];
 
 

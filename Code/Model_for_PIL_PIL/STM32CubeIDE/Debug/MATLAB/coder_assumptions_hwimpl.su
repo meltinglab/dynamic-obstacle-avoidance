@@ -1,0 +1,11 @@
+coder_assumptions_hwimpl.c:42:21:numBits	24	static
+coder_assumptions_hwimpl.c:52:21:getBitsPerMemUnit	24	static
+coder_assumptions_hwimpl.c:94:13:getCPUInfo	80	static
+coder_assumptions_hwimpl.c:216:22:testPass	24	static
+coder_assumptions_hwimpl.c:223:22:testFail	24	static
+coder_assumptions_hwimpl.c:230:22:testWarn	24	static
+coder_assumptions_hwimpl.c:237:22:testSkip	24	static
+coder_assumptions_hwimpl.c:248:22:testReview	24	static
+coder_assumptions_hwimpl.c:256:22:runTest	24	static
+coder_assumptions_hwimpl.c:268:6:caVerifyPortableWordSizes	32	static
+coder_assumptions_hwimpl.c:292:6:caVerifyHWImpl	40	static

@@ -1,0 +1,2 @@
+STM32SerialRtiostream-ProfilerTimer.c:12:6:profileTimerInit	4	static
+STM32SerialRtiostream-ProfilerTimer.c:21:14:profileTimerRead	24	static

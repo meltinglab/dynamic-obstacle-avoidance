@@ -1,0 +1,13 @@
+xil_interface.c:80:26:xilProcessParams	16	static
+xil_interface.c:90:26:xilGetDataTypeInfo	16	static
+xil_interface.c:131:26:xilInitialize	56	static
+xil_interface.c:180:26:xilPause	24	static
+xil_interface.c:192:26:xilSystemInitialize	24	static
+xil_interface.c:206:26:xilSystemReset	24	static
+xil_interface.c:220:26:xilGetHostToTargetData	80	static
+xil_interface.c:335:26:xilOutput	56	static
+xil_interface.c:359:26:xilUpdate	16	static
+xil_interface.c:371:26:xilGetTargetToHostData	64	static
+xil_interface.c:460:26:xilTerminate	16	static
+xil_interface.c:471:26:xilEnable	16	static
+xil_interface.c:484:26:xilDisable	16	static
