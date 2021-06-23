@@ -1,13 +1,13 @@
 \section{Constraints}
-In this section we are going to introduce the constraints we have used for the project. A plausible set of constraints is fundamental in order to perform a realistic simulation, which is required in order to have reasonable simulation outcomes. 
+In this section, the constraints we have taken into account in the project are introduced. A plausible set of constraints is fundamental in order to perform a realistic simulation, which is required in order to have reasonable simulation outcomes. 
 \subsection{Input constraints}
 
-The vehicle model presented in the Section \ref{chap:Vehicle_model} assumes that the inputs $\delta_f$ (front steering angle) and Throttle (driving and braking) can be controlled
+The vehicle model presented in Section \ref{chap:Vehicle_model} assumes that the inputs $\delta_f$ (front steering angle) and throttle (driving and braking) can be controlled
 directly. In practice, however, low-level controllers are used to transform the aforementioned
 commands into physical control signals.
 \subsubsection{Steering angle constraints}
-Regarding the steering angle control, we suppose that our MPC directly affects the Electronic Power Steering (EPS) system by sending to it the target steering wheel position. Then, the EPS control unit calculates the optimal steering output based on the target steering wheel position received and sends the information to an electric motor to provide the necessary action on the wheels.
-For the project, we have assumed this link to be ideal and so our MPC directly control the angle of our front wheels. The values used are reported in the Table \ref{tab:steering} and they have been chosen according to real data\cite{forkenbrock2005assessment}.
+Regarding the steering angle control, we have supposed that our MPC directly affects the Electronic Power Steering (EPS) system by sending to it the target steering wheel position. Then, the EPS control unit calculates the optimal steering output based on the target steering wheel position received and sends the information to an electric motor in order to provide the necessary action on the wheels.
+For the sake of this project, we have assumed this link to be ideal which implies that our MPC directly controls the angle of our front wheels. The values used are reported in the Table \ref{tab:steering} and they have been chosen according to real data\cite{forkenbrock2005assessment}.
 
 \begin{table}[H]
 \begin{center}
@@ -24,7 +24,7 @@ For the project, we have assumed this link to be ideal and so our MPC directly c
 \end{table}
 
 \subsubsection{Throttle constraints}
-As stated in Section \ref{chap:Vehicle_model} the vehicle model used in our simulation is,  more or less, independent of the longitudinal dynamics of the vehicle. Moreover, the set of simulation we carry out are to be performed at constant speed, as close as possible to the target speed value. 
+As stated in Section \ref{chap:Vehicle_model}, the vehicle model used in our simulation is,  more or less, independent of the longitudinal dynamics of the vehicle. Moreover, the set of simulations we carry out are to be performed at constant speed, as close as possible to the target speed value. 
 Physical limits on the actuators and comfort requirements impose bounds on the throttle and its rate of change according to the Table \ref{tab:throttle}.
 
 \begin{table}[H]
@@ -42,13 +42,13 @@ Physical limits on the actuators and comfort requirements impose bounds on the t
 
 \subsection{Output/State constraints}
 % - Output/State: Lane keeping and obstacle avoidance
-MPC algorithms allow to define a set of constraints on the States/Output variable of the model. For our project, this feature allows to describe a forbidden zone in the nearby of the obstacle when it is detected. In order to properly define this area, we refer to the art.148 and art.149 of the Italian reference legislation ``\textit{Codice della strada}" which state that while traveling and overtaking, the vehicles must keep a safety distance from the vehicle in front of them.
+MPC algorithms allow to define a set of constraints on the States/Output variables of the model. In our project, this feature allows us to describe a forbidden zone nearby the obstacle when it is detected. In order to properly define this area, we refer to the art.148 and art.149 of the Italian reference legislation ``\textit{Codice della Strada}" which states that while traveling and overtaking, the vehicles must keep a safety distance from the vehicle in front of them.
 
 
 \subsubsection{Safety distance}
 \label{sec:Safety_distance}
 % The art. 149 of the Italian reference legislation ``\textit{Codice della strada}" states that ``while traveling, the vehicles must keep a safety distance from the vehicle in front of them such that timely stopping is guaranteed in any case and collisions with the vehicles in front are avoided".
-In order to estimate the optimal safety distance that each vehicle must keep from the other, several factors must be taken into account:
+In order to estimate the optimal safety distance that each vehicle must keep from the preceding one, several factors must be taken into account:
 \begin{itemize}
     \item the alertness of the driver's reflexes;
     \item the type and response of the vehicle;

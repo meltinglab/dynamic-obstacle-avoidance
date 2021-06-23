@@ -1,7 +1,27 @@
 \section{Introduction}
 \label{sec:intro}
+\begin{center}
+\emph{``Every year 1.25 million people die and as many as 50 million are injured in road
+traffic accidents worldwide, according to United Nations statistics. Human error is involved in about 95\% of all road traffic accidents in the EU, and in 2017 alone, 25300 people died on the Union’s roads." \cite{frisoni2016research}}\\
+\end{center}
+Autonomous cars can improve road safety and through new technologies it is also possible to reduce traffic congestion and CO2 emissions.
 The task of avoiding obstacles is one of the key issues when it comes to the vehicular scenario and it is more difficult to perform it here than it is in static environments.
-A vehicle with an obstacle avoidance system is equipped with sensors that measure the distance between the car itself and the obstacle in the same lane. If an autonomous car encounters an obstacle, it is expected to move temporarily to another lane and move back to the original lane once it has driven past the obstacle. This type of control can be implemented using a Model Predictive Control (MPC).
+A vehicle with  an obstacles avoidance system is equipped with sensors that measure the distance between the car itself and the obstacle in the same lane. If an autonomous car encounters an obstacle, it is expected to move temporarily to another lane and move back to the original lane once it has driven past the obstacle.
+The aim of this report is to present the steps that we have followed as a group in order to implement a system for dynamic obstacle avoidance using an adaptive Model Predictive Control. 
+In particular, the report is structured as follows:
+\begin{itemize}
+    \item the introduction of this report focuses on the basics behind the concepts of Model Predictive Control and Model-Based Design and ends by introducing the software tools used in the project;
+    \item starting from Section 2 up to Section 4 we go through the set of requirements of our project laid down by a hypothetical customer, the corresponding low level requirements and the associated validation methods, as well as introducing the system partitioning adopted during the development phase and the mathematical model behind our ego vehicle;
+    \item in Section 5 and 6 we go through the various technologies available on the market related to the perception, route planning and control of autonomous vehicles explaining our assumptions regarding these topics. We then proceed explaining how we have imported real maps into our simulation environment and the constraints we have taken into account concerning throttle, steering angle and outputs;
+    \item the sections from 7 to 12 are dedicated to the presentation of the actual controller setup and the tests performed in order to validate our controller against the path following task and obstacle avoidance tasks (both static and dynamic, both single and multiple);
+   \item the report ends with some considerations on the project carried out and some ideas to further improve it.
+\end{itemize}
+
+
+
+\subsection{MPC: basic concepts}
+In the simulated environment, the vehicle model is expected to encounter and safely avoid obstacles along its way. On the other hand, when an obstacle is not present ahead of the autonomous vehicle, it is expected to follow a predetermined path.
+This type of control can be implemented using a Model Predictive Control (MPC).
 An MPC is an advanced control method that works in discrete time and uses a model of the system to make predictions about the system’s future behavior. 
 Figure \ref{fig:MPC_scheme} graphically shows the general concept behind a Model Predictive Control.
 \begin{figure}[H]
@@ -16,7 +36,7 @@ The overall objectives of the MPC are:
  
 
 \item prevent that input and output constraints are violated;
-\item optimize some input variables, while other outputs are kept in specified ranges,
+\item optimize some input variables, while other outputs are kept in specified ranges;
 \item prevent the input variables from having excessive variations.
 \end{itemize}
 Figure \ref{fig:MPC_Block} shows a block diagram for a Model Predictive Control.
@@ -29,7 +49,7 @@ Figure \ref{fig:MPC_Block} shows a block diagram for a Model Predictive Control.
 An MPC controller has two main functional blocks: the optimizer and the plant model.
 The dynamic optimizer allows to find the optimal input that gives the minimum
 value of the cost function taking into account all the constraints. Generally, a non linear model is used for the validation of the controller, while the plant model used for the MPC is a linearized version of the actual plant.\\
-Our project is based on the use of an \emph{adaptive} MPC which means that the plant state has to be measured again to be adopted as the linearization point for the next step of the predictive control. When the plant state is re-sampled, the whole process
+Our project is based on the use of an \emph{adaptive} MPC, which means that the plant state has to be measured again to be adopted as the linearization point for the next step of the predictive control. When the plant state is re-sampled, the whole process
 computes again the calculations starting from the new current state.
 
 \subsection{Model-Based Design}
@@ -46,28 +66,28 @@ Starting from the general V-model we have tailored our own V-model in order to m
     \label{fig:V_model}
 \end{figure}
 
-As shown above the V-model is a representation of system development process that highlights verification steps on one side and validation steps on the other of the ‘V’. The left side of the ‘V’ identifies the verification phase, containing the steps that lead to code generation while the right side identifies the validation phase which ends with the user acceptance.
-Below a brief description of the steps which constitute our V-model:
+As shown above the V-model is a representation of the system development process that highlights verification steps on one side and validation steps on the other of the ``V". The left side of the ``V" identifies the verification phase, containing the steps that lead to code generation while the right side identifies the validation phase which ends with the user acceptance.
+Below a brief description of the steps that constitute our V-model:
 \begin{itemize}
-    \item \textbf{System requirements}: this is the first step of each project, it consists in the requirements gathering from the customer;
+    \item \textbf{System requirements}: this is the first step of each project, it consists in gathering the requirements from the customer;
     \item \textbf{Physical model implementation}: this phase contains the system design of our vehicle in terms of sensors required and dynamic and kinematic model;
-    \item \textbf{Controller implementation}: this phase is the focus of our project, designing an adaptive MPC. 
+    \item \textbf{Controller implementation}: this phase represents the focus of our project, designing an adaptive MPC;
     \item \textbf{Coding}: exploiting some specific tools, we can automatically generate code for embedded deployment and create test benches for system verification, saving time and avoiding the introduction of manually coded errors;
-    \item \textbf{Software-In-the-Loop}: once generated, the code is tested in a simulation environment;
+    \item \textbf{Software-in-the-Loop}: once generated, the code is tested in a simulation environment;
     
-    \item \textbf{Processor-In-the-Loop}: during this phase the code is uploaded on a demo board and than it is tested again;
+    \item \textbf{Processor-in-the-Loop}: during this phase the code is uploaded on a demo board and than it is tested again;
     
     \item \textbf{User Acceptance}: in this phase the final product is tested in order to verify the compliance with the initial costumer requirements.
 \end{itemize}
 
 \subsection{Required tools}
 The project is based on \href{https://www.mathworks.com/help/matlab/index.html?s_tid=srchtitle}{\underline{MATLAB}}, a proprietary multi-paradigm programming language and numeric computing environment developed by \textit{MathWorks}, and \href{https://www.mathworks.com/help/simulink/index.html?s_tid=CRUX_lftnav}{\underline{Simulink}}, a MATLAB-based block diagram environment for multi-domain simulation and Model-Based Design.\\
-The following list represents the software requirements for the project, including all the applications needed for the proper execution and test:
+The software requirements for the project, including all the applications needed for the proper execution and test are listed below:
 \begin{itemize}
     \item \textbf{MATLAB R2019a or newer};
     \begin{enumerate}
-            \item \textbf{Curve Fitting Toolbox}: needed to make the reference map gentler;
-            \item \textbf{Automated Driving Toolbox}: needed to get a reference map from real world data;
+            \item \textbf{Curve Fitting Toolbox}: needed to make the reference map smoother;
+            \item \textbf{Automated Driving Toolbox}: needed to import a reference map from real world data;
             \item \textbf{Model Predictive Control Toolbox}: needed to have all the useful resources to develop the MPC.
     \end{enumerate}
     \item \textbf{Simulink 9.3 or higher};
@@ -76,7 +96,12 @@ The following list represents the software requirements for the project, includi
             \item \textbf{Embedded Coder}: used for automatic code generation.
     \end{enumerate}
     
+    \item \textbf{STM32CubeMx}: needed to define the peripheral configuration;
+    \item \textbf{STM32CubeIDE}: used to build the generated code and load it on the target board;
+    \item \textbf{STM32-MAT}: extension used to run Simulink applications models on STM32 MCUs.
 \end{itemize}
+
+As it will be discussed later on in Section \ref{subsection:PIL}, the last three tools are required for the PIL simulation since we have used a STM32 microcontroller.
 
 
 

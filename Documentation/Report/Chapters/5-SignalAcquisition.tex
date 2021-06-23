@@ -5,13 +5,13 @@ All autonomous vehicles must have a sufficient knowledge of the surrounding envi
 \subsection{Sensors used in obstacle avoidance}
 When dealing with autonomous driving, three are the core functions of interest: 
 \begin{itemize}
-    \item perception: visual perception (e.g., camera) and radar perception (e.g., LIDAR);
+    \item perception: visual perception (e.g., camera) and Radar perception (e.g., LiDAR);
     \item planning: GPS, Inertial Navigation System (INS), and HD Maps;
     \item control: image identification, deep learning and artificial neural networks.
 \end{itemize}
 
 \subsection{Perception: what a self-driving car sees}
-The three primary autonomous vehicle sensors for perception are camera, radar and lidar. Working together, they provide the car visuals of its surroundings and help it to detect the speed and distance of nearby objects, as well as their three-dimensional shape. \cite{NVIDIA}
+The three primary autonomous vehicle sensors for perception are camera, Radar and LiDAR. Working together, they provide the car visuals of its surroundings and help it to detect the speed and distance of nearby objects, as well as their three-dimensional shape. \cite{NVIDIA}
 
 \subsubsection{Camera} 
 Cameras are the main type of sensors for creating a visual representation of the surrounding world, as a matter of fact autonomous vehicles rely on cameras placed on every side to stitch together a 360 degrees view of their environment.
@@ -25,11 +25,11 @@ Though providing very accurate images up to 80 meters, cameras have limitations:
 
 \subsubsection{Radar} \label{radar}
 Radars can overcome cameras limitations in low visibility scenarios and improve object detection.
-The working principle of radars is based on radio pulses emitted by a source. Once these pulses hit an object they travel back to the sensor providing information about its speed and location. 
+The working principle of Radars is based on radio pulses emitted by a source. Once these pulses hit an object they travel back to the sensor providing information about its speed and location. 
 The maximum distance range for radar-based sensors is 250 meters for Long-Range Radars, 100 meters for Medium-Range Radars and 30 meters for Short-Range Radar.
 
-\subsubsection{Lidar}
-The name LiDAR stands for Light Detection and Ranging and its working principle is analogous to the radar's (Sub-section \ref{radar}) but using a different part of the electro-magnetic spectrum. Radars use radio waves or microwaves while lidars use light near the visible spectrum.
+\subsubsection{LiDAR}
+The name LiDAR stands for Light Detection and Ranging and its working principle is analogous to the radar's (Sub-section \ref{radar}) but using a different part of the electro-magnetic spectrum. Radars use radio waves or microwaves while LiDARs use light near the visible spectrum.
 This type of sensors make it possible for an autonomous car to create a 3D point cloud map and they provide shape and depth of the surroundings and its actors.
 
 \subsection{Planning: know where a self-driving car is going}
@@ -45,15 +45,15 @@ GPS stands for Global Positioning System. A GPS receiver is able to compute the 
 The accuracy on the position information is 1 meter.
 
 \subsubsection{INS}
-INS stands for Inertial Navigation System and allows the accurate sensing of high-precision 3D position, velocity, and attitude information of the car via the inertial measurement unit (IMU).
+INS stands for Inertial Navigation System and allows the accurate sensing of high-precision 3D position, velocity, and altitude information of the car via the inertial measurement unit (IMU).
 It can make up for the deficiency of GPS localization, which is not real-time enough.
 
 \subsubsection{HD Maps}
 HD Maps are crucial when it comes to Self-Driving Vehicles, these high-definition 3D maps are highly accurate and contain details not normally present on traditional maps. Such maps can be precise at a centimetre level.
 HD Maps consist of two map layers: static and dynamic HD Map.
-The former is usually collected in advance and contains lane models, road information, and road attributes while the latter, stored on a cloud platform, contains real-time traffic information. Moreover, dynamic HD Maps can be updated in real-time through information collected from vehicles and infrastructures on the cloud.
+The former is usually collected in advance and contains lane models, road information, and road attributes, while the latter, stored on a cloud platform, contains real-time traffic information. Moreover, dynamic HD Maps can be updated in real-time through information collected from vehicles and infrastructures on the cloud.
 
-\subsection{Our Assumptions}
+\subsection{Our assumptions}
 
 Our model is based on several assumptions regarding data acquisition from the sensors and how these data are translated into useful information. Below the list of assumptions we have made:
 \begin{itemize}
@@ -61,10 +61,10 @@ Our model is based on several assumptions regarding data acquisition from the se
     \item our car knows all the information related to the road model, such as lane width and number of lanes by acquiring them from cameras installed on the vehicle and HD Maps;
     \item the vehicle knows its position in the XY reference frame, through the use of GPS and INS;
     \item the route planning done by our controller exploits the latitude and longitude information to plan out a complete route based on the HD Maps, GPS, and INS. Moreover, while driving, the car also compares the HD maps with the perception information from sensors to get changing environment information for dynamically planning routes and making decisions;
-    \item we suppose to have both a Long-Range Radar and Lidar mounted on the vehicle, hence to be able to detect obstacles in the range of 200 meters together with their velocities.
+    \item we suppose to have both a Long-Range Radar and a LiDAR mounted on the vehicle, hence to be able to detect obstacles in the range of 200 meters together with their velocities.
 \end{itemize}
 
-Though we include all the above information on the MATLAB code, we suppose to collect them using sensors, as previously described.
+Though we have included all the above information on the MATLAB code, we assume to collect them using sensors, as previously described.
 
 
 
@@ -86,7 +86,7 @@ The website allows the user to export any route as a \textit{.osm} file containi
       \label{fig:OpenStreetMap}
 \end{figure}
 
-Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{Driving Scenario Designer} tool (Figure \ref{fig:DrivingScenarioTool}) provided as part of the Automated Driving Toolbox. The Driving Scenario Designer tool splits the whole selected route in as many pieces as the number of different streets names present. Then, the user can select only the pieces of road he/she is interested in and export its waypoints in a \textit{.mat} file.
+Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{Driving Scenario Designer} tool (Figure \ref{fig:DrivingScenarioTool}) provided as part of the Automated Driving Toolbox. The Driving Scenario Designer tool splits the selected route in as many pieces as the number of different streets names present. Then, the user can select only the pieces of road he/she is interested in and export its waypoints in a \textit{.mat} file.
 
 \begin{figure}[H]
     \centering
@@ -95,9 +95,9 @@ Next, we have imported the \textit{.osm} file in MATLAB exploiting the \textit{D
       \label{fig:DrivingScenarioTool}
 \end{figure}
 
-Afterwards, the \textit{.mat} file is used to generate the corresponding map in the \textit{XY} reference frame.
-Since the thus generated map is composed by an insufficient number of waypoints for our applications, we have decided to create a function \textit{ScenarioLoading} able to do an up-sample of the map because a higher density of points on it optimizes the path following algorithm. The up-sampling function interpolates linearly the original map with a fixed step depending on the reference speed and the sampling time selected for the controller. \\
-It is worth mentioning, as shown in Figure \ref{fig:UpSample}, that the up-sampled path (in orange) and the original waypoints (in blue) slightly deviate in some sections of the route due to the smoothing applied in order to obtain a more gentle trajectory.
+Afterwards, we have used the \textit{.mat} file to generate the corresponding map in the \textit{XY} reference frame.
+Since the thus generated map was composed by an insufficient number of waypoints for our applications, we have decided to create a function \textit{reference\_generator} able to do an up-sample of the map because a higher density of points on it optimizes the path following algorithm. The up-sampling function interpolates linearly the original map with a fixed step depending on the reference speed and the sampling time selected for the controller. \\
+It is worth mentioning, as shown in Figure \ref{fig:UpSample}, that the up-sampled path (in orange) and the original waypoints (in blue) slightly deviate in some sections of the route due to the smoothing applied in order to obtain gentler trajectory.
 
 \begin{figure}[H]
     \centering
@@ -107,5 +107,3 @@ It is worth mentioning, as shown in Figure \ref{fig:UpSample}, that the up-sampl
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\subsection{Obstacles acquisition}

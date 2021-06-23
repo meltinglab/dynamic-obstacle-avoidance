@@ -1,7 +1,7 @@
 \section{Plant Model}
 \label{chap:Vehicle_model}
-The starting point for Model Based design is to develop and implement a plant model, so a model representing the Physics of the system considered.\\
-Different models are available in literature to model a vehicle. Since the target of the project is to develop a lateral controller, one of the most suitable model is the so called \textit{Bicycle Model}.\\
+The starting point for Model-Based design is to develop and implement a plant model, a model representing the physics of the system considered.\\
+Several models are available in literature to model a vehicle. Since the target of the project is to develop a lateral controller, one of the most suitable model is the so called \textit{Bicycle Model}.\\
 The kinematic bicycle model is described by the following non linear system:
 \begin{align}
     \dot{X} = Vcos(\psi + \beta)\\
@@ -11,14 +11,14 @@ The kinematic bicycle model is described by the following non linear system:
 \end{align}
 Where:
 \begin{itemize}
-    \item X and Y are the coordinates of the body of the vehicle in the global reference frame,
-    \item $\psi$ is the yaw (orientation angle),
-    \item $\beta$ is the slip angle of the body,
-    \item $\beta + \psi$ is the body speed direction known as \textit{Course Angle},
-    \item $\delta_f$ is the front steering angle,
-    \item $\delta_r$ is the rear steering angle,
-    \item V is the magnitude of the body speed,
-    \item $l_f$ is a geometric parameter which indicates the distance of the CoG from the front wheel,
+    \item X and Y are the coordinates of the body of the vehicle in the global reference frame;
+    \item $\psi$ is the yaw (orientation angle);
+    \item $\beta$ is the slip angle of the body;
+    \item $\beta + \psi$ is the body speed direction known as \textit{Course Angle};
+    \item $\delta_f$ is the front steering angle;
+    \item $\delta_r$ is the rear steering angle;
+    \item V is the magnitude of the body speed;
+    \item $l_f$ is a geometric parameter which indicates the distance of the CoG from the front wheel;
     \item $l_r$ is a geometric parameter which indicates the distance of the CoG from the rear wheel.
 \end{itemize}
 \begin{figure}[H]
@@ -27,8 +27,8 @@ Where:
     \caption{Bicycle kinematic vehicle model}
     \label{fig:Bicycle_kin}
 \end{figure}
-This model can be further simplified assuming that, as in the most of commercial vehicles, only the front wheels are able to steer, so the rear steering angle $\delta_r$ is constant and equal to 0.\\
-Standard MPC controller works on linear systems, so we decided to implement a linearized version of the Bicycle Model to feed the controller. This linearized model is described by the following State Space equations:
+This model can be further simplified assuming that, as in most commercial vehicles, only the front wheels are able to steer, so the rear steering angle $\delta_r$ is constant and equal to 0.\\
+Standard MPC controllers work on linear systems, so we have decided to implement a linearized version of the Bicycle Model to feed the controller. This linearized model is described by the following State Space equations:
 \begin{equation}
     \label{equation:dynamic1}
     \Dot{x} = Ax + Bu 
@@ -99,12 +99,12 @@ Tyre side slip angles can be approximated by the following equations:
 \begin{equation}
     \theta_r=tan^{-1}\left(\frac{\dot{y} - l_r\dot{\psi}}{\dot{x}}\right)
 \end{equation}
-The models introduced are, more or less, independent of the longitudinal dynamics of the vehicle, since they link this dynamic with a simple coefficient, that is the $Throttle$. In our model, this coefficient should be considered as an acceleration of the vehicle, and it can be both positive (driving) or negative (braking). Range of values for this parameter is dependent on lots of variables, of course, such as the engine power, the vehicle mass and inertia, the ground type, the rubber of the wheels and so on. Our assumption is to give a fixed interval for this parameter, to simulate a small commercial vehicle on dry asphalt, which can have a maximum acceleration of $4 m/s^2$ and a maximum braking deceleration of $-0.8g$. To summarize:
+The models introduced are, more or less, independent of the longitudinal dynamics of the vehicle, since they link it to a simple coefficient, that is the $Throttle$. In our model, this coefficient is considered as an acceleration, hence it can be both positive (driving) or negative (braking). The range of values for this parameter is dependent on lots of variables, such as the engine power, the vehicle mass and inertia, the ground type, the rubber of the wheels and so on. Our assumption is to give a fixed interval of feasible values for this parameter, to simulate a small commercial vehicle on dry asphalt, with a maximum acceleration of 4 $m/s^2$ and a maximum braking deceleration of -0.8 $g$. To summarize:
 \begin{itemize}
-    \item $Throttle \in [-7.85, 4.00]m/s^2$
+    \item $Throttle \in [-7.85, 4.00]$ $m/s^2$
     \label{item:Throttle}
 \end{itemize}
-Parameters considered for the bicycle model are taken from real vehicle data \cite{10.2307/44733900} and are reported in the following table:
+The parameters considered for the bicycle model are taken from real vehicle data \cite{10.2307/44733900} and are reported in the following table:
 
 \begin{table}[H]
 \resizebox{\textwidth}{!}{%
@@ -117,9 +117,9 @@ Parameters considered for the bicycle model are taken from real vehicle data \ci
   \multicolumn{1}{l|}{\textbf{l\_f {[}$m${]}}} &
   \multicolumn{1}{l|}{\textbf{Mass {[}$kg${]}}} &
   \multicolumn{1}{l|}{\textbf{Inertia {[}$kg \cdot m^2${]}}} \\ \hline
-1 & \textit{Hyundai Azera }    & 2.843 & 1.738 & 1.105 & 1200 & 1000 \\ \hline
+1 & \textit{Hyundai Azera}    & 2.843 & 1.738 & 1.105 & 1200 & 1000 \\ \hline
 2 & \textit{BMW 325i}          & 2.570 & 1.369 & 1.201 & 1251 & 2027 \\ \hline
-3 & \textit{Ford E150 }        & 3.505 & 1.634 & 1.871 & 2995 & 6536 \\ \hline
+3 & \textit{Ford E150}        & 3.505 & 1.634 & 1.871 & 2995 & 6536 \\ \hline
 4 & \textit{Suzuki Samurai}    & 2.032 & 0.870 & 1.162 & 1229 & 1341 \\ \hline
 5 & \textit{Volkswagen Beetle} & 2.408 & 0.996 & 1.412 & 857  & 1289 \\ \hline
 \end{tabular}%
@@ -127,7 +127,7 @@ Parameters considered for the bicycle model are taken from real vehicle data \ci
 \caption{Vehicle data considered for development and validation}
 \label{tab:vehicle_data}
 \end{table}
-Values reported in the table \ref{tab:vehicle_data} are stored in a MATLAB file and can be accessed through the \textit{loadParameters} function, which take as input the vehicle ID and returns the parameters associated with that vehicle. To avoid to call improperly this function, a default parameters set as been provided with the following values:
+Values reported in Table \ref{tab:vehicle_data} are stored in a MATLAB file and can be accessed through the \textit{loadParameters} function, which takes as input the vehicle ID and returns the parameters associated with that vehicle. To avoid calling  this function improperly, a default set of parameters has been provided with the following values:
 \begin{table}[H]
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|l|r|r|r|r|r|}
@@ -142,17 +142,17 @@ Values reported in the table \ref{tab:vehicle_data} are stored in a MATLAB file 
 \end{tabular}
 }
 \end{table}
-We used data of vehicle 1, \textit{Hyundai Azera}, for the development phase, where mass and inertia are not the real ones of the vehicle, but are given with realistic values, while other data of the previous table \ref{tab:vehicle_data} are meant to be used in the validation phase, to test the controller with different vehicles.
-For what concern the side slip friction values, we considered two fixed values for all the vehicles that are:
+For the development phase, we have used the set of data from Vehicle 1 ( \textit{Hyundai Azera}), where the mass and inertia given, represent realistic values for the vehicle and not the real values. The other data contained in Table \ref{tab:vehicle_data}, instead, are meant to be used during the validation phase in order to test the controller with different vehicles.
+For what concerns the side slip friction coefficient values, we have considered two fixed values common to all the vehicles:
 \begin{itemize}
-    \item $C_f$ $=$ $1.0745\times10^5$ N/rad
-    \item $C_r$ $=$ $1.9032\times10^5$ N/rad
+    \item $C_f$ $=$ $1.0745\times10^5$ $N/rad$
+    \item $C_r$ $=$ $1.9032\times10^5$ $N/rad$
 \end{itemize}
-while in the \textit{``default"} condition they are both $10^5$ N/rad.
+while in the \textit{``Default"} condition they are both equal to $10^5$ $N/rad$.
 
 \subsection{Model comparison}
 As specified in the subsection \ref{partitioning_subsection} we have decided to use two models, a simplified and linearized model for the MPC and a more complex one for the simulation of the model. The former is defined as \textit{Kinematic Bicycle Model} and the latter as \textit{Dynamic Bicycle Model}.
-Hence we have decided to test both of these systems to show how they behave with different throttle and steering inputs using the \textit{Simulink Test} tool. Thus, the tests performed are:
+Hence we have decided to test both systems to show how they behave with different throttle and steering inputs using the \textit{Simulink Test} tool. Thus, the tests performed are:
 \begin{itemize}
     \item \textbf{Free evolution test}: this test has been performed considering a constant steering of $0^{\circ}$ and a constant throttle of 0 $m/s^2$;
     \item \textbf{Only throttle test}: this test has been performed keeping the steering angle constant and equal to $0^{\circ}$ and varying the throttle as shown in Figure \ref{fig:InputThrottle};
@@ -160,14 +160,14 @@ Hence we have decided to test both of these systems to show how they behave with
     \item \textbf{Ramp steering test}: this test has been performed keeping the throttle equal to 0 $m/s^2$ and giving a ramp steering angle signal (varying linearly from $0^{\circ}$ to $36^{\circ}$);
     \item \textbf{Small sinusoidal steering test}: this test has been performed keeping the throttle constant and equal to 0 $m/s^2$ and giving a sinusoidal steering angle signal with frequency 0.2 $Hz$ and amplitude $5^{\circ}$;
     \item \textbf{Big sinusoidal steering test}: here we have performed the same test as before (sinusoidal steering input) but with a larger amplitude of the sine wave ($15^{\circ}$);
-    \item \textbf{Combined test 1}: this test has been performed keeping the steering angle constant and equal $2^{\circ}$ and varying the throttle as shown in Figure \ref{fig:InputThrottle};
+    \item \textbf{Combined test 1}: this test has been performed keeping the steering angle constant and equal to $2^{\circ}$ and varying the throttle as shown in Figure \ref{fig:InputThrottle};
     \item \textbf{Combined test 2}: this test has been performed keeping the throttle equal to 0.2 $m/s^2$ and giving a ramp steering angle signal (varying linearly from $0^{\circ}$ to $36^{\circ}$).
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/InputThrottle.png}
-    \caption{Throttle Input used in \textit{Only throttle test} and \textit{Combined test 1}. Maximum and minimum values are coherent with the range described in Section \ref{item:Throttle} in order to explore the whole set of throttle values.}
+    \caption{Throttle Input used in \textit{Only throttle test} and \textit{Combined test 1} (Maximum and minimum values are coherent with the range described in Section \ref{item:Throttle} in order to explore the whole set of throttle values)}
       \label{fig:InputThrottle}
 \end{figure}
 
@@ -181,7 +181,7 @@ The above-mentioned tests have been performed using the \textit{Simulink Test} t
 
 \subsubsection{Results analysis}
 
-Exploiting Simulink Test, we have created two test harnesses : \textit{Dynamic} and \textit{Kinematic}. Those are referred to the models described at the beginning of this section. Then, we have executed an Equivalence Test which allowed us to make a comparison between two simulations. In particular, the Dynamic Model has been considered as the \textit{baseline} which our Kinematic Model has been compared to in the test. The baseline represents the expected output being more accurate than the Kinematic model, which in turn is called \textit{Compare to} model inside the Simulink Test automatic report generator\footnote{The ``Model Comparison - Test Report" file generated by Simulink Test is included in the /Documentation/Test Reports/ file path.}. 
+Exploiting Simulink Test, we have created two test harnesses: \textit{Dynamic} and \textit{Kinematic}. Those are referred to the models described at the beginning of this section. Then, we have executed an Equivalence Test which allowed us to make a comparison between two simulations. In particular, the Dynamic Model has been considered as the \textit{baseline} to which our Kinematic Model has been compared in the test. Being more accurate than the Kinematic model, the baseline represents the expected output, which in turn is called \textit{Compare to} model inside the Simulink Test automatic report generator\footnote{The ``Model Comparison - Test Report" file generated by Simulink Test is included in the /Documentation/Test Reports/ file path.}. 
 Since these tests aim to give a qualitative analysis of the two models and compare them, we have not included equivalence criteria.
 The only parameter we have set up is the relative tolerance assigning to it a value of 1\% in order to ignore the negligible offsets between the dynamic model and the kinematic model.\\
 Figure \ref{fig:trajectories} shows the results of the simulations we have carried out. 
@@ -256,6 +256,6 @@ The other images shown below, underline as well the offset between the two vehic
 \pagebreak
 
 
-After the analysis of the results, we decided to provide to the MPC the linearized bicycle model for the vehicle plant, because the controller is usually updated with the current state in some fractions of a second, and for this reason the differences between the model and the \textit{``Real World"} system, that in our case is represented by the dynamic model, shouldn't affect too much the behaviour of the controller itself. As a matter of fact, by looking at the images above it is clear that the difference between the two models output is negligible at the first time steps of the simulation.\\
-Moreover, as already discussed in this section, the performances of the two models are very similar if compared with small inputs, and this condition is fulfilled if we consider to use our controller in normal driving scenarios, such as, for instance, an highway.\\
-Keeping in mind these assumptions, we go on with the project, considering to apply a change in the vehicle model for the MPC if we are not able to achieve good results with this one.
+After the analysis of the results, we have decided to provide the MPC with the linearized bicycle model as the vehicle plant, because the controller is usually updated with the current state in some fractions of a second, and for this reason the differences between the model and the \textit{``Real World"} system, that in our case is represented by the dynamic model, shouldn't affect too much the behaviour of the controller itself. As a matter of fact, by looking at the images above it is clear that the difference between the two models output is negligible at the first time steps of the simulation.\\
+Moreover, as already discussed in this section, with small inputs the performances of the two models are very similar, and this condition is fulfilled if we consider to use our controller in normal driving scenarios, such as, for instance, a highway.\\
+Keeping these assumptions in mind, we have carried on the project, with the possibility of applying a change in the vehicle model for further improvements on the MPC performances.

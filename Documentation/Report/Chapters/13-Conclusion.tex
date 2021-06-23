@@ -1,0 +1,48 @@
+\section{Conclusions and Further Improvements}
+As reported in the Introduction of this report, this project has been carried out following a version of the V-model specifically tailored on our needs.
+The very first thing we have established are the requirements, assuming they were set by the customer. Table \ref{tab:requirements_check} shows the requirements established in the preliminary phase of the project (Section \ref{subsection:requirements}) and whether or not we have managed to comply to them.
+
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{System Requirements}                                                                                                                               & \multicolumn{1}{l|}{\textbf{Model Compliance}} & \multicolumn{1}{c|}{\textbf{Notes}}       
+\\ \hline
+\begin{tabular}[c]{@{}l@{}}Detection of obstacles within\\ 100 $m$ ahead of vehicle\end{tabular}                                                             & - & \begin{tabular}[c]{@{}l@{}}This particular requirement  has \\ been actually used as an hypothesis \\ of the project\end{tabular}                 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Maximum lateral error from\\ reference of 0.75 $m$\end{tabular} & \ymark  & \begin{tabular}[c]{@{}l@{}}This requirement is not respected  \\ at all times, instead we have\\ introduced a tolerance of 1 second \\ in which this requirement can be \\ exceeded\end{tabular} \\ \hline
+
+\begin{tabular}[c]{@{}l@{}}Move on left lane within a\\ predetermined safe zone from\\ the obstacle\end{tabular} & \cmark &  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Once the obstacle has been \\ passed, come back on the \\ right lane at no less than 10 $m$\\ but no more than 50 $m$\\ ahead of it\end{tabular} & \cmark & \\ \hline
+\begin{tabular}[c]{@{}l@{}}Maximum lateral acceleration\\ of 2.0 $m/s^2$\end{tabular}                                                            & \cmark  & \\ \hline
+\begin{tabular}[c]{@{}l@{}}All previous requirements\\ satisfied in speed range from\\ 10 $km/h$ to 100 $km/h$\end{tabular}                                & \xmark                                          & \begin{tabular}[c]{@{}l@{}}Our controller is suitable for speeds \\ ranging from 40 $km/h$ to 100 $km/h$\end{tabular}   \\ \hline
+\end{tabular}
+
+\caption{System Requirements Compliance}
+\label{tab:requirements_check}
+
+\end{table}
+
+\vspace{5mm}
+
+As shown in the table above, our final model is not compliant with the requirement regarding the operating speed range (highlighted with a red cross in the table). As explained in Section \ref{subsection:failed_tests}, in order to cope with this problem we have decided to have two separated MPCs, one for the range 10-40 $km/h$ called MPC-L and the other for the range 40-100 $km/h$ called MPC-H.
+Details about the MPC-L can be found in Appendix \ref{AppendixA}.
+
+Apart from this problem on low speeds, our MPC-H performs well and it is able to properly avoid both static and dynamic obstacles. 
+The choice of this particular topic is due to the fact that we believe and hope that the use of this technology will become widespread in the automotive field in the next future.
+
+\subsection{Further improvements}
+
+
+\begin{itemize}
+    \item \textbf{Improve Path Following performance} - making an accurate weight tuning, for example with the introduction of time varying weights, can lead to better Path Following overall performance;
+    \item \textbf{Improve Avoidance performance} - using different plant model for the MPC state estimation can help the controller in avoidance maneuvers. Using an error based model on a reference trajectory is probably the best solution for this task;
+    \item \textbf{Find a suitable solution for an extended speed range} - combining the previous two updates with an adjustable size of prediction and control horizons can allow to have an unique controller suitable for an extended speed range;
+    \item \textbf{Find a smarter way to locate the obstacle on the map} - in our project we have supposed to have a very high level sensor system able to provide to the controller an accurate location of the obstacle and its properties. In reality this is not possible (at least at the current state of the art), so an appropriate signal conditioning is required to have the required information available;
+    \item \textbf{Fix avoidance for multiple close dynamic obstacles} - our algorithm for the avoidance is valid under some assumptions on the obstacles properties. Adding some more checks on the environment can help the controller to avoid obstacles in all the conditions;
+    \item \textbf{Introduce redundancy} - an autonomous driving system is classified as ASIL-D, that is the highest safety class level for automotive systems. To be compliant with ASIL-D a system must have an extremely low probability of failure, and in order to achieve it redundancy is usually  required.
+\end{itemize}
+
+

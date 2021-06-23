@@ -15,6 +15,8 @@
 \usepackage{xfrac}
 \usepackage{etoolbox,refcount}
 \usepackage{multicol}
+\usepackage{graphicx,txfonts}
+\newcommand{\heart}{\ensuremath\varheartsuit}
 
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
 
@@ -38,7 +40,7 @@
 \begin{center}
 {{\Large{\textsc{Motorvehicle University of Emilia-Romagna}}}} \rule[0.1cm]{15.8cm}{0.1mm}
 \rule[0.5cm]{15.8cm}{0.6mm}
-Master Degree in Advanced Automotive Electronic Engineering
+Master's Degree in Advanced Automotive Electronic Engineering
 
 \end{center}
 
@@ -61,7 +63,7 @@ Course of Compliance Design of Automotive Systems
           \includegraphics[width=1\textwidth]{Figures/MUNER_logo.jpg}
           \end{figure}
 
- {\large\bf Group memebers:\\}
+ {\large\bf Group members:\\}
  {Gianvincenzo Daddabbo}\\
 {Gaetano Gallo}\\
 {Alberto Ruggeri}\\
@@ -79,17 +81,9 @@ Course of Compliance Design of Automotive Systems
 %%%%%%%%% Abstract %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{abstract}
-Every year 1.25 million people die and as many as 50 million are injured in road
-traffic accidents worldwide, according to United Nations statistics. Human error is involved in about 95\% of all road traffic accidents in the EU, and in 2017 alone, 25300 people died on the Union’s roads \cite{frisoni2016research}.  
-Autonomous cars can improve road safety and through new technologies it is also possible to reduce traffic congestion and CO2 emissions.\\
-The aim of this report is to present the steps that we have followed as a group in order to implement a system for dynamic obstacle avoidance using an adaptive Model Predictive Control. 
-In the simulated environment, the vehicle model is expected to encounter and safely avoid the dynamic obstacles along its way. 
-On the other hand, when an obstacle is not present ahead of the autonomous vehicle, it is expected to follow a predetermined path.
 
-\end{abstract}
 
-\newpage
+
 \tableofcontents
 \newpage
 \listoffigures
@@ -109,8 +103,8 @@ On the other hand, when an obstacle is not present ahead of the autonomous vehic
 \include{Chapters/10-StaticObstacleAvoidanceTests}
 \include{Chapters/11-DynamicObstacleAvoidance}
 \include{Chapters/12-FinalControllerTest}
-%\include{Chapters/13-Conclusion}
-%\include{Chapters/14-FurtherImprovements}
+\include{Chapters/13-Conclusion}
+\include{Chapters/14-Appendix}
 
 
 

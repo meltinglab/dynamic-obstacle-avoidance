@@ -2,7 +2,7 @@
 For the dynamic obstacles avoidance task, we have considered the same four assumptions already made for the static avoidance (as reported at the beginning of the Section \ref{chap:StaticObstacleAvoidance}) with 3 additional ones:
 \begin{itemize}
     \item the dynamic obstacle has a constant speed throughout the whole scenario;
-    \item the dynamic obstacle follows the same trajectory of the ego vehicle but it stays always on the right lane;
+    \item the dynamic obstacle follows the same trajectory as the ego vehicle but it stays always on the right lane;
     \item the distance between two consecutive dynamic obstacles is in any case at least equal to twice the safety distance evaluated considering the speed of the ego vehicle.
 \end{itemize}
 
@@ -48,15 +48,15 @@ In case a dynamic obstacle is detected, the zones are evaluated in a different w
     \end{equation}
     where $d$ is the distance from the obstacle when it is detected and the parameters containing $Idx$ in their name are the indexes in the reference map, corresponding to the points where the zones are defined (following the procedure described in the static obstacle section [\ref{chap:StaticObstacleAvoidance}]).
     In this case we have used indexes in the map because they are the easiest way to represent the predicted trajectory of the obstacle. However, this "trick" is only feasible in a simulation environment while in reality a different prediction algorithm is needed, but this goes beyond the purposes of our project.
-    \item as shown in the previous equations, the $EntryPoint$ is no longer always placed 40 meters after the $EndPoint$, but it is chosen equal to the maximum value between the $Safety Distance$ and 40 m.
+    \item as shown in the previous equations, the $EntryPoint$ is no longer always placed 40 meters after the $EndPoint$, but it is chosen equal to the maximum value between the $Safety Distance$ and 40 $m$.
 \end{enumerate}
 Once found, these points are passed to the same constraint generator function used for the static obstacle avoidance task.
 
 \subsection{Dynamic Obstacle Avoidance Tests}
-In order to test the performance of our controller when dynamic obstacles are involved, we have set up 2 simulations exploiting the same 22 scenarios used for the Static Obstacle Avoidance tests (Section \ref{chap:static_obstacle_avoidance_tests}). Both simulations have been performed at the maximum and minimum speed of the range suitable for the MPC-H ($40\div100$  km/h).  
+In order to test the performance of our controller when dynamic obstacles are involved, we have set up 2 simulations exploiting the same 22 scenarios used for the Static Obstacle Avoidance tests (Section \ref{chap:static_obstacle_avoidance_tests}). Both simulations have been performed at the maximum and minimum speed of the range suitable for the MPC-H ($40\div100$  $km/h$).  
 
 \subsubsection{Single Dynamic Obstacle}
-Firstly, we have implemented a simple simulation considering a single obstacle in motion to verify the correctness of the overtaking algorithm. In particular, we have placed an obstacle with a starting position equal to the 40\% of the total length of the considered scenario with a constant speed that depends on the speed of the ego vehicle. Indeed, when the simulation is performed with 100 km/h speed for the ego vehicle, the obstacle will have a constant speed of 50 km/h while it will have a constant speed of 10 km/h when the ego vehicle travels at 40 km/h. In Figure \ref{fig:single_dynamic_obstacle_avoidance} the passing maneuver performed at 100 km/h is shown.
+Firstly, we have implemented a simple simulation considering a single obstacle in motion to verify the correctness of the overtaking algorithm. In particular, we have placed an obstacle with a starting position equal to the 40\% of the total length of the considered scenario with a constant speed that depends on the speed of the ego vehicle. Indeed, when the simulation is performed with 100 $km/h$ speed for the ego vehicle, the obstacle will have a constant speed of 50 $km/h$ while it will have a constant speed of 10 $km/h$ when the ego vehicle travels at 40 $km/h$. In Figure \ref{fig:single_dynamic_obstacle_avoidance} the passing maneuver performed at 100 $km/h$ is shown.
 
 \begin{figure}[H]
 \centering
@@ -79,13 +79,13 @@ Firstly, we have implemented a simple simulation considering a single obstacle i
     \caption{Back to the right lane}
     \label{subfig:single_right}
     \end{subfigure}
-    \caption{Overtaking maneuver performed at 100 km/h with an obstacle travelling at 50 km/h in a straight line scenario}
+    \caption{Overtaking maneuver performed at 100 $km/h$ with an obstacle travelling at 50 $km/h$ in a straight line scenario}
     \label{fig:single_dynamic_obstacle_avoidance}
 \end{figure}
 
 Further details about the single dynamic obstacle avoidance tests performed can be found in the documents included in the repository\footnote{The ``Single\_Dynamic\_Obstacle\_Avoidance-Test\_Report" and ``Single\_Dynamic\_Obstacle\_Avoidance-Test\_Specification\_Report" files generated by Simulink Test are included in the /Documentation/Test Reports/ file path.}.\\
 
-The tests performed have given great results at 40 km/h while there have been 2 fails at 100 km/h. The fails have been found in the curved scenarios travelled at 100 km/h in a counterclockwise direction with a curvature radius of 300 m and 500 m. The same considerations made in Section \ref{subsection:failed_tests} and at the end of Section \ref{subsection:multiple_static} are still valid here. The problem is that, when the vehicle is at the beginning of Zone 3, the lateral deviation is not grater of or equal to 2 m yet. As said for the other fails of the same kind, these can be considered minor failures.
+The tests performed have given great results at 40 $km/h$ while there have been 2 fails at 100 $km/h$. The fails have been found in the curved scenarios travelled at 100 $km/h$ in a counterclockwise direction with a curvature radius of 300 $m$ and 500 $m$. The same considerations made in Section \ref{subsection:failed_tests} and at the end of Section \ref{subsection:multiple_static} are still valid here. The problem is that, when the vehicle is at the beginning of Zone 3, the lateral deviation is not grater of or equal to 2 $m$ yet. As already said for the other fails of this kind, these can be considered as minor failures.
 
 \subsubsection{Static and Dynamic Obstacles} 
 
@@ -94,18 +94,18 @@ After performing the test with a single dynamic obstacle, we have decided to int
     \item Obstacle 1 (static) : placed at 7.5/100 of the total length of the map;
     \item Obstacle 2 (static) : placed at 23/100 of the total length of the map;
     \item Obstacle 3 (static) : placed at 24/100 of the total length of the map;
-    \item Obstacle 4 (dynamic) : starting position at 30/100 of the total length of the map with a constant speed of 10 km/h;
-    \item Obstacle 5 (dynamic) : starting position at 36/100 of the total length of the map with a constant speed of 20 km/h.
+    \item Obstacle 4 (dynamic) : starting position at 30/100 of the total length of the map with a constant speed of 10 $km/h$;
+    \item Obstacle 5 (dynamic) : starting position at 36/100 of the total length of the map with a constant speed of 20 $km/h$.
 \end{itemize}
 
-This obstacles configuration is not valid for testing purposes when considering shorter scenarios, as in case of curved scenarios with 500 m and 300 m of curvature radius. In these situations, we have tuned the positioning of a total of 4 obstacles as follows:
+This obstacles configuration is not valid for testing purposes when considering shorter scenarios, as in the case of curved scenarios with 500 $m$ and 300 $m$ of curvature radius. In these situations, we have tuned the positioning of a total of 4 obstacles as follows:
 \begin{itemize}
     \item Obstacle 1 (static) : placed at 15/100 of the total length of the map;
     \item Obstacle 2 (static) : placed at 16/100 of the total length of the map;
-    \item Obstacle 3 (dynamic) : starting position at 43/100 of the total length of the map in case of 500 m curvature radius and starting position at 45/100 of the total length of the map in case of 300 m curvature radius (constant speed of 10 km/h);
-    \item Obstacle 4 (dynamic) : starting position at 56/100 of the total length of the map in case of 500 m curvature radius and starting position at 70/100 of the total length of the map in case of 300 m curvature radius (constant speed of 20 km/h).
+    \item Obstacle 3 (dynamic) : starting position at 43/100 of the total length of the map in case of 500 $m$ curvature radius and starting position at 45/100 of the total length of the map in case of 300 $m$ curvature radius (constant speed of 10 $km/h$);
+    \item Obstacle 4 (dynamic) : starting position at 56/100 of the total length of the map in case of 500 $m$ curvature radius and starting position at 70/100 of the total length of the map in case of 300 $m$ curvature radius (constant speed of 20 $km/h$).
 \end{itemize}
-As partially explained in Section \ref{subsection:multiple_static}, we have tried to place the obstacles in such a way to test the capability of our MPC-H to lengthen the overtaking maneuver when two close consecutive obstacles are detected, and to come back to the right lane after passing an obstacle in motion and to complete another passing maneuver after a while when detecting the following obstacle. 
+As partially explained in Section \ref{subsection:multiple_static}, we have tried to place the obstacles in such a way to test the capability of our MPC-H to lengthen the overtaking maneuver when two close consecutive obstacles are detected and to come back to the right lane after passing an obstacle in motion completing another passing maneuver after a while when detecting the next obstacle. 
 \\Figure \ref{fig:static_and_dynamic_obstacle_avoidance} shows the steps of the avoidance maneuvers performed considering both static and dynamic obstacles.
 
 
@@ -130,12 +130,12 @@ As partially explained in Section \ref{subsection:multiple_static}, we have trie
     \caption{Faster moving obstacle}
     \label{subfig:multiple_right}
     \end{subfigure}
-    \caption{Overtaking maneuvers performed at 100 km/h with (from left to right) three static obstacles and two dynamic obstacles travelling respectively at 10 km/h (green) and 20 km/h (yellow) in a straight line scenario}
+    \caption{Overtaking maneuvers performed at 100 $km/h$ with (from left to right) three static obstacles and two dynamic obstacles travelling respectively at 10 $km/h$ (green) and 20 $km/h$ (yellow) in a straight line scenario}
     \label{fig:static_and_dynamic_obstacle_avoidance}
 \end{figure}
 
 Further details about the tests performed can be found in the documents included in the repository\footnote{The ``Dynamic\_and\_static\_obstacle\_avoidance-test\_report" and ``Dynamic\_and\_static\_obstacle\_avoi-dance-test\_specification\_report" files generated by Simulink Test are included in the /Documentation/Test Reports/ file path.}.\\
-Again the only failed result of the test is the one corresponding to the curved scenario with a curvature radius of 300 m when the ego-vehicle is travelling at 100 km/h counterclockwise.
+Again the only failure of the test is the one corresponding to the curved scenario with a curvature radius of 300 $m$ when the ego-vehicle is travelling at 100 $km/h$ counterclockwise.
 
 
 
