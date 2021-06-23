@@ -14,18 +14,18 @@ When an obstacle is not present ahead of the autonomous vehicle, it is expected 
 ![](DynAvoidance.gif)
 ## 2. Repo Structure
 
-* Documentation: contains the report and other significant documents;
-* Code: contains the Matlab code and the Simulink block scheme;
+* Documentation: contains the report and other significant documents
+* Code: contains the Matlab code, the Simulink block scheme and the relative generated C code 
 
 ## 3. Required tools
-### MATLAB R2019a or newer;
-* Curve Fitting Toolbox;
-* Automated Driving Toolbox;
-* Model Predictive Control Toolbox;
+### MATLAB R2019a or newer
+* Curve Fitting Toolbox
+* Automated Driving Toolbox
+* Model Predictive Control Toolbox
 
-### Simulink 9.3 or higher;
-* Simulink Test;
-* Embedded Coder.
+### Simulink 9.3 or higher
+* Simulink Test
+* Embedded Coder
 
 ### STM32CubeMx
 ### STM32CubeIDE
